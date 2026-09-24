@@ -1,0 +1,4 @@
+Timestamp,From Bank,Account,To Bank,Account.1,Amount Received,Is Laundering
+2022-01-01 09:00:00,1,A001,2,B001,125.50,0
+2022-01-01 09:02:00,1,A001,3,B002,750.00,1
+2022-01-01 10:00:00,2,A002,1,B003,20.00,0

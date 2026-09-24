@@ -1,0 +1,15 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.DS_Store
+
+# Data is downloaded locally and may be very large or subject to a separate licence.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+reports/*
+!reports/.gitkeep
+!reports/sql_findings.txt
+*.egg-info/
