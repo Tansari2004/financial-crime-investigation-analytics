@@ -1,4 +1,4 @@
-# Financial Crime Investigation — SQL Analytics (V1)
+# Financial Crime Investigation Analytics
 
 ## Completed version
 
@@ -10,7 +10,7 @@ See [findings explained](docs/findings.md), [saved query results](reports/sql_fi
 
 ### Reproduce the SQL version
 
-Requirements: PostgreSQL 16 and the source `HI-Small_Trans.csv` in `data/raw/`. Run from the repository root. On this Mac, executables are in `/opt/homebrew/opt/postgresql@16/bin/`.
+Requirements: PostgreSQL 16 and the source `HI-Small_Trans.csv` in `data/raw/`. Run from the repository root with PostgreSQL's `createdb` and `psql` commands on your `PATH`. The dataset is not included; see [Obtain the data](#2-obtain-the-data) below.
 
 For a NEW database only:
 
@@ -54,7 +54,6 @@ The Python profiler below is an early exploration helper. The SQL report linked 
 ### 1. Create a Python environment
 
 ```bash
-cd "/Users/tarikalansari/Documents/ChatGPT/New project"
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip

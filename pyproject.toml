@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "financial-crime-investigation"
 version = "0.1.0"
-description = "AI-assisted transaction-risk prioritization for financial-crime investigation."
+description = "PostgreSQL investigation analytics for synthetic financial transactions."
 requires-python = ">=3.10"
 dependencies = [
   "pandas>=2.2,<3",
