@@ -2,7 +2,7 @@
 
 ## Thirty-second explanation
 
-“I built a PostgreSQL investigation analytics project using about five million synthetic bank transactions. SQL summarizes who is moving money, how often, and how a payment compares with earlier account activity. I preserved currency and bank-account identity to avoid misleading comparisons. The completed version is SQL analytics; the next phase is to test whether a model can rank simulated-laundering cases near the top of a review queue.”
+“I built a PostgreSQL and Python investigation-ranking pipeline using about five million synthetic bank transactions. SQL creates behavioral features using only information available before each scoring date. A class-weighted logistic regression ranks every transaction for human review. On a later test period, 199 of 1,611 positive labels appeared in the top 1,000 cases, giving 19.9% precision and 12.35% recall at that review capacity.”
 
 ## Demonstrate it
 
@@ -10,8 +10,9 @@
 2. Open `sql/schema.sql`: explain sender/receiver fields and the generated ID.
 3. Open `reports/sql_findings.txt`: show row count, label imbalance, and missingness checks.
 4. Explain query 6: GROUP BY summarizes each sender bank-account pair; filtering to USD makes amounts comparable.
-5. Explain query 8: CTEs create daily summaries; a window calculates earlier history; JOIN matches it to payments.
-6. Explain that a large amount multiple is an indicator, not a validated prediction.
+5. Show `sql/model_features.sql`: earlier-day windows keep future activity out of historical features.
+6. Show `reports/model_report.md`: explain PR-AUC and why top-K metrics match limited investigator capacity.
+7. Explain that class weighting makes `review_score` useful for ordering, but not a calibrated crime probability.
 
 ## Vocabulary
 
@@ -29,8 +30,12 @@
 
 **Why separate currencies?** Ten dollars and ten euros have different units. No exchange rates are assumed.
 
-**What is the amount multiple?** Current USD payment divided by the same bank-account's average USD payment on strictly earlier days. At least ten prior payments are required and zero averages excluded. Missing history does not mean low risk.
+**What is the amount multiple?** Current payment divided by the same bank-account and currency's average on strictly earlier days. Missing history is represented explicitly; it does not mean low risk.
 
-**What are the limits?** Synthetic data, a short observation period, incomplete knowledge of context, possible false alerts, and no predictive model yet. Full-period aggregates are retrospective and cannot simply be reused as model features.
+**Why split by time?** Random splitting can let similar future behavior influence training. Earlier dates train the model and later dates test subsequently observed transactions.
+
+**Why not accuracy?** Predicting 0 for every row would be about 99.9% accurate and useless. PR-AUC and Precision@K/Recall@K measure positive-case ranking.
+
+**What are the limits?** Synthetic data, a short observation period, a changing positive-label rate over time, incomplete context, many false alerts at a 0.5 cutoff, and no calibrated probability or real investigator validation.
 
 **How was it built?** With AI assistance. Practise running and modifying the SQL so you can explain the choices and accurately describe your own contribution.

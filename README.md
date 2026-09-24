@@ -1,12 +1,23 @@
-# Financial Crime Investigation Analytics
+# Financial Crime Investigation & Transaction Risk System
 
 ## Completed version
 
-PostgreSQL investigation analytics across **5,078,345 synthetic transactions**. The database contains **5,177 simulated-laundering labels (0.1019%)** over September 1–18, 2022. The core workflow is SQL; trained ML scoring and Power BI remain planned extensions.
+PostgreSQL and machine-learning investigation pipeline across **5,078,345 synthetic transactions**. The database contains **5,177 simulated-laundering labels (0.1019%)** over September 1–18, 2022. Every transaction receives a model review score for case ranking.
 
 The business question is: which transaction patterns merit closer investigation? Eight reproducible analyses cover size, label balance, data quality, currency-specific amounts, payment methods, outgoing account volume, hourly activity, and payments relative to strictly earlier account history.
 
-See [findings explained](docs/findings.md), [saved query results](reports/sql_findings.txt), [investigation SQL](sql/investigation.sql), [resume and LinkedIn text](docs/career.md), and [interview walkthrough](docs/interview.md).
+The chronological logistic baseline was trained on dates before September 8 and tested on September 9 onward. In the later test period, its top 1,000 transactions contained **199 of 1,611** positive labels: **19.9% Precision@1,000**, **12.35% Recall@1,000**, and **0.1016 PR-AUC**. Test prevalence was 0.1865%, giving about 107× enrichment at K=1,000 within this synthetic test period.
+
+See the [model report](reports/model_report.md), [raw model metrics](reports/model_metrics.json), [findings](docs/findings.md), [resume and LinkedIn text](docs/career.md), and [interview guide](docs/interview.md).
+
+```mermaid
+flowchart LR
+    A[IBM synthetic CSV] --> B[PostgreSQL transactions]
+    B --> C[Point-in-time SQL features]
+    C --> D[Chronological logistic model]
+    D --> E[Review score for every transaction]
+    E --> F[Ranked investigation queue]
+```
 
 ### Reproduce the SQL version
 
@@ -28,6 +39,17 @@ Generate the report:
 psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/investigation.sql -o reports/sql_findings.txt
 ```
 
+Build features, train, score every transaction, and load the scores:
+
+```sh
+psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/model_features.sql
+psql -X -v ON_ERROR_STOP=1 -d financial_crime -c "\copy model_features TO 'data/processed/model_features.csv' WITH (FORMAT csv, HEADER true)"
+python src/financial_crime/train_model.py
+psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/model_scores.sql
+```
+
+The model processes the CSV in chunks. Model artifacts and large generated files stay local and are excluded from Git.
+
 ### Design choices and limitations
 
 - Account identity uses both bank and account code. Codes are text to preserve leading zeros.
@@ -36,12 +58,14 @@ psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/investigation.sql -o report
 - The current table stores amounts to two decimal places; further currency-specific precision validation is needed before broader use.
 - The historical amount comparison uses only earlier calendar days and requires ten prior payments. This is an exploratory history rule, not a validated alert threshold. Accounts without sufficient history are omitted.
 - Full-period totals and hourly counts describe the observed data. Rebuild them as of scoring time before using them in a model.
-- Labels support retrospective analysis. There is no trained model or measured detection performance in V1.
-- Predicting 0 everywhere would achieve about 99.8981% accuracy and find no positive cases. The next model phase needs precision, recall, PR-AUC, and top-K review metrics on later unseen data.
+- Labels are the training target and evaluation answer key; they are never model inputs.
+- `review_score` orders cases but is not a calibrated probability of crime. Class weighting intentionally changes calibration.
+- Predicting 0 everywhere would achieve about 99.8981% accuracy and find no positive cases, so evaluation uses PR-AUC and top-K metrics.
+- Later test dates have a higher positive rate than training dates. Results measure this synthetic time split and do not establish real-world performance.
 
 ### Next milestones
 
-Chronological SQL features → logistic regression baseline → measured review ranking → explanations → Power BI dashboard.
+Add per-case feature contributions, validate a configurable exposure-aware priority rule, and build a Power BI investigation dashboard.
 
 ## Optional Python data profiling
 

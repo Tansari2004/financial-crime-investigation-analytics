@@ -26,4 +26,4 @@ The SQL quality checks do not test every possible source issue. In particular, t
 
 Cross-currency averages are intentionally omitted. Summing outgoing payments can count the same money as it moves repeatedly, so transaction totals must not be described as losses or unique exposure.
 
-The V1 deliverable is descriptive SQL analysis. No risk model, alert-performance evaluation, dashboard, or real-world impact has been measured.
+The logistic baseline and later-period evaluation are documented in `reports/model_report.md`. No dashboard or real-world impact has been measured.

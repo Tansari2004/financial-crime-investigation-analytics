@@ -1,19 +1,19 @@
-# Resume and LinkedIn — SQL version
+# Resume and LinkedIn — SQL + ML version
 
 ## Resume
 
-**Financial Crime Investigation Analytics | PostgreSQL, SQL | Personal Project**
+**Financial Crime Investigation & Transaction Risk System | PostgreSQL, SQL, Python, NumPy | Personal Project**
 
-- Loaded 5.08 million synthetic financial transactions into PostgreSQL and built reproducible investigation analyses using CTEs, joins, aggregations, and window functions.
-- Developed queries for account transaction volume, hourly payment activity, and payment amounts relative to prior history, preserving bank-account identity and currency boundaries.
-- Quantified a 0.1019% simulated-laundering prevalence and documented data quality checks and evaluation requirements for future risk modelling.
+- Built a PostgreSQL and Python pipeline that ingested and scored 5.08 million synthetic financial transactions using point-in-time behavioral features and a class-weighted logistic regression baseline.
+- Used chronological train/validation/test splits to reduce future leakage and evaluated severe class imbalance with PR-AUC, ROC-AUC, and investigator-capacity ranking metrics.
+- Surfaced 199 of 1,611 positive labels in the top 1,000 later-period cases (19.9% precision, 12.35% recall), approximately 107× the test-period base rate.
 
 ## LinkedIn project description
 
-Built a PostgreSQL analytics project exploring 5,078,345 synthetic IBM AML transactions. The project includes a reproducible schema and import workflow, data quality checks, and SQL queries examining payment methods, account activity, currency-specific volumes, and payments relative to historical account averages.
+Built a PostgreSQL and Python investigation-prioritization pipeline across 5,078,345 synthetic IBM AML transactions. The project creates point-in-time SQL features, trains a class-weighted logistic regression on earlier dates, and assigns a review score to every transaction.
 
-The dataset contains 5,177 simulated-laundering transactions (0.1019%), illustrating why accuracy alone would be misleading for a future detection model. The current version provides descriptive investigation indicators. Planned extensions include a tested ML ranking model and an investigation dashboard.
+Because only 0.1019% of all transactions carry a positive synthetic label, I evaluated the model with PR-AUC and review-capacity metrics rather than accuracy alone. On the later test period, the top 1,000 ranked transactions contained 199 known positive labels (19.9% precision and 12.35% recall). Planned extensions include per-case explanations, exposure-aware priority rules, and a Power BI dashboard.
 
 ## Before posting
 
-Use this wording for the SQL version and link to the [GitHub repository](https://github.com/Tansari2004/financial-crime-investigation-analytics). Do not claim ML, Power BI, detection performance, prevented losses, or business impact as completed achievements.
+Link to the [GitHub repository](https://github.com/Tansari2004/financial-crime-investigation-analytics). Do not claim Power BI, real-world detection performance, prevented losses, or business impact as completed achievements. Describe `review_score` as a ranking score rather than a crime probability.

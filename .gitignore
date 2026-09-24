@@ -1,5 +1,6 @@
 .env
 .venv/
+.venv_arm/
 __pycache__/
 .pytest_cache/
 .DS_Store
@@ -12,4 +13,8 @@ data/processed/*
 reports/*
 !reports/.gitkeep
 !reports/sql_findings.txt
+!reports/model_metrics.json
+!reports/model_report.md
+models/*
+!models/.gitkeep
 *.egg-info/
