@@ -20,7 +20,7 @@ psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/schema.sql
 psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/load.sql
 ```
 
-The development database is already loaded; skip those steps there. The loader refuses to import into a populated table to prevent duplicate ingestion.
+Skip database creation and loading if you have already imported the data. The loader refuses to import into a populated table to prevent duplicate ingestion.
 
 Generate the report:
 

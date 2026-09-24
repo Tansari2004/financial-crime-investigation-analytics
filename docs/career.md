@@ -16,4 +16,4 @@ The dataset contains 5,177 simulated-laundering transactions (0.1019%), illustra
 
 ## Before posting
 
-Use this wording for the SQL version. Add a repository link after publishing and checking it. No GitHub repository or LinkedIn post has been published by this build. Do not claim ML, Power BI, detection performance, prevented losses, or business impact as completed achievements.
+Use this wording for the SQL version and link to the [GitHub repository](https://github.com/Tansari2004/financial-crime-investigation-analytics). Do not claim ML, Power BI, detection performance, prevented losses, or business impact as completed achievements.
