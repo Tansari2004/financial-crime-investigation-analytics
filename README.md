@@ -43,18 +43,14 @@ psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/investigation.sql -o report
 
 Chronological SQL features → logistic regression baseline → measured review ranking → explanations → Power BI dashboard.
 
-## Earlier setup notes (optional Python exploration)
-
-An **AI-assisted investigation-prioritization** project for synthetic financial transactions. It is a decision-support prototype: a risk score is not proof of criminal activity, and investigators must review every case.
-
-## Phase 1: environment and factual data profile
+## Optional Python data profiling
 
 The Python profiler below is an early exploration helper. The SQL report linked above is the authoritative V1 output. The three-row test fixture is fabricated test data and is not used for project metrics.
 
 ### 1. Create a Python environment
 
 ```bash
-python3.12 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
