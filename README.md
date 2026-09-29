@@ -2,7 +2,7 @@
 
 ## Completed version
 
-PostgreSQL and machine-learning investigation pipeline across **5,078,345 synthetic transactions**. The database contains **5,177 simulated-laundering labels (0.1019%)** over September 1–18, 2022. Every transaction receives a model review score for case ranking.
+PostgreSQL and machine-learning investigation pipeline across **5,078,345 synthetic transactions**. The database contains **5,177 simulated-laundering labels (0.1019%)** over September 1–18, 2022. Every transaction receives a model review score for case ranking. A separate export adds model-derived reasons to the top 10,000 later-period test cases.
 
 The business question is: which transaction patterns merit closer investigation? Eight reproducible analyses cover size, label balance, data quality, currency-specific amounts, payment methods, outgoing account volume, hourly activity, and payments relative to strictly earlier account history.
 
@@ -50,6 +50,24 @@ psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/model_scores.sql
 
 The model processes the CSV in chunks. Model artifacts and large generated files stay local and are excluded from Git.
 
+Generate explained cases for a Power BI report:
+
+```sh
+psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/dashboard_export.sql
+PYTHONPATH=src python -m financial_crime.explain_cases
+```
+
+This produces `data/processed/dashboard_cases.csv`. The explanation code checks that its feature contributions reconstruct the saved model score. See the [Power BI build guide](docs/power_bi_build.md) for the report layout, field types, and current Power BI access status.
+
+Run the interactive browser dashboard locally:
+
+```sh
+python3 scripts/build_dashboard_data.py
+python3 -m http.server 8765 --bind 127.0.0.1
+```
+
+Then open `http://127.0.0.1:8765/dashboard/`. The dashboard has rank, date, currency, format, account/ID search, and amount-spike filters; daily shortlist and category charts; a paged case queue; and per-case model reasons. Its data comes from the top 10,000 **test-period** cases. It is a local browser dashboard, not a Power BI report. The 10,000-case sample and model dependencies are important limitations: in the current export, 9,998 cases have ACH format.
+
 ### Design choices and limitations
 
 - Account identity uses both bank and account code. Codes are text to preserve leading zeros.
@@ -65,7 +83,7 @@ The model processes the CSV in chunks. Model artifacts and large generated files
 
 ### Next milestones
 
-Add per-case feature contributions, validate a configurable exposure-aware priority rule, and build a Power BI investigation dashboard.
+Build and verify the Power BI report in a licensed workspace, validate any exposure-aware priority rule, and extend explanations beyond the exported top 10,000 test cases. Isolation Forest has not been implemented.
 
 ## Optional Python data profiling
 

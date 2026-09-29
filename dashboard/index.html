@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Transaction Review | Financial Crime Investigation</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="rail" aria-label="Dashboard navigation">
+      <div class="rail-brand" aria-hidden="true">F<span>●</span></div>
+      <a class="rail-link active" href="#overview" aria-label="Overview" title="Overview">▦</a>
+      <a class="rail-link" href="#queue" aria-label="Review queue" title="Review queue">☷</a>
+      <div class="rail-bottom" title="Synthetic data">SYN</div>
+    </aside>
+
+    <main id="overview" class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">FINANCIAL CRIME INVESTIGATION / CASE PRIORITIZATION</p>
+          <h1>Transaction review</h1>
+          <p class="subtitle">A focused queue from 10,000 highest-ranked later-period synthetic transactions</p>
+        </div>
+        <div class="header-actions">
+          <span class="model-pill"><span class="pulse"></span> Logistic model v1</span>
+          <button id="reset-button" class="quiet-button" type="button">Reset filters</button>
+        </div>
+      </header>
+
+      <section class="dashboard-grid" aria-label="Investigation overview">
+        <div class="side-panel">
+          <article class="metric-card featured">
+            <div class="metric-icon">⌁</div>
+            <div><span class="metric-value" id="case-count">—</span><span class="metric-label">CASES IN VIEW</span><small>Top-ranked test transactions</small></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon">◉</div>
+            <div><span class="metric-value" id="high-score-count">—</span><span class="metric-label">SCORES ≥ 0.90</span><small>Ranking scores, not probabilities</small></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon">↗</div>
+            <div><span class="metric-value" id="spike-count">—</span><span class="metric-label">AMOUNT SPIKE FLAGS</span><small>10× earlier average, 5+ prior payments</small></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon">◎</div>
+            <div><span class="metric-value" id="currency-count">—</span><span class="metric-label">CURRENCIES</span><small>Amounts stay in original currency</small></div>
+          </article>
+        </div>
+
+        <div class="analysis-panel">
+          <div class="panel-heading">
+            <div><p class="section-kicker">ACTIVITY</p><h2>Shortlisted cases by day</h2><p class="panel-note">Counts in this 10,000-case queue, not all bank transactions</p></div>
+            <span class="small-badge" id="date-range">SEP 2022</span>
+          </div>
+          <div id="timeline" class="timeline" role="img" aria-label="Daily shortlisted case counts"></div>
+          <div class="chart-bottom">
+            <section class="mini-chart-panel">
+              <h3>Payment formats</h3>
+              <div id="format-bars" class="bar-list"></div>
+            </section>
+            <section class="mini-chart-panel">
+              <h3>Payment currencies</h3>
+              <div id="currency-bars" class="bar-list"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="queue" class="queue-panel">
+        <div class="queue-heading">
+          <div><p class="section-kicker">INVESTIGATION QUEUE</p><h2>Transactions to review</h2><p class="panel-note">Sorted by the saved model score. Click a row to see its reasons.</p></div>
+          <span id="results-label" class="results-label"></span>
+        </div>
+        <div class="filters" aria-label="Review queue filters">
+          <label>Rank range<select id="rank-filter"><option value="10000">Top 10,000</option><option value="1000">Top 1,000</option><option value="100">Top 100</option></select></label>
+          <label>Date<select id="date-filter"><option value="">All dates</option></select></label>
+          <label>Currency<select id="currency-filter"><option value="">All currencies</option></select></label>
+          <label>Payment format<select id="format-filter"><option value="">All formats</option></select></label>
+          <label class="search-label">Find account or ID<input id="search-filter" type="search" placeholder="Search cases" autocomplete="off"></label>
+          <label class="toggle-label"><input id="spike-filter" type="checkbox"><span>Amount spikes only</span></label>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>RANK</th><th>TRANSACTION</th><th>DATE / TIME</th><th>SENDER → RECEIVER</th><th>AMOUNT</th><th>FORMAT</th><th>SCORE</th><th>TOP MODEL FACTOR</th></tr></thead>
+            <tbody id="case-rows"></tbody>
+          </table>
+        </div>
+        <div class="table-footer"><p id="page-label"></p><div><button id="previous-page" class="page-button" type="button">Previous</button><button id="next-page" class="page-button" type="button">Next</button></div></div>
+      </section>
+
+      <footer class="footer">Synthetic IBM AML dataset · Model score ranks review priority and does not establish wrongdoing · Human review required</footer>
+    </main>
+  </div>
+
+  <dialog id="case-dialog" aria-labelledby="dialog-title">
+    <button id="close-dialog" class="dialog-close" type="button" aria-label="Close case details">×</button>
+    <p class="section-kicker">CASE DETAILS</p>
+    <h2 id="dialog-title">Transaction</h2>
+    <div id="dialog-body"></div>
+  </dialog>
+</body>
+</html>
