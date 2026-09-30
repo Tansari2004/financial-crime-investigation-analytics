@@ -33,9 +33,10 @@ pipeline on this disk-limited host. The browser preview is not a Power BI file.
 Start with the [pipeline guide](pipeline/README.md), [architecture decisions](pipeline/ARCHITECTURE.md),
 [operations runbook](pipeline/RUNBOOK.md), and [Power BI handoff](pipeline/powerbi/README.md).
 For a fresh local database and Dagster UI, run `docker compose up -d --build`;
-then use the fixture and commands in the pipeline guide. GitHub Actions is
-configured to test PostgreSQL, Dagster, dbt, and the Compose image, but the
-new workflow has not yet run remotely. Docker could not be tested on this host.
+then use the fixture and commands in the pipeline guide. The
+[GitHub Actions run](https://github.com/Tansari2004/financial-crime-investigation-analytics/actions/runs/36775208579)
+passed PostgreSQL, Dagster, dbt, and Docker Compose smoke tests. Docker is not
+installed on this laptop, so the container check was performed in CI.
 
 | Location | What a reviewer can inspect |
 | --- | --- |
@@ -53,6 +54,16 @@ PostgreSQL and machine-learning investigation pipeline across **5,078,345 synthe
 The business question is: which transaction patterns merit closer investigation? Eight reproducible analyses cover size, label balance, data quality, currency-specific amounts, payment methods, outgoing account volume, hourly activity, and payments relative to strictly earlier account history.
 
 The chronological logistic baseline was trained on dates before September 8 and tested on September 9 onward. In the later test period, its top 1,000 transactions contained **199 of 1,611** positive labels: **19.9% Precision@1,000**, **12.35% Recall@1,000**, and **0.1016 PR-AUC**. Test prevalence was 0.1865%, giving about 107× enrichment at K=1,000 within this synthetic test period.
+
+### Power BI report and dashboard
+
+The **Financial Crime Review Queue** report was built in Power BI from the top **10,000 ranked later-period test transactions**. Its first page is a case table with review rank, model score, transaction ID and time, model-derived reason, amount and currency, and sender/receiver bank and account IDs. The second page counts those cases by payment currency. A **Financial Crime Investigation Dashboard** was also created in My workspace; the verified dashboard tile shows the currency chart. The table is verified in the report, but has not been verified as a tile on that same dashboard.
+
+![Power BI dashboard showing case counts by payment currency](docs/images/power-bi-dashboard.png)
+
+[View the ranked review-queue report screenshot](docs/images/power-bi-review-queue.png) · [Power BI build details](docs/power_bi_build.md)
+
+The screenshots document the result without requiring access to the private Power BI workspace. The report visualizes a **ranked sample**, not all 5.08 million rows. Its review scores are prioritization scores, not calibrated probabilities or proof of financial crime.
 
 See the [model report](reports/model_report.md), [raw model metrics](reports/model_metrics.json), [findings](docs/findings.md), [resume and LinkedIn text](docs/career.md), and [interview guide](docs/interview.md).
 
@@ -103,7 +114,7 @@ psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/dashboard_export.sql
 PYTHONPATH=src python -m financial_crime.explain_cases
 ```
 
-This produces `data/processed/dashboard_cases.csv`. The explanation code checks that its feature contributions reconstruct the saved model score. See the [Power BI build guide](docs/power_bi_build.md) for the report layout, field types, and current Power BI access status.
+This produces `data/processed/dashboard_cases.csv`. The explanation code checks that its feature contributions reconstruct the saved model score. See the [Power BI build guide](docs/power_bi_build.md) for the verified report and dashboard status, layout, and field types.
 
 Run the interactive browser dashboard locally:
 
@@ -129,7 +140,7 @@ Then open `http://127.0.0.1:8765/dashboard/`. The dashboard has rank, date, curr
 
 ### Next milestones
 
-Build and verify the Power BI report in a licensed workspace, validate any exposure-aware priority rule, and extend explanations beyond the exported top 10,000 test cases. Isolation Forest has not been implemented.
+Add the ranked case table to the verified Power BI dashboard, add report slicers and further summary visuals, validate any exposure-aware priority rule, and extend explanations beyond the exported top 10,000 test cases. Isolation Forest has not been implemented.
 
 ## Optional Python data profiling
 
