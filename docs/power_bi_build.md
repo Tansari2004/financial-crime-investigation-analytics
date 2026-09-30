@@ -4,7 +4,12 @@
 
 The project generates `data/processed/dashboard_cases.csv`, a 10,000-row, 3.6 MB export of the highest-ranked **later-period test transactions**. Each row has the existing model review score, up to three model factors that increased it, and a separate transparent amount-spike rule. The file is local and excluded from Git because it contains generated transaction records.
 
-The Power BI report itself has **not** been created or verified. On September 29, 2026, `app.powerbi.com/home` redirected the signed-in browser to Microsoft signup, indicating the account could not open a Power BI workspace. Do not describe a Power BI dashboard as completed until a report has actually been built and opened in Power BI.
+On September 29, 2026, the CSV was imported into Power BI's **Financial Crime Risk Data** semantic model in My workspace. The saved **Financial Crime Review Queue** report was visually verified with:
+
+- A ranked transaction table (Page 1): `review_rank`, `review_score`, `transaction_id`, `transaction_time`, `model_reason_1`, `amount_paid`, `payment_currency`, and sender/receiver bank and account IDs. The table was sorted with rank 1 first, and leading zeros in bank IDs were preserved.
+- **Currency Mix — Top 10k Cases** (Page 2): a bar chart with `payment_currency` on the Y-axis and **Count of `transaction_id`** on the X-axis. This counts exported cases, not total financial exposure.
+
+A **Financial Crime Investigation Dashboard** was created and visually verified with the currency chart tile. The ranked table has **not** yet been verified as a tile on that same dashboard. Two dashboards with the same name appeared in My workspace; do not assume they are identical. See the [dashboard screenshot](images/power-bi-dashboard.png) and [report-table screenshot](images/power-bi-review-queue.png). The Power BI workspace is private; these screenshots are the public evidence in this repository. No public report link or `.pbix` file is provided.
 
 ## Generate the report data
 
@@ -17,7 +22,9 @@ PYTHONPATH=src python -m financial_crime.explain_cases
 
 The second command refuses to export explanations unless their reconstructed scores match the saved model scores within `0.00001`. On the existing data, the maximum difference was below `0.000000001`.
 
-## Build the Power BI report
+## Rebuild or extend the Power BI report
+
+The steps below describe the intended fuller report design. Slicers, cards, additional reason columns, and an evaluation page have **not** been verified as completed in the Power BI report.
 
 1. Open Power BI Desktop or a Power BI workspace that allows report creation. Import `data/processed/dashboard_cases.csv` as a text/CSV source and name the table `Cases`.
 2. In Power Query, set `from_bank`, `from_account`, `to_bank`, and `to_account` to **Text** so leading zeros survive. Set `transaction_time` to Date/Time, `review_rank` and `transaction_id` to Whole Number, `review_score` and `reason_1_effect` through `reason_3_effect` to Decimal Number, and `amount_paid` to Decimal Number. Set `amount_spike_rule` to True/False.

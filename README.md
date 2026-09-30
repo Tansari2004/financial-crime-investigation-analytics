@@ -8,6 +8,16 @@ The business question is: which transaction patterns merit closer investigation?
 
 The chronological logistic baseline was trained on dates before September 8 and tested on September 9 onward. In the later test period, its top 1,000 transactions contained **199 of 1,611** positive labels: **19.9% Precision@1,000**, **12.35% Recall@1,000**, and **0.1016 PR-AUC**. Test prevalence was 0.1865%, giving about 107× enrichment at K=1,000 within this synthetic test period.
 
+### Power BI report and dashboard
+
+The **Financial Crime Review Queue** report was built in Power BI from the top **10,000 ranked later-period test transactions**. Its first page is a case table with review rank, model score, transaction ID and time, model-derived reason, amount and currency, and sender/receiver bank and account IDs. The second page counts those cases by payment currency. A **Financial Crime Investigation Dashboard** was also created in My workspace; the verified dashboard tile shows the currency chart. The table is verified in the report, but has not been verified as a tile on that same dashboard.
+
+![Power BI dashboard showing case counts by payment currency](docs/images/power-bi-dashboard.png)
+
+[View the ranked review-queue report screenshot](docs/images/power-bi-review-queue.png) · [Power BI build details](docs/power_bi_build.md)
+
+The screenshots document the result without requiring access to the private Power BI workspace. The report visualizes a **ranked sample**, not all 5.08 million rows. Its review scores are prioritization scores, not calibrated probabilities or proof of financial crime.
+
 See the [model report](reports/model_report.md), [raw model metrics](reports/model_metrics.json), [findings](docs/findings.md), [resume and LinkedIn text](docs/career.md), and [interview guide](docs/interview.md).
 
 ```mermaid
@@ -57,7 +67,7 @@ psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/dashboard_export.sql
 PYTHONPATH=src python -m financial_crime.explain_cases
 ```
 
-This produces `data/processed/dashboard_cases.csv`. The explanation code checks that its feature contributions reconstruct the saved model score. See the [Power BI build guide](docs/power_bi_build.md) for the report layout, field types, and current Power BI access status.
+This produces `data/processed/dashboard_cases.csv`. The explanation code checks that its feature contributions reconstruct the saved model score. See the [Power BI build guide](docs/power_bi_build.md) for the verified report and dashboard status, layout, and field types.
 
 Run the interactive browser dashboard locally:
 
@@ -83,7 +93,7 @@ Then open `http://127.0.0.1:8765/dashboard/`. The dashboard has rank, date, curr
 
 ### Next milestones
 
-Build and verify the Power BI report in a licensed workspace, validate any exposure-aware priority rule, and extend explanations beyond the exported top 10,000 test cases. Isolation Forest has not been implemented.
+Add the ranked case table to the verified Power BI dashboard, add report slicers and further summary visuals, validate any exposure-aware priority rule, and extend explanations beyond the exported top 10,000 test cases. Isolation Forest has not been implemented.
 
 ## Optional Python data profiling
 
