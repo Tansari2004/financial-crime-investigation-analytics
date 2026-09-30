@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${BANKING_POSTGRES_DB:-banking_pipeline}
+      POSTGRES_USER: ${BANKING_POSTGRES_USER:-banking}
+      POSTGRES_PASSWORD: ${BANKING_POSTGRES_PASSWORD:-banking_local_only}
+    ports:
+      - "127.0.0.1:${BANKING_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - banking_pgdata:/var/lib/postgresql/data
+      - ./pipeline/sql/001_foundation.sql:/docker-entrypoint-initdb.d/001_foundation.sql:ro
+      - ./pipeline/sql/002_model.sql:/docker-entrypoint-initdb.d/002_model.sql:ro
+      - ./pipeline/sql/003_promotion.sql:/docker-entrypoint-initdb.d/003_promotion.sql:ro
+      - ./pipeline/sql/004_analytics.sql:/docker-entrypoint-initdb.d/004_analytics.sql:ro
+      - ./pipeline/sql/005_publish.sql:/docker-entrypoint-initdb.d/005_publish.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${BANKING_POSTGRES_USER:-banking} -d ${BANKING_POSTGRES_DB:-banking_pipeline}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  dagster:
+    build:
+      context: .
+      dockerfile: docker/pipeline.Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      BANKING_DATABASE_URL: postgresql://${BANKING_POSTGRES_USER:-banking}:${BANKING_POSTGRES_PASSWORD:-banking_local_only}@postgres:5432/${BANKING_POSTGRES_DB:-banking_pipeline}
+      BANKING_SOURCE_DIR: /app/data/raw
+      BANKING_CORRECTION_DIR: /app/data/corrections
+      DAGSTER_HOME: /app/.dagster
+    ports:
+      - "127.0.0.1:${DAGSTER_PORT:-3000}:3000"
+    volumes:
+      - ./data/raw:/app/data/raw:ro
+      - ./data/corrections:/app/data/corrections:ro
+      - dagster_home:/app/.dagster
+    restart: unless-stopped
+
+volumes:
+  banking_pgdata:
+  dagster_home:

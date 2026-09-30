@@ -1,0 +1,11 @@
+.git
+.venv
+__pycache__
+.pytest_cache
+data
+reports
+artifacts
+pipeline/dashboard/data.json
+pipeline/dbt/target
+pipeline/dbt/logs
+*.pyc

@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: core
+    schema: core
+    tables:
+      - name: fact_transaction
+        columns:
+          - name: transaction_key
+            data_tests: [unique, not_null]
+          - name: source_raw_record_id
+            data_tests: [unique, not_null]
+          - name: from_account_key
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('core', 'dim_account')
+                    field: account_key
+      - name: dim_account
+        columns:
+          - name: account_key
+            data_tests: [unique, not_null]
+          - name: bank_key
+            data_tests:
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('core', 'dim_bank')
+                    field: bank_key
+      - name: dim_bank
+        columns:
+          - name: bank_key
+            data_tests: [unique, not_null]
+
+  - name: analytics
+    schema: analytics
+    tables:
+      - name: fact_risk_signal
+        columns:
+          - name: transaction_key
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  arguments:
+                    to: source('core', 'fact_transaction')
+                    field: transaction_key
+      - name: fact_daily_transaction
+        columns:
+          - name: event_date
+            data_tests: [not_null]
+          - name: paid_amount
+            data_tests: [not_null]
+      - name: file_row_reconciliation
+        columns:
+          - name: file_id
+            data_tests: [unique, not_null]
+      - name: file_amount_reconciliation

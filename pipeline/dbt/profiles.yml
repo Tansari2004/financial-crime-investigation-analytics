@@ -1,0 +1,12 @@
+banking_quality:
+  target: local
+  outputs:
+    local:
+      type: postgres
+      host: "{{ env_var('BANKING_POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('BANKING_POSTGRES_PORT', '5433') | int }}"
+      user: "{{ env_var('BANKING_POSTGRES_USER', 'banking') }}"
+      password: "{{ env_var('BANKING_POSTGRES_PASSWORD', 'banking_local_only') }}"
+      dbname: "{{ env_var('BANKING_POSTGRES_DB', 'banking_pipeline') }}"
+      schema: analytics
+      threads: 4

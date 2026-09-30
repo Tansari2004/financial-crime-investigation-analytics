@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banking Pipeline Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div><p class="eyebrow">BANKING TRANSACTION DATA PIPELINE</p><h1>Published analytics</h1><p class="sub">Transaction activity, risk signals, and quality controls</p></div>
+      <div class="status"><span class="dot"></span><span id="snapshot-status">Loading snapshot</span></div>
+    </header>
+    <div id="fixture-warning" class="fixture-warning" hidden>Fabricated fixture preview · No live database is connected</div>
+    <section class="metrics" aria-label="Pipeline metrics">
+      <article><span>Published transactions</span><strong id="transaction-count">—</strong><small>Across the full daily mart</small></article>
+      <article><span>Risk alerts</span><strong id="alert-count">—</strong><small>Full mart · illustrative rules, score ≥ 2</small></article>
+      <article><span>Rejected rows</span><strong id="rejected-count">—</strong><small>Preserved in quarantine</small></article>
+      <article><span>Reconciliation</span><strong id="recon-status">—</strong><small>File and currency checks</small></article>
+    </section>
+    <section class="panels">
+      <article class="panel">
+        <div class="panel-title"><div><p class="eyebrow">VOLUME</p><h2>Transactions by day</h2></div><label>Currency <select id="currency-filter"><option value="">All currencies</option></select></label></div>
+        <p class="note">Latest 5,000 mart rows shown. Counts may be combined across currencies; monetary totals remain separate.</p>
+        <div id="daily-chart" class="bars" role="img" aria-label="Daily transaction counts"></div>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">DATA QUALITY</p><h2>Source to core</h2>
+        <div class="quality-grid"><div><span>Source rows</span><strong id="source-count">—</strong></div><div><span>Accepted</span><strong id="accepted-count">—</strong></div><div><span>Duplicate candidates</span><strong id="duplicate-count">—</strong></div><div><span>Imbalanced groups</span><strong id="imbalanced-count">—</strong></div></div>
+        <p class="note" id="quality-note"></p>
+      </article>
+    </section>
+    <section class="panel table-panel">
+      <div class="panel-title"><div><p class="eyebrow">INVESTIGATION</p><h2>Risk signal sample</h2></div><span class="badge">Top 200 rows max</span></div>
+      <p class="note">Rule flags prioritize review. Synthetic labels are excluded from scoring.</p>
+      <div class="scroll"><table><thead><tr><th>Time</th><th>Sender → receiver</th><th>Amount</th><th>Score</th><th>Signals</th></tr></thead><tbody id="alert-rows"></tbody></table></div>
+    </section>
+    <footer>IBM synthetic AML data · Timestamp has no supplied timezone · Published data only</footer>
+  </main>
+</body>
+</html>

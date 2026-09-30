@@ -1,0 +1,16 @@
+{
+  "kind": "fabricated_fixture_preview",
+  "publication_id": 0,
+  "published_at": null,
+  "limits": {"daily_rows": 5000, "risk_alerts": 200},
+  "daily": [
+    {"event_date":"2022-09-01","from_bank_code":"001","payment_currency":"US Dollar","payment_format":"Wire","transaction_count":5,"paid_amount":"60.00","labelled_laundering_count":1,"risk_alert_count":5},
+    {"event_date":"2022-09-02","from_bank_code":"002","payment_currency":"Euro","payment_format":"Cheque","transaction_count":3,"paid_amount":"54.00","labelled_laundering_count":0,"risk_alert_count":0},
+    {"event_date":"2022-09-03","from_bank_code":"003","payment_currency":"US Dollar","payment_format":"Cash","transaction_count":4,"paid_amount":"90.00","labelled_laundering_count":0,"risk_alert_count":1}
+  ],
+  "alerts": [
+    {"transaction_key":1,"event_time":"2022-09-01T09:00:00","from_bank_code":"001","from_account_code":"A001","to_bank_code":"002","to_account_code":"B001","amount_paid":"10.00","payment_currency":"US Dollar","payment_format":"Wire","risk_score":3,"high_amount_for_currency_day":false,"high_hourly_velocity":true,"repeated_counterparty":true},
+    {"transaction_key":2,"event_time":"2022-09-03T10:00:00","from_bank_code":"003","from_account_code":"A003","to_bank_code":"004","to_account_code":"B004","amount_paid":"35.00","payment_currency":"US Dollar","payment_format":"Cash","risk_score":2,"high_amount_for_currency_day":true,"high_hourly_velocity":false,"repeated_counterparty":false}
+  ],
+  "quality": {"source_rows":12,"accepted_rows":12,"rejected_rows":0,"duplicate_candidates":0,"imbalanced_files":0,"imbalanced_currency_groups":0}
+}

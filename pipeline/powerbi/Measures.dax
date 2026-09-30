@@ -1,0 +1,29 @@
+// Create each measure separately in Power BI Desktop.
+// Table names assume the query names shown in README.md.
+
+Transaction Count = SUM(v_daily_metrics[transaction_count])
+
+Synthetic Label Count = SUM(v_daily_metrics[labelled_laundering_count])
+
+Risk Alert Count = SUM(v_daily_metrics[risk_alert_count])
+
+Rejected Rows = SUM(file_row_reconciliation[manifest_rejected])
+
+Duplicate Candidates = SUM(file_row_reconciliation[manifest_duplicate_candidates])
+
+Imbalanced Files = COUNTROWS(FILTER(file_row_reconciliation, NOT file_row_reconciliation[is_balanced]))
+
+Amount Reconciliation Failures = COUNTROWS(
+    FILTER(file_amount_reconciliation,
+        file_amount_reconciliation[raw_staging_delta] <> 0 ||
+        file_amount_reconciliation[effective_core_delta] <> 0
+    )
+)
+
+Labelled Alerts = SUM(v_risk_evaluation[labelled_alert_count])
+
+Alert Precision Against Synthetic Labels =
+    DIVIDE([Labelled Alerts], SUM(v_risk_evaluation[alert_count]))
+
+Label Recall Against Synthetic Labels =
+    DIVIDE([Labelled Alerts], SUM(v_risk_evaluation[synthetic_label_count]))

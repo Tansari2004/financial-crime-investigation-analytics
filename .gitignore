@@ -8,6 +8,8 @@ __pycache__/
 # Data is downloaded locally and may be very large or subject to a separate licence.
 data/raw/*
 !data/raw/.gitkeep
+data/corrections/*
+!data/corrections/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
 reports/*
@@ -18,3 +20,8 @@ reports/*
 models/*
 !models/.gitkeep
 *.egg-info/
+pipeline/dbt/target/
+pipeline/dbt/logs/
+pipeline/dbt/dbt_packages/
+pipeline/dbt/.user.yml
+pipeline/dashboard/data.json
