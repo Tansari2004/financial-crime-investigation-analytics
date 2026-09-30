@@ -11,10 +11,13 @@ dependencies = [
   "pandas>=2.2,<3",
   "pyarrow>=15,<20",
   "tabulate>=0.9,<1",
+  "psycopg[binary]>=3.2,<4",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<9"]
+orchestration = ["dagster>=1.12,<2", "dagster-webserver>=1.12,<2"]
+dbt = ["dbt-postgres>=1.10,<2"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

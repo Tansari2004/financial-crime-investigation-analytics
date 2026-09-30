@@ -1,6 +1,53 @@
-# Financial Crime Investigation & Transaction Risk System
+# Banking Transaction Data Pipeline & Analytics Platform
 
-## Completed version
+A batch data-engineering portfolio project over IBM's synthetic AML transaction
+data. The pipeline preserves raw source evidence, quarantines invalid and exact
+duplicate-candidate rows, models transactions incrementally in PostgreSQL,
+applies explicit correction events, and publishes reconciled analytics only
+after quality gates pass. Python handles streaming file ingestion; PostgreSQL
+does set-based transformations; Dagster schedules the workflow. Power BI can
+consume the curated views; a native report is still to be authored.
+
+```mermaid
+flowchart LR
+    CSV[IBM AML CSV] --> Loader[Python streaming ingestion]
+    Loader --> Raw[raw + quarantine]
+    Raw --> Staging[typed staging]
+    Staging --> Core[core dimensions + transaction fact]
+    Corrections[explicit corrections] --> Core
+    Core --> Gates[reconciliation + quality gates]
+    Gates --> Marts[published daily + risk marts]
+    Marts --> BI[Power BI / local preview]
+    Dagster[Dagster daily job] --> Loader
+    Dagster --> Gates
+```
+
+Engineering evidence: SHA-256 file manifests and safe reruns; ingestion-ID
+watermarks that retain late events; bounded promotion batches; immutable source
+rows plus explicit correction history; transaction-scoped analytics publication;
+currency-aware amount reconciliation; 9 Python tests and 24 dbt checks; and a
+[reproducible 50,000-row benchmark](pipeline/BENCHMARK.md). The complete
+multi-million-row source has not yet been run end to end through this new
+pipeline on this disk-limited host. The browser preview is not a Power BI file.
+
+Start with the [pipeline guide](pipeline/README.md), [architecture decisions](pipeline/ARCHITECTURE.md),
+[operations runbook](pipeline/RUNBOOK.md), and [Power BI handoff](pipeline/powerbi/README.md).
+For a fresh local database and Dagster UI, run `docker compose up -d --build`;
+then use the fixture and commands in the pipeline guide. The
+[GitHub Actions run](https://github.com/Tansari2004/financial-crime-investigation-analytics/actions/runs/36775208579)
+passed PostgreSQL, Dagster, dbt, and Docker Compose smoke tests. Docker is not
+installed on this laptop, so the container check was performed in CI.
+
+| Location | What a reviewer can inspect |
+| --- | --- |
+| [`src/banking_pipeline/`](src/banking_pipeline/) | Streaming loaders, correction handling, promotion, publication, Dagster assets |
+| [`pipeline/sql/`](pipeline/sql/) | Raw/staging/core/analytics schemas and transactional SQL functions |
+| [`pipeline/dbt/`](pipeline/dbt/) | Independent published-state quality tests |
+| [`tests/`](tests/) | Unit and live-PostgreSQL failure/replay tests |
+| [`pipeline/dashboard/`](pipeline/dashboard/) | Local published-data preview (not Power BI) |
+| [`.github/workflows/banking-pipeline.yml`](.github/workflows/banking-pipeline.yml) | Python, dbt, and Docker Compose CI jobs |
+
+## Earlier investigation and modeling workflow
 
 PostgreSQL and machine-learning investigation pipeline across **5,078,345 synthetic transactions**. The database contains **5,177 simulated-laundering labels (0.1019%)** over September 1–18, 2022. Every transaction receives a model review score for case ranking. A separate export adds model-derived reasons to the top 10,000 later-period test cases.
 
