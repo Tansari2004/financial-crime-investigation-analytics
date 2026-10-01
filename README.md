@@ -36,13 +36,13 @@ saved Power BI report are separate artifacts.
 
 ### Banking pipeline Power BI report
 
-The four-page [Banking Transaction Pipeline Analytics report](https://app.powerbi.com/groups/0a05dc72-9fe5-4d16-9ad8-96d9a86f8c09/reports/11bcb2bd-eee1-4e92-8d16-6321df6267e6) is saved in a private Power BI workspace. Its pages cover daily transaction activity, pipeline health, currency reconciliation, and rule-based risk-alert counts. The images below provide reviewable evidence without workspace access:
+The four-page [Banking Transaction Pipeline Analytics report](https://app.powerbi.com/groups/0a05dc72-9fe5-4d16-9ad8-96d9a86f8c09/reports/11bcb2bd-eee1-4e92-8d16-6321df6267e6) is saved in a private Power BI workspace. Its pages cover daily transaction activity, pipeline health, currency reconciliation, and rule-based risk-alert counts. The [complete PDF export](pipeline/powerbi/banking-transaction-pipeline-analytics.pdf) and images below are reviewable without workspace access:
 
 [![Daily transaction activity in the saved Power BI report](pipeline/screenshots/transaction-activity.png)](pipeline/screenshots/transaction-activity.png)
 
-[Pipeline health](pipeline/screenshots/pipeline-health.png) · [Currency reconciliation](pipeline/screenshots/reconciliation.png) · [Risk monitoring](pipeline/screenshots/risk-monitoring.png)
+[Pipeline health](pipeline/screenshots/pipeline-health.png) · [Currency reconciliation](pipeline/screenshots/reconciliation.png) · [Risk monitoring](pipeline/screenshots/risk-monitoring.png) · [All four page images](pipeline/powerbi/README.md#page-images)
 
-The report uses a **static Excel import** exported from the verified PostgreSQL publication. It is not connected live to PostgreSQL or set up for automatic refresh, and this repository does not contain a `.pbix` or `.pbip` source file. The [report notes](pipeline/powerbi/README.md) document the pages and these limitations.
+The report uses a **static Excel import** exported from the verified PostgreSQL publication. It is not connected live to PostgreSQL or set up for automatic refresh, and this repository does not contain a `.pbix` or `.pbip` source file. The source workbook contains row-level account identifiers and is not published here. The [report notes](pipeline/powerbi/README.md) document the pages and these limitations.
 
 Start with the [pipeline guide](pipeline/README.md), [architecture decisions](pipeline/ARCHITECTURE.md),
 [operations runbook](pipeline/RUNBOOK.md), and [Power BI report notes](pipeline/powerbi/README.md).
