@@ -5,8 +5,8 @@ data. The pipeline preserves raw source evidence, quarantines invalid and exact
 duplicate-candidate rows, models transactions incrementally in PostgreSQL,
 applies explicit correction events, and publishes reconciled analytics only
 after quality gates pass. Python handles streaming file ingestion; PostgreSQL
-does set-based transformations; Dagster schedules the workflow. Power BI can
-consume the curated views; a native report is still to be authored.
+does set-based transformations; Dagster schedules the workflow. A saved Power BI
+report visualizes an exported snapshot of the published analytics.
 
 ```mermaid
 flowchart LR
@@ -31,11 +31,21 @@ HI-Small file has now been run through this new pipeline: **5,078,345 source
 rows**, **5,078,336 accepted and published**, **nine exact-payload duplicate
 candidates**, and **zero invalid rejects**. The [full-run report](pipeline/evidence/full_run.json)
 passed every count, currency-amount, and publication-boundary check; 24 dbt
-checks passed against the published database. The browser preview is not a
-Power BI file.
+checks passed against the published database. The local browser preview and the
+saved Power BI report are separate artifacts.
+
+### Banking pipeline Power BI report
+
+The four-page [Banking Transaction Pipeline Analytics report](https://app.powerbi.com/groups/0a05dc72-9fe5-4d16-9ad8-96d9a86f8c09/reports/11bcb2bd-eee1-4e92-8d16-6321df6267e6) is saved in a private Power BI workspace. Its pages cover daily transaction activity, pipeline health, currency reconciliation, and rule-based risk-alert counts. The images below provide reviewable evidence without workspace access:
+
+[![Daily transaction activity in the saved Power BI report](pipeline/screenshots/transaction-activity.png)](pipeline/screenshots/transaction-activity.png)
+
+[Pipeline health](pipeline/screenshots/pipeline-health.png) · [Currency reconciliation](pipeline/screenshots/reconciliation.png) · [Risk monitoring](pipeline/screenshots/risk-monitoring.png)
+
+The report uses a **static Excel import** exported from the verified PostgreSQL publication. It is not connected live to PostgreSQL or set up for automatic refresh, and this repository does not contain a `.pbix` or `.pbip` source file. The [report notes](pipeline/powerbi/README.md) document the pages and these limitations.
 
 Start with the [pipeline guide](pipeline/README.md), [architecture decisions](pipeline/ARCHITECTURE.md),
-[operations runbook](pipeline/RUNBOOK.md), and [Power BI handoff](pipeline/powerbi/README.md).
+[operations runbook](pipeline/RUNBOOK.md), and [Power BI report notes](pipeline/powerbi/README.md).
 For a fresh local database and Dagster UI, run `docker compose up -d --build`;
 then use the fixture and commands in the pipeline guide. The
 [GitHub Actions run](https://github.com/Tansari2004/financial-crime-investigation-analytics/actions/runs/36775208579)
