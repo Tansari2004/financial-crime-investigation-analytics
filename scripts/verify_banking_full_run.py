@@ -30,6 +30,10 @@ def verify(dsn: str, min_source_rows: int) -> dict:
             "COALESCE(max(file_id),0) AS latest_file_id "
             "FROM ops.file_manifest WHERE status='completed'"
         ).fetchone()
+        sources = conn.execute(
+            "SELECT file_id, sha256, schema_version, byte_size, source_name "
+            "FROM ops.file_manifest WHERE status='completed' ORDER BY file_id"
+        ).fetchall()
         counts = conn.execute(
             "SELECT (SELECT count(*) FROM raw.transaction_record) AS raw_rows, "
             "(SELECT count(*) FROM staging.transaction_typed) AS staged_rows, "
@@ -60,6 +64,10 @@ def verify(dsn: str, min_source_rows: int) -> dict:
             "WHERE validation_status='accepted' AND raw_record_id>%s",
             (cursor["last_raw_record_id"],),
         ).fetchone()
+        environment = conn.execute(
+            "SELECT current_setting('server_version') AS postgresql_version, "
+            "pg_database_size(current_database()) AS database_bytes"
+        ).fetchone()
 
     checks = {
         "minimum_source_rows": files["source_rows"] >= min_source_rows,
@@ -85,6 +93,8 @@ def verify(dsn: str, min_source_rows: int) -> dict:
         "status": "passed" if all(checks.values()) else "failed",
         "min_source_rows": min_source_rows,
         "files": dict(files),
+        "sources": [dict(source) for source in sources],
+        "environment": dict(environment),
         "counts": dict(counts),
         "publication": {
             **dict(publication),

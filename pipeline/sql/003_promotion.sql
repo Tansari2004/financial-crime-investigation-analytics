@@ -99,9 +99,9 @@ BEGIN
     SELECT r.raw_record_id, r.file_id, (r.payload->>'timestamp')::timestamp,
         r.payload->>'from_bank', r.payload->>'from_account',
         r.payload->>'to_bank', r.payload->>'to_account',
-        (r.payload->>'amount_received')::numeric(20,2),
+        (r.payload->>'amount_received')::numeric(24,6),
         r.payload->>'receiving_currency',
-        (r.payload->>'amount_paid')::numeric(20,2),
+        (r.payload->>'amount_paid')::numeric(24,6),
         r.payload->>'payment_currency', r.payload->>'payment_format',
         (r.payload->>'is_laundering') = '1', r.record_hash
     FROM raw.transaction_record r
@@ -120,9 +120,9 @@ BEGIN
         (c.payload->>'timestamp')::timestamp,
         c.payload->>'from_bank', c.payload->>'from_account',
         c.payload->>'to_bank', c.payload->>'to_account',
-        (c.payload->>'amount_received')::numeric(20,2),
+        (c.payload->>'amount_received')::numeric(24,6),
         c.payload->>'receiving_currency',
-        (c.payload->>'amount_paid')::numeric(20,2),
+        (c.payload->>'amount_paid')::numeric(24,6),
         c.payload->>'payment_currency', c.payload->>'payment_format',
         (c.payload->>'is_laundering') = '1', c.record_hash
     FROM raw.transaction_correction c

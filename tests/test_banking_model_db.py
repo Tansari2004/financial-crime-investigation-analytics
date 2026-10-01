@@ -2,6 +2,7 @@
 
 import csv
 import os
+from decimal import Decimal
 from pathlib import Path
 from uuid import uuid4
 
@@ -114,7 +115,7 @@ def test_incremental_late_correction_and_backfill(tmp_path: Path) -> None:
             "WHERE raw_record_id=%s", (original_id,),
         ).fetchone()[0]
     assert corrected[0] == old_fact[0]
-    assert str(corrected[1]) == "999.00"
+    assert corrected[1] == Decimal("999.00")
     assert corrected[2] is not None
     assert corrected[3] == "009"
     assert original_amount == "125.50"
@@ -153,7 +154,7 @@ def test_incremental_late_correction_and_backfill(tmp_path: Path) -> None:
             (original_id,),
         ).fetchone()[0]
     assert watermark_after == watermark_before
-    assert str(final_fact) == "777.00"
+    assert final_fact == Decimal("777.00")
 
     with pytest.raises(psycopg.Error, match="backfill range exceeds"):
         promote(DSN, mode="backfill", raw_after=0, raw_through=999999999999)

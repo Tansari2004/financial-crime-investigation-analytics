@@ -8,6 +8,11 @@ ready; the daily schedule is defined but starts disabled so a clone does not
 unexpectedly ingest a large local file. Enable it in Dagster after checking the
 source directory and available disk space.
 
+The v2 source contract preserves Bitcoin amounts to six decimal places. Start
+with a fresh database for v2; replaying the initialization scripts on a v1
+volume will not widen existing amount columns or reclassify rows skipped by the
+file manifest. Do not remove a populated volume without preserving its data.
+
 Place IBM `HI-Small_Trans.csv` under `data/raw/`. Use the small fixture first:
 
 ```sh
@@ -26,7 +31,8 @@ and `BANKING_CORRECTION_DIR`. Compose mounts `data/raw/` and
 Before the multi-million-row file, check free space on the PostgreSQL volume:
 raw JSON, typed staging, fact indexes, WAL, and temporary query files can take
 substantially more space than the source CSV. This host did not have enough
-free space for a responsible full-source benchmark.
+free space for a responsible full-source run until space was freed. The
+successful full run is recorded under `pipeline/evidence/full_run.json`.
 
 ## Full-source scale proof (on a machine with adequate storage)
 

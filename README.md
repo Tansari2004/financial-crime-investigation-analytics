@@ -25,10 +25,14 @@ flowchart LR
 Engineering evidence: SHA-256 file manifests and safe reruns; ingestion-ID
 watermarks that retain late events; bounded promotion batches; immutable source
 rows plus explicit correction history; transaction-scoped analytics publication;
-currency-aware amount reconciliation; 9 Python tests and 24 dbt checks; and a
-[reproducible 50,000-row benchmark](pipeline/BENCHMARK.md). The complete
-multi-million-row source has not yet been run end to end through this new
-pipeline on this disk-limited host. The browser preview is not a Power BI file.
+currency-aware amount reconciliation; 11 Python tests and 24 dbt checks; and a
+[reproducible 50,000-row benchmark](pipeline/BENCHMARK.md). The complete IBM
+HI-Small file has now been run through this new pipeline: **5,078,345 source
+rows**, **5,078,336 accepted and published**, **nine exact-payload duplicate
+candidates**, and **zero invalid rejects**. The [full-run report](pipeline/evidence/full_run.json)
+passed every count, currency-amount, and publication-boundary check; 24 dbt
+checks passed against the published database. The browser preview is not a
+Power BI file.
 
 Start with the [pipeline guide](pipeline/README.md), [architecture decisions](pipeline/ARCHITECTURE.md),
 [operations runbook](pipeline/RUNBOOK.md), and [Power BI handoff](pipeline/powerbi/README.md).

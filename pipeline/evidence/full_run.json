@@ -1,0 +1,58 @@
+{
+  "checked_at_utc": "2026-10-01T03:38:54.961081+00:00",
+  "status": "passed",
+  "min_source_rows": 5000000,
+  "files": {
+    "completed_files": 1,
+    "source_rows": 5078345,
+    "accepted_rows": 5078336,
+    "rejected_rows": 0,
+    "duplicate_candidates": 9,
+    "latest_file_id": 1
+  },
+  "sources": [
+    {
+      "file_id": 1,
+      "sha256": "b19d39f515523373f991b689c07e11e7b0b95c17a2c27a87d91584ae16c5b040",
+      "schema_version": "ibm-aml-hi-small-v2",
+      "byte_size": 475664283,
+      "source_name": "IBM AML HI-Small"
+    }
+  ],
+  "environment": {
+    "postgresql_version": "16.15 (Homebrew)",
+    "database_bytes": 7910226967
+  },
+  "counts": {
+    "raw_rows": 5078345,
+    "staged_rows": 5078336,
+    "core_rows": 5078336,
+    "risk_rows": 5078336,
+    "mart_transactions": 5078336,
+    "unbalanced_files": 0,
+    "unbalanced_currency_groups": 0,
+    "incomplete_files": 0,
+    "latest_promotion_run_id": 51
+  },
+  "publication": {
+    "last_publication_id": 1,
+    "last_file_id": 1,
+    "last_promotion_run_id": 51,
+    "published_at": "2026-09-30T23:33:14.583238-04:00"
+  },
+  "pending_accepted_rows": 0,
+  "checks": {
+    "minimum_source_rows": true,
+    "all_files_completed": true,
+    "manifest_arithmetic": true,
+    "manifest_to_raw": true,
+    "accepted_to_staging": true,
+    "staging_to_core": true,
+    "core_to_risk": true,
+    "core_to_mart": true,
+    "row_reconciliation": true,
+    "amount_reconciliation": true,
+    "no_pending_accepted_rows": true,
+    "publication_caught_up": true
+  }
+}
