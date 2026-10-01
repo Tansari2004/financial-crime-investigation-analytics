@@ -1,10 +1,10 @@
 # Banking Transaction Data Pipeline & Analytics Platform
 
-This area implements Parts 1–7 and the reproducible preview/documentation portion
-of Part 8: ingestion, validation, a typed banking model, incremental promotion,
-analytics with reconciliation, and orchestration. A native Power BI report is
-still a handoff item; the local preview is not presented as one. This pipeline
-is separate from the older investigation and modeling workflow in the root.
+This area implements ingestion, validation, a typed banking model, incremental
+promotion, analytics with reconciliation, and orchestration. A saved four-page
+Power BI report displays an exported snapshot of the verified publication; the
+local preview is a separate artifact. This pipeline is separate from the older
+investigation and modeling workflow in the root.
 
 ## Architecture
 
@@ -290,9 +290,9 @@ python -m http.server 8765 --directory pipeline/dashboard
 
 Visit `http://localhost:8765`. The ignored `data.json` is derived from the
 database; if absent, the page clearly labels its committed fabricated sample.
-The preview is intentionally not a Power BI file. The [Power BI build kit](powerbi/README.md)
-documents the import connection, model grain, pages, and measures; its native
-report and screenshots remain unverified. See [architecture decisions](ARCHITECTURE.md)
+The preview is intentionally not a Power BI file. The [Power BI report notes](powerbi/README.md)
+document the saved report, its four exported page images, the static-import
+limitation, and a future live-source build path. See [architecture decisions](ARCHITECTURE.md)
 and [benchmark](BENCHMARK.md) for reviewer-facing evidence.
 
 ## Quality and replay policy
@@ -309,5 +309,5 @@ and [benchmark](BENCHMARK.md) for reviewer-facing evidence.
   is rolled back. A completed file is skipped by SHA-256.
 - Source line text, file hash, row number, and error codes make rejects traceable.
 
-This remains a batch pipeline. Source-specific currency precision and a native
-Power BI report are future extensions, not implemented claims.
+This remains a batch pipeline. A live-connected, automatically refreshing
+Power BI model is a future extension, not an implemented claim.
