@@ -53,10 +53,12 @@ fixture at `tests/fixtures/pipeline_transactions.csv` is safe to commit and only
 used for testing.
 
 Run the fixture first, then the full source. The full HI-Small export is several
-million rows and needs adequate local PostgreSQL disk space. The promotion path
-uses bounded batches and was smoke-tested with 200,000 generated transactions;
-the full-source throughput has not been benchmarked. The local test was stopped
-because the machine had limited free disk space.
+million rows and needs adequate local PostgreSQL disk space. The new pipeline
+has now processed the complete 5,078,345-row file: 5,078,336 accepted rows,
+nine duplicate candidates, and zero invalid rejects. All accepted rows reached
+the core fact, risk table, and daily mart. See the committed
+[full-run verification report](evidence/full_run.json). The earlier 50,000-row
+synthetic benchmark remains a separate timing experiment, not the scale proof.
 
 ## Run locally
 
@@ -91,9 +93,11 @@ PostgreSQL still performs one atomic load per file.
 The Compose service initializes `ops`, `raw`, `quarantine`, `staging`, `core`, and `analytics`
 on a fresh volume.
 The preexisting `sql/schema.sql` belongs to the older investigation workflow and
-is not used by this loader. If a volume already existed before the new SQL was
-added, apply the five versioned SQL files in `pipeline/sql/` in numeric order
-to that database with `psql -v ON_ERROR_STOP=1 -f <file>`.
+is not used by this loader. Use a fresh database/volume for the v2 contract.
+Reapplying these `CREATE TABLE IF NOT EXISTS` scripts does **not** migrate a v1
+volume's two-decimal amount columns or reclassify its already-ingested rows;
+the SHA-256 manifest would also skip the same source bytes. Preserve any old
+volume you need and create a separate fresh database for a v2 reload.
 
 Inspect a run:
 
@@ -121,9 +125,9 @@ receiver. The raw JSON payload uses distinct keys.
 | Account (first) | `from_account` | Sender account identifier; required text, leading zeros preserved |
 | To Bank | `to_bank` | Receiver bank identifier; required text |
 | Account (second) | `to_account` | Receiver account identifier; required text |
-| Amount Received | `amount_received` | Decimal amount; nonnegative and at most two fractional digits |
+| Amount Received | `amount_received` | Decimal amount; nonnegative; at most six fractional digits for Bitcoin, two otherwise |
 | Receiving Currency | `receiving_currency` | Required source currency code; canonical codes come in later staging |
-| Amount Paid | `amount_paid` | Decimal amount; nonnegative and at most two fractional digits |
+| Amount Paid | `amount_paid` | Decimal amount; nonnegative; at most six fractional digits for Bitcoin, two otherwise |
 | Payment Currency | `payment_currency` | Required source currency code |
 | Payment Format | `payment_format` | Required source payment method |
 | Is Laundering | `is_laundering` | Synthetic answer-key label, `0` or `1` |

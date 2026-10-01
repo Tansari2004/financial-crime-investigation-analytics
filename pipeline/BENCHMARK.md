@@ -35,13 +35,13 @@ index speed comparison: local free space and I/O conditions changed
 substantially. These numbers are illustrative, not a throughput guarantee;
 storage, indexes, data distribution, and risk-window cardinality all matter.
 
-The prior model milestone was smoke-tested on 200,000 generated transactions,
-but the complete analytics pipeline has **not** been benchmarked at millions of
-rows on this host. For a verified full-source run, follow the
-[runbook](RUNBOOK.md) and save the verifier's output under `pipeline/evidence/`.
-For performance measurements at that scale, benchmark against the actual IBM file with
-adequate disk and record `EXPLAIN (ANALYZE, BUFFERS)` for promotion and daily
-refresh. Useful next optimizations are partitioning large fact/raw tables by
-ingest or event date, incremental risk recomputation scoped to affected days,
-and tuning `work_mem` for the risk window queries. These are not prematurely
-implemented in the current local project.
+The full 5,078,345-row IBM file has now completed the new pipeline and passed
+the [full-run verifier](evidence/full_run.json) and 24 dbt checks. That report
+establishes scale and reconciliation, not a controlled throughput benchmark;
+the timings above remain the reproducible performance comparison. The complete
+run used 51 promotion batches and refreshed 18 dates into 217,161 daily mart
+groups. For performance work at this scale, record `EXPLAIN (ANALYZE, BUFFERS)`
+for promotion and daily refresh on a host with ample space. Candidate
+optimizations include partitioning raw/fact tables by ingest or event date and
+tuning `work_mem` for risk-window queries. These are not prematurely
+implemented in the current project.

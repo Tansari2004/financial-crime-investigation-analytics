@@ -15,7 +15,12 @@ KEYS = (
     "amount_received", "receiving_currency", "amount_paid", "payment_currency",
     "payment_format", "is_laundering",
 )
-SCHEMA_VERSION = "ibm-aml-hi-small-v1"
+SCHEMA_VERSION = "ibm-aml-hi-small-v2"
+
+
+def amount_scale(currency: str) -> int:
+    """The IBM export uses six decimal places for Bitcoin, two otherwise."""
+    return 6 if currency.strip() == "Bitcoin" else 2
 
 
 def validate_row(values: list[str]) -> list[str]:
@@ -34,11 +39,14 @@ def validate_row(values: list[str]) -> list[str]:
                         (8, "payment_currency"), (9, "payment_format")):
         if not values[index].strip():
             errors.append(f"missing_{name}")
-    for index, name in ((5, "amount_received"), (7, "amount_paid")):
+    for index, currency_index, name in (
+        (5, 6, "amount_received"), (7, 8, "amount_paid")
+    ):
         try:
             amount = Decimal(values[index].strip())
             if (not amount.is_finite() or amount < 0 or
-                    amount.as_tuple().exponent < -2 or amount >= Decimal("1e18")):
+                    amount.as_tuple().exponent < -amount_scale(values[currency_index])
+                    or amount >= Decimal("1e18")):
                 errors.append(f"invalid_{name}")
         except InvalidOperation:
             errors.append(f"invalid_{name}")

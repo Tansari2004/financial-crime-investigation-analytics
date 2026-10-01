@@ -58,7 +58,7 @@ jobs:
       - name: Install test and orchestration dependencies
         run: python -m pip install -e ".[dev,orchestration,dbt]"
       - name: Python tests, including live PostgreSQL and Dagster
-        run: python -m pytest -q tests/test_banking_pipeline.py tests/test_banking_pipeline_db.py tests/test_banking_model_db.py tests/test_banking_analytics_db.py tests/test_banking_dagster_db.py
+        run: python -m pytest -q tests/test_banking_pipeline.py tests/test_banking_pipeline_db.py tests/test_banking_model_db.py tests/test_banking_analytics_db.py tests/test_banking_dagster_db.py tests/test_banking_precision_db.py
       - name: Prepare clean published fixture for independent dbt checks
         env:
           BANKING_DBT_DATABASE_URL: postgresql://banking:test_password@localhost:5432/banking_dbt

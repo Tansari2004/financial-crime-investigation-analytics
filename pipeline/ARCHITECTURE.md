@@ -40,7 +40,9 @@ the same counterparty in one day and currency (1 point). Score ≥2 is an alert.
 The synthetic laundering label is excluded from the score. These are workload
 signals, not validated detection thresholds.
 
-Money is stored as `numeric(20,2)`, and aggregates as `numeric(38,2)`. Amounts
+Money is stored as `numeric(24,6)`, and aggregates as `numeric(38,6)`.
+The source contract permits six fractional digits for Bitcoin and two for other
+currencies; no Bitcoin amount is rounded to cents. Amounts
 are reconciled within each payment currency. The project does not add amounts
 across currencies or assume a timezone. Both original and corrected totals are
 retained in the reconciliation model.

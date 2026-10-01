@@ -8,16 +8,30 @@ authoring access. Do not present the local HTML preview as a Power BI report.
 
 ## Connection
 
+The verified full-source publication currently lives in the local PostgreSQL
+database `banking_pipeline_fullrun` on port `5432` (publication ID 1; see
+`pipeline/evidence/full_run.json`). If Power BI runs on this same computer, use
+server `localhost:5432`, database `banking_pipeline_fullrun`, and Import mode.
+If Power BI runs on another computer, `localhost` will refer to that other
+computer; move or securely expose the database first. The example M queries
+still point to the default Docker development database (`localhost:5433`,
+`banking_pipeline`), so change both values before using them with this full run.
+
 1. Start PostgreSQL and publish analytics using the main pipeline runbook.
-2. In Power BI Desktop, choose **Get data → PostgreSQL database**. Server:
-   `localhost:5433`; database: `banking_pipeline`; mode: **Import**.
+2. In Power BI Desktop, choose **Get data → PostgreSQL database**. For this
+   verified full run, server: `localhost:5432`; database:
+   `banking_pipeline_fullrun`; mode: **Import**. Use `localhost:5433` and
+   `banking_pipeline` only for the separate Docker development database.
 3. In Navigator, load these views/tables from the `analytics` schema:
    `v_daily_metrics`, `v_risk_alert`, `file_row_reconciliation`,
    `file_amount_reconciliation`, `v_pipeline_health`, `v_risk_evaluation`,
    and `publication_state`.
-4. Keep bank and account identifiers as Text, dates as Date, event time as
-   Date/Time, and amounts as Fixed decimal number. Use the saved `M_queries.pq`
-   as the exact source query reference if Navigator does not display schemas.
+4. Keep bank and account identifiers as Text, dates as Date, and event time as
+   Date/Time. Bitcoin source amounts can have six decimal places; Power BI's
+   Fixed decimal type has only four, so do not use it for those fields. Use
+   Decimal number for display and the PostgreSQL-calculated aggregates and
+   reconciliation flags as the authoritative exact totals. Update the server
+   and database in `M_queries.pq` if Navigator does not display schemas.
 5. Refresh only after `analytics.publication_state.published_at` changes.
 
 The SQL views are already reporting shaped. No relationship is needed between

@@ -255,7 +255,7 @@ BEGIN
     WHERE file_id IN (SELECT file_id FROM publish_files);
     WITH portions AS (
         SELECT r.file_id, r.payload->>'payment_currency' AS currency,
-            sum((r.payload->>'amount_paid')::numeric(38,2)) AS raw_amount,
+            sum((r.payload->>'amount_paid')::numeric(38,6)) AS raw_amount,
             0::numeric AS staged_amount, 0::numeric AS expected_amount,
             0::numeric AS core_amount
         FROM raw.transaction_record r

@@ -50,3 +50,14 @@ def test_amount_exceeding_typed_numeric_capacity_is_rejected() -> None:
     values = ["2022/09/01 09:00", "001", "A", "002", "B", "1000000000000000000.00",
               "USD", "1.00", "USD", "Wire", "0"]
     assert validate_row(values) == ["invalid_amount_received"]
+
+
+def test_bitcoin_precision_is_preserved_but_fiat_precision_is_checked() -> None:
+    values = ["2022/09/01 09:00", "001", "A", "002", "B", "0.025852",
+              "Bitcoin", "0.025852", "Bitcoin", "Wire", "0"]
+    assert validate_row(values) == []
+    values[6] = "US Dollar"
+    assert validate_row(values) == ["invalid_amount_received"]
+    values[6] = "Bitcoin"
+    values[5] = "0.0258521"
+    assert validate_row(values) == ["invalid_amount_received"]
