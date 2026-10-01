@@ -1,8 +1,8 @@
 # Power BI report: Banking Transaction Pipeline Analytics
 
-The [four-page report](https://app.powerbi.com/groups/0a05dc72-9fe5-4d16-9ad8-96d9a86f8c09/reports/11bcb2bd-eee1-4e92-8d16-6321df6267e6) was authored and saved in a private Power BI workspace. The screenshots below were exported from that report, so they can be reviewed without access to the workspace. A `.pbix` or `.pbip` source file has **not** been exported to this repository.
+The [four-page report](https://app.powerbi.com/groups/0a05dc72-9fe5-4d16-9ad8-96d9a86f8c09/reports/11bcb2bd-eee1-4e92-8d16-6321df6267e6) was authored and saved in a private Power BI workspace. Download the [complete PDF export](banking-transaction-pipeline-analytics.pdf) or open any page image below without workspace access. A `.pbix` or `.pbip` source file has **not** been exported to this repository.
 
-The report's semantic model was built from an Excel workbook exported from the verified full-source PostgreSQL publication (`banking_pipeline_fullrun`, publication ID 1). This is a **static snapshot**, not a live PostgreSQL connection or automatic refresh. The authoritative counts and quality checks remain in [`../evidence/full_run.json`](../evidence/full_run.json); the report presents them visually.
+The report's semantic model was built from an Excel workbook exported from the verified full-source PostgreSQL publication (`banking_pipeline_fullrun`, publication ID 1). This is a **static snapshot**, not a live PostgreSQL connection or automatic refresh. The source workbook also contains a row-level alert sample with account identifiers, so it is not committed as public evidence. The authoritative counts and quality checks remain in [`../evidence/full_run.json`](../evidence/full_run.json); the report presents them visually.
 
 | Saved page | What it shows | Evidence |
 | --- | --- | --- |
@@ -10,6 +10,18 @@ The report's semantic model was built from an Excel workbook exported from the v
 | Pipeline Health | Source, accepted, rejected, and duplicate-candidate rows plus quality flags | [Screenshot](../screenshots/pipeline-health.png) |
 | Reconciliation | Raw-to-staging and effective-core deltas by payment currency | [Screenshot](../screenshots/reconciliation.png) |
 | Risk Monitoring | Rule-based alert counts by payment currency | [Screenshot](../screenshots/risk-monitoring.png) |
+
+## Page images
+
+Click an image for its full-size export.
+
+| Transaction Activity | Pipeline Health |
+| --- | --- |
+| [![Daily published transaction volume and rounded total](../screenshots/transaction-activity.png)](../screenshots/transaction-activity.png) | [![Source, accepted, rejected, duplicate and quality-gate counts](../screenshots/pipeline-health.png)](../screenshots/pipeline-health.png) |
+
+| Reconciliation | Risk Monitoring |
+| --- | --- |
+| [![Zero currency reconciliation deltas](../screenshots/reconciliation.png)](../screenshots/reconciliation.png) | [![Rule-based alert counts by currency](../screenshots/risk-monitoring.png)](../screenshots/risk-monitoring.png) |
 
 The verified publication has **5,078,345 source rows**, **5,078,336 accepted rows**, **zero rejected rows**, and **nine exact-payload duplicate candidates**. Its file-row balance is true, all 15 displayed currency deltas are zero, and there are zero imbalanced currency groups. The 5M card is a display abbreviation, not the exact accepted-row count. The risk chart counts rule-based alerts; they are not confirmed fraud cases, fraud rates, or model probabilities.
 
