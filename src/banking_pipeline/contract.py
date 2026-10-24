@@ -43,8 +43,11 @@ def validate_row(values: list[str]) -> list[str]:
         (5, 6, "amount_received"), (7, 8, "amount_paid")
     ):
         try:
-            amount = Decimal(values[index].strip())
-            if (not amount.is_finite() or amount < 0 or
+            raw_amount = values[index].strip()
+            amount = Decimal(raw_amount)
+            # Decimal accepts Unicode digits that PostgreSQL numeric rejects.
+            # Keep such records in quarantine instead of blocking promotion.
+            if (not raw_amount.isascii() or not amount.is_finite() or amount < 0 or
                     amount.as_tuple().exponent < -amount_scale(values[currency_index])
                     or amount >= Decimal("1e18")):
                 errors.append(f"invalid_{name}")

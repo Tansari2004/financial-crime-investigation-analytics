@@ -25,7 +25,7 @@ flowchart LR
 Engineering evidence: SHA-256 file manifests and safe reruns; ingestion-ID
 watermarks that retain late events; bounded promotion batches; immutable source
 rows plus explicit correction history; transaction-scoped analytics publication;
-currency-aware amount reconciliation; 11 Python tests and 24 dbt checks; and a
+currency-aware amount reconciliation; automated Python tests and 24 dbt checks; and a
 [reproducible 50,000-row benchmark](pipeline/BENCHMARK.md). The complete IBM
 HI-Small file has now been run through this new pipeline: **5,078,345 source
 rows**, **5,078,336 accepted and published**, **nine exact-payload duplicate
@@ -46,6 +46,7 @@ The report uses a **static Excel import** exported from the verified PostgreSQL 
 
 Start with the [pipeline guide](pipeline/README.md), [architecture decisions](pipeline/ARCHITECTURE.md),
 [operations runbook](pipeline/RUNBOOK.md), and [Power BI report notes](pipeline/powerbi/README.md).
+The [October 24 repository audit](pipeline/AUDIT-2026-10-24.md) records fresh verification and fixes for recovered-file publication and verification gaps.
 For a fresh local database and Dagster UI, run `docker compose up -d --build`;
 then use the fixture and commands in the pipeline guide. The
 [GitHub Actions run](https://github.com/Tansari2004/financial-crime-investigation-analytics/actions/runs/36775208579)

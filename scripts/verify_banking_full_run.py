@@ -14,6 +14,7 @@ from pathlib import Path
 
 import psycopg
 from psycopg.rows import dict_row
+from banking_pipeline.promote import DEFAULT_DSN
 
 
 def verify(dsn: str, min_source_rows: int) -> dict:
@@ -56,13 +57,37 @@ def verify(dsn: str, min_source_rows: int) -> dict:
             "published_at FROM analytics.publication_state WHERE state_id=1"
         ).fetchone()
         cursor = conn.execute(
-            "SELECT last_raw_record_id FROM ops.pipeline_state "
+            "SELECT last_raw_record_id, last_correction_id FROM ops.pipeline_state "
             "WHERE pipeline_name='transaction_promotion'"
         ).fetchone()
         pending = conn.execute(
             "SELECT count(*) AS pending_accepted FROM raw.transaction_record "
             "WHERE validation_status='accepted' AND raw_record_id>%s",
             (cursor["last_raw_record_id"],),
+        ).fetchone()
+        corrections = conn.execute(
+            "SELECT (SELECT count(*) FROM raw.transaction_correction "
+            " WHERE correction_id > %s) AS pending_corrections, "
+            "(SELECT count(*) FROM ops.correction_file_manifest "
+            " WHERE status <> 'completed') AS incomplete_correction_files",
+            (cursor["last_correction_id"],),
+        ).fetchone()
+        coverage = conn.execute(
+            "SELECT (SELECT count(*) FROM ops.file_manifest m "
+            " LEFT JOIN analytics.file_row_reconciliation r ON r.file_id=m.file_id "
+            " WHERE m.status='completed' AND r.file_id IS NULL) "
+            " AS missing_file_reconciliations, "
+            "(SELECT count(*) FROM ("
+            " SELECT file_id, payload->>'payment_currency' AS currency "
+            " FROM raw.transaction_record WHERE validation_status='accepted' "
+            " UNION SELECT source_file_id, payment_currency FROM staging.transaction_typed "
+            " UNION SELECT s.source_file_id, c.payment_currency "
+            " FROM staging.transaction_correction_typed c "
+            " JOIN staging.transaction_typed s ON s.raw_record_id=c.target_raw_record_id "
+            " UNION SELECT source_file_id, payment_currency FROM core.fact_transaction"
+            ") expected LEFT JOIN analytics.file_amount_reconciliation a "
+            " ON a.file_id=expected.file_id AND a.payment_currency=expected.currency "
+            " WHERE a.file_id IS NULL) AS missing_amount_reconciliations"
         ).fetchone()
         environment = conn.execute(
             "SELECT current_setting('server_version') AS postgresql_version, "
@@ -72,6 +97,7 @@ def verify(dsn: str, min_source_rows: int) -> dict:
     checks = {
         "minimum_source_rows": files["source_rows"] >= min_source_rows,
         "all_files_completed": counts["incomplete_files"] == 0,
+        "all_correction_files_completed": corrections["incomplete_correction_files"] == 0,
         "manifest_arithmetic": files["source_rows"] == (
             files["accepted_rows"] + files["rejected_rows"]
             + files["duplicate_candidates"]
@@ -81,9 +107,12 @@ def verify(dsn: str, min_source_rows: int) -> dict:
         "staging_to_core": counts["staged_rows"] == counts["core_rows"],
         "core_to_risk": counts["core_rows"] == counts["risk_rows"],
         "core_to_mart": counts["core_rows"] == counts["mart_transactions"],
-        "row_reconciliation": counts["unbalanced_files"] == 0,
-        "amount_reconciliation": counts["unbalanced_currency_groups"] == 0,
+        "row_reconciliation": counts["unbalanced_files"] == 0
+        and coverage["missing_file_reconciliations"] == 0,
+        "amount_reconciliation": counts["unbalanced_currency_groups"] == 0
+        and coverage["missing_amount_reconciliations"] == 0,
         "no_pending_accepted_rows": pending["pending_accepted"] == 0,
+        "no_pending_corrections": corrections["pending_corrections"] == 0,
         "publication_caught_up": publication["last_publication_id"] is not None
         and publication["last_file_id"] == files["latest_file_id"]
         and publication["last_promotion_run_id"] == counts["latest_promotion_run_id"],
@@ -102,6 +131,9 @@ def verify(dsn: str, min_source_rows: int) -> dict:
             if publication["published_at"] else None,
         },
         "pending_accepted_rows": pending["pending_accepted"],
+        "pending_corrections": corrections["pending_corrections"],
+        "incomplete_correction_files": corrections["incomplete_correction_files"],
+        "reconciliation_coverage": dict(coverage),
         "checks": checks,
     }
     return report
@@ -109,7 +141,7 @@ def verify(dsn: str, min_source_rows: int) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dsn", default=os.environ.get("BANKING_DATABASE_URL"))
+    parser.add_argument("--dsn", default=os.environ.get("BANKING_DATABASE_URL", DEFAULT_DSN))
     parser.add_argument("--min-source-rows", type=int, default=5_000_000)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
