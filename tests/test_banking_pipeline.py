@@ -61,3 +61,10 @@ def test_bitcoin_precision_is_preserved_but_fiat_precision_is_checked() -> None:
     values[6] = "Bitcoin"
     values[5] = "0.0258521"
     assert validate_row(values) == ["invalid_amount_received"]
+
+
+@pytest.mark.parametrize("amount", ["１２.００", "١٢.٠٠"])
+def test_non_ascii_amounts_are_rejected_before_postgres_cast(amount) -> None:
+    values = ["2022/09/01 09:00", "001", "A", "002", "B", amount,
+              "US Dollar", amount, "US Dollar", "Wire", "0"]
+    assert validate_row(values) == ["invalid_amount_received", "invalid_amount_paid"]

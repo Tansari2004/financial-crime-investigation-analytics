@@ -53,7 +53,7 @@ dbt test --project-dir pipeline/dbt --profiles-dir pipeline/dbt
 
 Only commit `pipeline/evidence/full_run.json` after all checks pass and you
 confirm that its counts describe this new pipeline, not the older investigation
-database. The verifier checks manifest arithmetic, raw/staging/core/risk/mart
+database. The verifier checks incomplete source/correction files, pending accepted rows and corrections, missing reconciliation coverage, manifest arithmetic, raw/staging/core/risk/mart
 counts, file/currency reconciliation, no pending accepted rows, and a caught-up
 publication marker. Retain the Dagster run ID, CI URL, and PostgreSQL version
 alongside the evidence. The verifier does not itself prove downstream Power BI
@@ -107,3 +107,13 @@ dbt test --project-dir pipeline/dbt --profiles-dir pipeline/dbt
 The dbt suite assumes promotion and publication have finished. CI runs it
 against a separate clean database so deliberately failed quality tests in
 pytest cannot contaminate the dbt result.
+
+## Audit fixes and existing databases
+
+The October 24 audit updates `005_publish.sql` so a recovered lower-ID source file cannot be missed after a newer file has published, including files containing only rejects or duplicate candidates. Apply the updated function definition with `python -m banking_pipeline.bootstrap` on an existing **v2** database before using that fix; this does not migrate a v1 database. Take your normal backup first.
+
+The full-run verifier now rejects missing reconciliation evidence, pending corrections, and incomplete correction files. A missing currency reconciliation row is also a dbt failure. The verifier uses the same local default connection as the other pipeline commands; `BANKING_DATABASE_URL` or `--dsn` overrides it.
+
+If an earlier completed file has no row reconciliation, the updated publication function picks it up and applies quality gates even when its manifest ID is below the last published maximum. A rejected-row gate failure keeps the previous publication unchanged; investigate the source and only adjust the policy for a documented exception.
+
+Tests use disposable databases and can create/drop per-case databases. They require a test role with `CREATEDB`; never set `BANKING_TEST_DATABASE_URL` to a working database.

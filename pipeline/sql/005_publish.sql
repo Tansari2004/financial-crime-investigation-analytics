@@ -46,7 +46,14 @@ BEGIN
     END IF;
 
     IF v_through_run = v_state.last_promotion_run_id AND
-       v_through_file = v_state.last_file_id THEN
+       v_through_file = v_state.last_file_id AND NOT EXISTS (
+        -- Manifest IDs are allocated before file loading. A lower-ID failed
+        -- file can complete after a later publication, even with no accepted
+        -- rows to create a new promotion run. Reconcile that file as well.
+        SELECT 1 FROM ops.file_manifest m
+        LEFT JOIN analytics.file_row_reconciliation r ON r.file_id = m.file_id
+        WHERE m.status = 'completed' AND r.file_id IS NULL
+    ) THEN
         RETURN jsonb_build_object('status', 'skipped',
             'last_publication_id', v_state.last_publication_id);
     END IF;
@@ -96,8 +103,10 @@ BEGIN
     INSERT INTO publish_files (file_id)
     SELECT DISTINCT file_id FROM (
         SELECT m.file_id FROM ops.file_manifest m
-        WHERE m.status = 'completed' AND m.file_id > v_state.last_file_id
-          AND m.file_id <= v_through_file
+        LEFT JOIN analytics.file_row_reconciliation r ON r.file_id = m.file_id
+        WHERE m.status = 'completed' AND (
+            m.file_id > v_state.last_file_id OR r.file_id IS NULL
+        ) AND m.file_id <= v_through_file
         UNION
         SELECT s.source_file_id
         FROM ops.promotion_run p

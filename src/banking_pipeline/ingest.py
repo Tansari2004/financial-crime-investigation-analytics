@@ -26,8 +26,9 @@ def sha256_file(path: Path) -> str:
 def parse_records(path: Path):
     """Yield physical line number, original CSV text, payload and validation errors.
 
-    IBM's transaction export has one physical line per transaction. A broken CSV
-    quote is a file-level failure; wrong-width records are quarantined.
+    IBM's transaction export has one physical line per transaction. Malformed
+    quotes and wrong-width records are quarantined; header/decoding failures
+    fail the file atomically. Multiline CSV fields are not supported.
     """
     with path.open("r", encoding="utf-8-sig", newline="") as source:
         header_line = source.readline()

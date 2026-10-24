@@ -125,9 +125,9 @@ receiver. The raw JSON payload uses distinct keys.
 | Account (first) | `from_account` | Sender account identifier; required text, leading zeros preserved |
 | To Bank | `to_bank` | Receiver bank identifier; required text |
 | Account (second) | `to_account` | Receiver account identifier; required text |
-| Amount Received | `amount_received` | Decimal amount; nonnegative; at most six fractional digits for Bitcoin, two otherwise |
+| Amount Received | `amount_received` | ASCII decimal amount; nonnegative; at most six fractional digits for Bitcoin, two otherwise |
 | Receiving Currency | `receiving_currency` | Required source currency code; canonical codes come in later staging |
-| Amount Paid | `amount_paid` | Decimal amount; nonnegative; at most six fractional digits for Bitcoin, two otherwise |
+| Amount Paid | `amount_paid` | ASCII decimal amount; nonnegative; at most six fractional digits for Bitcoin, two otherwise |
 | Payment Currency | `payment_currency` | Required source currency code |
 | Payment Format | `payment_format` | Required source payment method |
 | Is Laundering | `is_laundering` | Synthetic answer-key label, `0` or `1` |
@@ -276,6 +276,8 @@ python -m pytest -q tests/test_banking_*.py
 dbt test --project-dir pipeline/dbt --profiles-dir pipeline/dbt
 ```
 
+Integration tests require `BANKING_TEST_DATABASE_URL` pointing to a **disposable database**. The audit regressions create and drop isolated databases, so this test role needs `CREATEDB` permission (the CI service role has it). Do not point tests at a working or production database.
+
 The Python suite covers parsing, file idempotency, quarantine, incremental
 promotion, corrections, reconciliation, failed-publication rollback, and
 Dagster success/failure paths. The dbt suite tests the published database
@@ -311,3 +313,7 @@ and [benchmark](BENCHMARK.md) for reviewer-facing evidence.
 
 This remains a batch pipeline. A live-connected, automatically refreshing
 Power BI model is a future extension, not an implemented claim.
+
+## Repository audit
+
+See [the October 24 audit](AUDIT-2026-10-24.md) for reproducible recovery cases, the verification boundary, and remaining operational limitations. Historical full-source evidence is retained separately.
