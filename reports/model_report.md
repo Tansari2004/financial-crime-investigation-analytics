@@ -1,5 +1,10 @@
 # Logistic baseline results
 
+## Historical evaluation status
+
+The figures below were produced by the original evaluator. The [October 24 audit](../docs/financial_crime_audit_2026_10_24.md) found that its average-precision calculation did not group tied scores and its top-K tie ordering differed from the SQL queue. These historical numbers have **not** been recomputed with the corrected evaluator; the original score CSV and model artifact are not committed. Do not present them as freshly verified results from the corrected code. The corrected evaluator records `evaluation_version` and uses transaction-ID tie breaking.
+
+
 Model: `numpy_logistic_v1`, a class-weighted logistic regression trained in chunks with NumPy.
 
 ## Chronological split

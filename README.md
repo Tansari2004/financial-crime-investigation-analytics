@@ -69,6 +69,8 @@ The business question is: which transaction patterns merit closer investigation?
 
 The chronological logistic baseline was trained on dates before September 8 and tested on September 9 onward. In the later test period, its top 1,000 transactions contained **199 of 1,611** positive labels: **19.9% Precision@1,000**, **12.35% Recall@1,000**, and **0.1016 PR-AUC**. Test prevalence was 0.1865%, giving about 107× enrichment at K=1,000 within this synthetic test period.
 
+The [modelling audit](docs/financial_crime_audit_2026_10_24.md) documents corrected metric tie handling, stricter model inputs, atomic score imports and dedicated CI. The historical performance figures above are preserved, not recomputed using the corrected evaluator. Re-evaluate the original scores before treating those values as verified by the audit.
+
 ### Power BI report and dashboard
 
 The **Financial Crime Review Queue** report was built in Power BI from the top **10,000 ranked later-period test transactions**. Its first page is a case table with review rank, model score, transaction ID and time, model-derived reason, amount and currency, and sender/receiver bank and account IDs. The second page counts those cases by payment currency. A **Financial Crime Investigation Dashboard** was also created in My workspace; the verified dashboard tile shows the currency chart. The table is verified in the report, but has not been verified as a tile on that same dashboard.
@@ -118,6 +120,8 @@ psql -X -v ON_ERROR_STOP=1 -d financial_crime -c "\copy model_features TO 'data/
 python src/financial_crime/train_model.py
 psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/model_scores.sql
 ```
+
+The score loader is transactional: missing scores, unknown transaction IDs, or split/date mismatches fail the command and roll back the import. Tied scores use transaction ID ascending in both ranking metrics and the SQL queue.
 
 The model processes the CSV in chunks. Model artifacts and large generated files stay local and are excluded from Git.
 
@@ -213,3 +217,7 @@ The two source columns named `Account` map to `from_account` and `to_account`. A
 ## Responsible-use note
 
 The IBM data is synthetic and labels are not real-world evidence. Any later model will prioritize review work, may produce false positives and false negatives, can drift, and requires human oversight.
+
+## Test the financial-crime workflow
+
+Install `.[dev]` and run `python -m pytest -q tests/test_financial_crime*.py`. Unit tests run without a database. SQL integration tests additionally need PostgreSQL 16, `psql` on `PATH`, and `FINANCIAL_CRIME_TEST_DATABASE_URL` pointing to a **disposable** database/server role with `CREATEDB` permission. Each integration case creates and removes its own database. Never target a working or production database. CI runs all cases, including a fabricated 100-row training/scoring/import/explanation smoke run; that run does not reproduce the 5.08-million-row performance result.
