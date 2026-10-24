@@ -1,5 +1,7 @@
 # Interview and learning guide
 
+> Historical-metric caution: the October 24 audit corrected AP tie handling and top-K tie ordering. The performance figures below have not been recomputed with that evaluator. Re-evaluate original scores before using them as newly verified claims; see [audit](financial_crime_audit_2026_10_24.md).
+
 ## Thirty-second explanation
 
 “I built a PostgreSQL and Python investigation-ranking pipeline using about five million synthetic bank transactions. SQL creates behavioral features using only information available before each scoring date. A class-weighted logistic regression ranks every transaction for human review. On a later test period, 199 of 1,611 positive labels appeared in the top 1,000 cases, giving 19.9% precision and 12.35% recall at that review capacity.”

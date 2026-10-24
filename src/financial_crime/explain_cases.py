@@ -85,7 +85,7 @@ def explain(frame: pd.DataFrame, model: np.lib.npyio.NpzFile) -> pd.DataFrame:
     contributions = x * weights
     reconstructed = sigmoid(contributions.sum(axis=1) + float(model["bias"]))
     gap = np.abs(reconstructed - frame["review_score"].to_numpy(dtype="float64"))
-    if np.max(gap) > 1e-5:
+    if not np.isfinite(gap).all() or np.max(gap) > 1e-5:
         raise ValueError(f"Explanations do not reconstruct saved scores; max difference {np.max(gap):.6g}")
 
     output = frame.copy()

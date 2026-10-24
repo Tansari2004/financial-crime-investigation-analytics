@@ -1,5 +1,7 @@
 # Resume and LinkedIn — SQL + ML version
 
+> Historical-metric caution: the October 24 audit corrected AP tie handling and top-K tie ordering. The performance figures below have not been recomputed with that evaluator. Re-evaluate original scores before using them as newly verified claims; see [audit](financial_crime_audit_2026_10_24.md).
+
 ## Resume
 
 **Financial Crime Investigation & Transaction Risk System | PostgreSQL, SQL, Python, NumPy, Power BI | Personal Project**
