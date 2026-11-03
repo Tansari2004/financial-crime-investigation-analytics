@@ -1,0 +1,939 @@
+{
+  "name": "Banking_Analytics",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "DimDate",
+        "description": "",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "isHidden": false,
+            "formatString": "dd MMM yyyy",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"Vc6xEYAgEADBXohl5u8RhVoY+m9DQy7cbNcqGZk1Zg3Kvg6m2czb7OZjvuYwp0iYXuEVXuEVXuEVXvGv9gc=\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"Date\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"Date\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Date\", type date}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimCurrency",
+        "description": "",
+        "columns": [
+          {
+            "name": "Currency",
+            "dataType": "string",
+            "sourceColumn": "Currency",
+            "summarizeBy": "none",
+            "isHidden": false
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimCurrency",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"Xc5LCgIxDAbgq5SuvYTPjQhDi4uhzCK2AYOhlXbCqKd3aLsQd9+fhCTO6a2UOQMTRHVIzJD1tHF6R7NPFJszfIiVQeCa9xAh/M0fJaeKC77Ir70BSysYuTF2PbHJggRSht59o73jAzsXKkWdMkRf8/WshiQxtGB/b47Y/hsFVkxf\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"Currency\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"Currency\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Currency\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimFormat",
+        "description": "",
+        "columns": [
+          {
+            "name": "Payment format",
+            "dataType": "string",
+            "sourceColumn": "Payment format",
+            "summarizeBy": "none",
+            "isHidden": false
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimFormat",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"i45WcnT2UIrViVZyyixJzs/MA7OdE4szIIyM1MLSVAizKDUls0TBObEoBcwPSs3MK0stLslNzSsBC4RnFgFVxgIA\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"Payment format\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"Payment format\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Payment format\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimFile",
+        "description": "",
+        "columns": [
+          {
+            "name": "File key",
+            "dataType": "int64",
+            "sourceColumn": "File key",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Dataset",
+            "dataType": "string",
+            "sourceColumn": "Dataset",
+            "summarizeBy": "none",
+            "isHidden": false
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimFile",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"i4421FHydPJVcPT1UfDw1A3OTczJUYqNBQA=\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"File key\", \"Dataset\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"File key\", \"Dataset\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"File key\", Int64.Type}, {\"Dataset\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimRule",
+        "description": "Disconnected selector for the Rule Hits measure; no relationship is intended.",
+        "columns": [
+          {
+            "name": "Rule",
+            "dataType": "string",
+            "sourceColumn": "Rule",
+            "summarizeBy": "none",
+            "isHidden": false
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimRule",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"i45W8shMz1BIzM0vzStRitWB8jPyS4tyKhXKUnPykzNLKsESQakFqYklqSkKySC1qUUFiUUgmVgA\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"Rule\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"Rule\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Rule\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactDaily",
+        "description": "One row per event date / payment currency / payment format. Full source daily fact aggregated across sender banks without a row limit.",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "dd MMM yyyy",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ]
+          },
+          {
+            "name": "Currency",
+            "dataType": "string",
+            "sourceColumn": "Currency",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Payment format",
+            "dataType": "string",
+            "sourceColumn": "Payment format",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Transactions",
+            "dataType": "int64",
+            "sourceColumn": "Transactions",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Alerts",
+            "dataType": "int64",
+            "sourceColumn": "Alerts",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Synthetic labels",
+            "dataType": "int64",
+            "sourceColumn": "Synthetic labels",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "High amount hits",
+            "dataType": "int64",
+            "sourceColumn": "High amount hits",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "High velocity hits",
+            "dataType": "int64",
+            "sourceColumn": "High velocity hits",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Repeat counterparty hits",
+            "dataType": "int64",
+            "sourceColumn": "Repeat counterparty hits",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactDaily",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"nZ1r6yXHcca/itDrMfT98jJREgIhYGRMMMYv1taClyirZCXl9ulTz9M958z0dTbY1vnLnJo501NdXfXr6qo//vFbo4z5jcq/Ufrb49u/+fXnX758+PHTh8/f/N1PP/744Qv+v+/+8dvDmJwOk8KRD2sP48Ohlc9/Oh7If/fh579+e+is/RFsPNRh8xFUPrTW/tkF/vrxP379+O0RTRQpa7xcQ6t0aOPkj2Tjs6t8+fjDp1+++e7Dlx++PVyUJ0jByJUUP3VQ9tFlvv/46fN/fvz5l3/7+PkXeSr5SeEwMiT4SV7+PclDPrrQv3z6gmeyIpT5RFaexR0+mE78bz/98pefPn0+34Xnr+Z/Fl99/WW1k2G3Lsl7k3/xhzUqHDEOHvgtXX6dXt3py4f//fTjN99//PDj+cO0NvrQLsn3jTyNyYf3O8GiHTmJWkD4MPKHvFvv9E6waoVNThQrenk4eafBqiNHu5O96oKx0R7OllHFZ3J5I39XghA1poODeDy8/PidfBldm8zBV5+PlA+T+1/93YfPH34YTEYrj2yyaC5uaOR/Wjv/QPqciqKpPhoZMSO/12u8uCc3f0/EBFWXHyATB88ODRblNU+ucZ+G2RxJ7AEUjZ8+uwcXaSahNREal89JaN3xaDDrFJRB0DHyPWhRBR/6ofz7X7/89Bp9ZbyMuo/hkKGD8hhRIbmz0mEm+JpYbjGj6nfrS5KpI5qkRB+dGF7RUBnfIyvtpnL17fgctTyJyvhRMrwiq+XrFjMz5qn09b1YmULmELXOB8aFf2gxHXom3bwQHYJMA50iTEGWP7PYxRSnj1xehMe3dNCYEjI1ZASMaIjqb/rPH//701/kRf7248+vt6KTlsfNYugOmNSQhtO4kTyHWmuZ+FAfI3eUkUpmL1pHO8Bo54yVJOcjaxhAY7bSt9GOYvsD76/4qY3a3r8ZcZWcvOAA9UpaptIRw+4K56Bj6UmcOvKHmDDXS37/659//PjSfwdjrZSsQ7A+Hit5UFOZMsZGwzhDjeRxjyCqLCYnzYXq6CYYdxlQWbQ4rUUJZbqpgSK+JK8j661Yp2zKMoZPmedxKtoMqXNGZp56WRUVRkv7KVxGM2mI0BtIcHmOMPyp//7xNZrWiO23MqJBZris0tB7E6cyL0OyWprPL9ehDzKXRaOhXO6Icjt5tIVQHXqtIpQ5ilbLbxJjp4O8auPC/IFuYy++HtYleIoYDvxhtJ4/WTP6Mp1ljQuBsnIhBzWbS5fhzxkKSWXGuoin7R/0dx9+/eHTN99/+p+L42LlRlqsFZwwrkLy4vxGshoPI+/OabxycV2c0kdUaSdZh9hFDe9T1FqmxpHg0uqBijXCN9OhsJSHsqrgUyttNhe4D7TcFdOKZl4U3IiObOTLULts6OFx1RSzaUcj/deP//rxNchWiULYBEdNbmMtFqRBBPASqtobYY/xauBZFR8h2YXUS32dLH46yRwuhlHWMI/AJS9kb/orCzA8G1f1V/4wxizu3CpwgMMdqIxY15ysMYshqg63gn0LqsQDRn6BzL9e6L8+/fzzN//w5cPnv7wGF3GIgxsm67YYZgN9HkRGd9FH1uQuUt6KNRZWke9fnKGcEbz4tJM9340MpMZoKrybhJkTLNz+7QWuLygpDqtJ/N38w4jJ2lzi/paM1TJu1jMAS4l+QwibS9RXZWSMJbaqxgaLf+yn3u//6Zvf/vTr5x/ek8BbhCxYPMXuO5jVgdt4EavTwMtCmAzMoXdQChjxuJSrg51lnZVfaBD90YoGrFESeyyFbzNBeVhyW5SEf8gat/zRzVwIUSJ3mcllIZAZHPHKVxeo9jzEugaIqhhxB+Ng6v/+d014ZJ3KEhnJIieGQ6IzWB3HpWzgFF2lX9NhFWFfBc53E8Q3SFZ+n9xW1DkphGTisG+kzzcUHN6nrFWZqw/CdfGg5ecbZwaLye0a9yU3JURjAUarWC38aSQs18urdKbLiutilaPv4/AwQUy8TJb1+J0vTRxwcRIpjHnugBuC7deVP3x8MQ0TEUuJDyvzwmGpgC/qJxIvl1I8GgQKEsPKshXgN8eZyOlQRswGB2cU/Eju4vXYoaxyN3dSxvHILtFc8jPGmWDrTKaAEDWWCQRuhIGdyFZfEkOuY/HM4YeGgZf9h18/vMZQomk4ARrfl4BYYkf6fjOZc32VRSOLg81RTPAOfZze52XBtcICAH9LxjA6WH9RtGDmd7sOZFQYegPuQiVBDG31VLax2UqcQ9EVisqcw8oc/PQnnwtrlPecUvHMjdgEWZ9vImaJPz18X7jPtESOMZp7JF+H2Yr1k1iWbpq8SUN0+OwCp+oGGWJRGrwqjfDCwoy2TrF5gj89Y3IN10jxs4M3Zkktk8xow4dB0JjhNNpOvKGWdmJTzZhayoPRIohCJlgwcRjFlkQ/GLSn1NJMqKWJHFdosmOUOXyaAbXUohbiPFhgS/EFENg2hsRMsaWDAy3moyhENAhv7Pa2N27J2ZfL0+IzN+DKTLijE9c7h5M7Wt+P6Iw7JnA2rKniYNZZkJ9I1zmAMAl2mpw0lMHWT8Rfxhs2l5EDLBAMOFa36J9co/FogP99xf+Alzk8uMgZ5IstIO5FgJzhYvQv7kYMZYwRj4qcvHAwCaPxECoNxv4pMTQdMczRwjsUey5aKRGTF5sKdKHCVPC9sxJoVOTdaliGsjsDLiqXm0rfTIpYZewqwL2DSpa/vI3Tm5fBDD5wySkroyzKDr/chX5gRtRPFnzxNWjIQHdkJchJ7yRfFFyWPLHmGsrsJILJ2WxFT+qXEVFqSiMQVnQGtNvK3+m3BO/RlU0ofOoWrpgZtQvEYjCpXAdk9PtV4A7tErROxkc8VMUIU9vgpjKv2Ft+IOGgGDlZtPF25jd6+bMJkbPMMW4PiBJ5paj9c8nb5IywqIiTVEFveLdKT4Wr14kAx0CL4HKKtxSjGohcyZsXTbNE3DKasrzIGxxMlcfkzXTkTSwVfCsoiSz4CTwsmjQXejlXOYAeYncTnjdCZA/nxc5F74Gx5uaoKeTC0FZHPRU+PSRZQhBj0awZUa48cC1G8Cxg/ZRfbCo8QwAUNpJ1DgZRD8cZAPIsby65reS5zRHEC8wFXIkcAKVELTvhO3fHzMllFfBkJwOfbgS/fLCcdmXXVnxZ53sr2dAvrHcADYEBjuZOh54LVQ1yssxl3gmEUN6Q+L6LW70Jiw3YDjFE0WCw5LijVW5Mv5KNUB1fjBP/kP+ZuXRVIvGzz4jdcmcyq4FQz6+clR/pMAdlrihujRo1MGpfya/MhF/JsGKJowsbuUhGxpM74XN4XVbQd+yzHJUMRhgUt7vAdYy1wiyTNbIElPzDyiK8uUYdaSuzzlL9sTuiB3vAZsSfEO5hu0Ej1UAuQE7oVnJVE+GxJOoDfCfqr41LuZc5MwjSKULSrLFfLmtLXkrf4sVAFhtOFhtAsAYRSweQNJizcb4uC+IPpTx42JYgOQV/yFkmmUh0I9pBYyFR7uhXjxDSym3rEZKVORNkrmCSHz45RKdYj8zAoo0QkiyzFttjmSs7vCgA4KRh+pNJm4vcF48Ec26wfBeGxD9lKg9W/h7+yIBn5gdxHZEoU1Qcg576Ub/QHyt+HG0idsAYpmun7ETi9E0kIo/E6/J24KiI9zS7yZu0Ya5h557PBRFM44HfN6A/gVulCuTmqH8YFcJEtHolYmEMN4e4MQg230/vK8PxCOq5t+JhBx1RWlAzmUcG8MZ7rMfKnnTZDcxQmjR6iIb3GHgv4lYRPmCtBf6yevSSBrwncXMee7ccOm7iynyayZ6AHXoXfUU2UGzVIEG7YjYhI7lFJmI+HHzf/Ei0jJLHZPeuAg6H1Ldndz4HzBiMDzc/ZVGzBmA4PbvCbYlIXJgi3yw+nXn2GGUIERl5ejdwcXXoZRtIYyZqZMeQJojLdWDCc+cwWtqcuJBcAxo7BjTYJeH2BZYO7OVthE4DYQ8qj8TnhOo7qZcpxVvjlioIBfCw9zvZ6zvL3jMbrFgJ+gYb8XPz+mDqi8ZH7JVlAmWQ7IM7AiiLX4OtuQeiVc0D6WvZxJXrWJWfyL50HIkgtG4WXAhbWv6J/F3DuXdYNByfbjBcMxLDZQOicIWwbd9JXjFMhOFysgKkfIjPZjGtozUzmXcC5UJdbwTGRXJdkP4Drjr2Fo1vlnDb4xcZA8Re2SA8NwDVUeFdLiRvQ+g9EZYKR8k8wR8h+plwnYQB8E9jxstKiCwU8c16mRF18dy6xHSk82kGGjdELs4XNSO1gA9o3FbwNURYbrncIytHjJqN+7veRglvnolsGKPAZ99doI5UhLsKLcfTattrwQ21ZFFKHzijCBacmX6/DEuImAFIx0TGAtz6qOci5+QTTxSrAX6WTIIMt9HOpW7gWOFmoUQd+Gzpke3oioSTBzdcPLK3xWMYfP+CVrSW7+Op8GDwz0bL1mOwYjuwwv0HHWqWhHjpTse5yJkojCQDB98FZtKJGxTiQuo2Yk7BOPKG2MJH9uxUso6YrD10IGQFltE2/cwaoBQH++2x2MEOHGZgjkcYxYqnw60tj8w/o3b3eoexyOUv7mlNnrR6J3ubU2CQ2DEpCSt03TfydUpJZGBhegKMjx5ox52eiOdn4WIAuAfsHojxnouUUUFuMXQDcQgfzo0GpiUnFii3JIMCC4vLHvRK7K4mFpjEl4kln94uRKueOD4PjIuDLz4YiZ6WaIv9IkWDYZDldnjtNoKVuCnsKoPt0KUSO+UH6+2YeljYYE8bLOPjZYqnGHayN+AGhmCx04BLyGcMu3vXTHmk85bkEzhzVvUP24IOCUTFBDEPQmN/UkyxXQmdhgV5SSXIoffsVFpKvbTGIBsWQ+OQQptwKGApeNcbLKSp2D98+sG4dmwDDleoDi5wWz+UHdfQGh5KjECdludOENM6N3COh1BjZaF7qBEDKR4SnkiFJWaUSaj1+oe+h1RjagTxNTJ5oBgr5EmGjfh9YOEdG6Q3EAHxjxjd8gqn/QYBotJha9hBL1wveIEYSX6jmDV6RQj+4uzb56rv6FnQ94ZS++n3X0u+Ulzpy5If8Cx5JnNf8ENmOixWIxyacgPP8ootsGVQ9mm50av6Ib8yCy4j0ZA7MeT2Os8E6jRDCpk5sYjm8ZupxKkPICPeMZrVTHWUAH8qdHt87IuW1bt8jiz6DT2YTB+B7k7oppZbUYcIY4x3mnGFljq4PXVwZy4+2Z1/Jv6KyOAYM0MElhZLZbMgu2fUIQBbqUodVOe+uS11cMUd4aGEXvbhgTY3pQ7IBJRnJHWAuW6pg/sK6uDG1AE5eXJpMEnCbrcRulCHQKOMRbYxrG5FHTI30XShDr6jDm5HHRyPKBTqEDrq4BbUofi18hF7ZZlQhyT65YuDH2iNjHogeqUOulIH11EHt6MOhum2hTpE01EH94g6aCb806mQTzcYrhV1KIEXnVff//o7dZDf6hAPJQw28tZgkGYyW+rgJtTB8owLqEPwPXVwQ+oAvwGIOnHPzgQ4A3oh2VAHJN8h75w6hz866uAG1CFxt6pQh+x66uAm1CFgQkZ4Ozim1bIDt4YOvmrbM8HXCAFS0Mcy3MnooIPbQgd3wkTFzxY6uCV0sEXJdAcdXAsdYijz0WPdcR10cGPoUOA6Vu7YQQc3hw76hA6mgw5uDh2QAl5TrvDZQgc3hg62rMKpgw6uhw5IsaRB0nBs4TBOJbYurZtAB3/u5cQOOrgxdJBVkHgTbiQyluNCqoEO3A+GacZWSwcd3AA6uIOHRxw80ZGmj6BDQGgM7sCY3Aw0dAYdcnk7MqVb6OBW0MHXTB3GWLqDDu4JdHCVGOMI4sDHmUIHW6BD7KCDG0AHedHI9OCaTM8qzUU66BAZYLnRwAygA2IMvjkcE3Kdi+pW0MExkOfEQkBvF6INdHAj6OAm0AEeKXYm8WBwcryxG7krcwjxZLeuYw5uwRxkOvvoSmDt5de2zMFtmYNhrETnXz5b5uBWzKFsgMOVa5mDGzEHrDOpeO8SnohX4cNK6MocXvMhdMzBTZkDeCY2G2xiFlUYmPAFc0B8oQqrSqpjDm7GHHyme4t8/0FgNGAOTsLWiIMpNjJr3OOomrN5KfvIQE+Zg6XVRIJyxoql9fqHXpgDdoxRnQRrPaLfHHrm4DbMAep+Ztfzj445uAlzwImIN3PAeXTXv5Urc0B5gIBgA0jODu7SIYfC0aBspmMOrmcOCIMs1y9kJ4mL0TIHN2MOKDBhywJhsP898Cs75lDWLsTcqh/yG3MIMmOYVoT/imPVMgc3Zg7n8o0QdWAne+YgD0xLKb4u8EvLHNyUOZjMY0yFOcShQW+Yg7pssbRTy6+YQzmihQOCdH4ss4kfiVcDDbzlmJ8FbJARq8Rn8q9kTOx4mZLIfCQUf2izjvyjujwKcWWsKZnglO3U9Uv04BGQqQLVcAawiSz984wHP2YP2mmiQDETsSAaHIJ23q9uVBeU1Z16/gCPHmZZngRWQe+Eqv2Lrua7aYKrzv/wUwQhbpRMCp53huMdANjCTvY+5emw1qWWPnjayL/d1nNVQTp/LzWhENrzCLBiAMst5TR43GkdHBayQHiI8A65lC1G8ksS4bGDnnAwDPSTgbBVjy7QqDzLHRWVdyzGYx5cpCq8KHsumwDyY5zqX9iVRcgKrJi57FjSwpSKAw6nKKeC24xG3x1E0Rk8G6c5kZOPolPJ4qDHXO5VEEFlHB1JPMMYUEwBx420in4ue/P2LM7YuRxLKgT/yHZgiW5QwgGbZktsJ+OIhdENfuyw7AycjMwdjlwKKKSd3DlI2BbO59lmnAhvMlP9HEw4j8iEq7LH6ofX+eDGd78YFN2VZEZ8Jh93F3gfH6uIk6+5H6gbmdCBKameySKBp1ZSQ1F8RydEKS38MDpQ3H3JOs9lzlM5TKtXiNRgM3MiTvdzuds8BNsIuawHgdUt/PyWZ/EcpjWWdwjn3yU3ELlACqMCM9uJsDIJjFbZT4W2brDv670gmd0nX+x4OQ8c01zoPAOGY23I86R7GGtRr5gWkvdSOzhcxIoOip+iX/PHqpW3iGpsQXMOzKJ/tgGwSMUkMBnHI5Or3fz2s+MmSoE261LoibHMYK0ZYwtaTiSCM0QPSNXyYSd7Wx2R1u3q6ojPaHfyZ5k4HG9h0hQLL/XGrMEWEWt4RkxgbNUwuxA6T9MrvADYA7wJrBDap4XUqTYIsFgLTpcySaUWnM0L0ZveIFWcZZNYugp7H9HMZavi8LDcq2hVRkjZy/QIw4B6sngl5waqkAz91K88ZeIn4MOghFsk7BYtx3klbcNW9MxV58z1keWXMC4Oka2xbid/P0uH0/25VizAZ7a7xz0z1yOPXXOqoJLVSF1bAGI0RxUZPSWIUzwRtJI7D2OGiMiyppYgflAuL+VO/bPlsBuibVS6Q3yr2zIwfgFCPJJSYi5bQfjULTf2IxLC05DESrqkirdxsR/BEGNxukL+GbjHBzMAAXpha/H3wfiFEvY8ROwARjZETYru4GHy5LFya+lzeCWywfj6RBCWsF2oGd91J4P9iorIbbHPxEMXPHTNv7w2cXmNeto1ozxX4aPc47Qoshli/wgXNKJho5FYEbiBAjdNzQROpwNpQqxSQ6cjiYSfSZwuBw51yKMhiMB5RCAnN/1hd4cDXldg3CN+IzZvTJgJVncj6po/y/PZiNH6718gidUo0Rm5w2vrgX3v4kzmWlaFOX1IkVS4pXdTmfNoPpZVscQZVRQKhMBZxTwXvNejwOEyVyogJhYpcmEmWedf4FJRj2CiBGzjiIY1MYFpcrnU8yjExD8SvxITlmNijO06YhK2xERMVkZWFIJH1l1pV6LwkJiIk5dLWjM/W2IS9sSEVazgVOUOmYTnyCTMkIkCpDY820Z6wlpoPuiFdA01VncaIBNDF8kAmbgOmYQlMtElA8Jg5iu/E3wjk1ROa82QSdghE3giuhwWwWeLTMICmTA8goffIZOwQCY8xxgYr1pW8e2YSdgzE5LtyCJ+LTMJO2YCz5m/PHG3rGMm4REzkaGyhajhs2MmYcNMznTp0DGT0DGTxOq3GDJkAWD9ATsPowd/ykzCiJmw/CdUAalx1gTdM5MwZCY4hpywiysqgcgXaUQdMgkLZIKUNef5a/lHh0xCj0ywPJKME5mwll3/CsbIBNhJ0RpkVmgzfid4ZSaMhcBMkGHfLDBhyUywJ6cqM8FZNWXiVrphJkhDLbMVn8lvf/mFmdRc3dQxk9AxE59YqA++JY+c5G7bM0yYCTeCYcQs6rikucybmSBwQ6RIZgLXrqUYYcFMUC+x7HLgs2MmYcdMwjG+25WZwCMhq8SWCo/KyEplpkLbeC1MmEkueelipELPTMKQmVhGkOHNTJDUO3AFZsxElzJvZCY49KvtVPTCTFxNZ8JvTf2zDZhJ1rZkn2GTGWHAwEmYIhPDPA8coGfN87STfCMTJDKIzeTeffIdMglbZIK97ZJghs82Bg0LZMKcgcTppnpjdkcmRmHLrSbClfPNLTIJU2Tii6c8RCZhjEy48Cb9QiY48N4ik7BCJg7VT4u3jPijRSZhgky8fucW+4GnMkImGHfDIjTI+TLMnIlxI/poCi6QCcsRqjEyCQtkAuvl6Z3oEhb4HpmEJ8gEhzAxxxBx5ZEqzJAJt3wxlSfq2iETlTSridXJCXVQaiV2JSaloDr2jwbEJEyJCYwW6+aCEtMZbIlJWBITA1JSlkF+tsQkTIlJeTeleJUfqNGAmCjkfVrCaMNK2wZNEZDmGpbiW2ISlsQEgQoNibeYnh0xCVNiAicMp4BzISbwFxPzplzeXKIhJjDVrPRYyvrjLxn79VO/iElmObEXMcFWcoj9AFyJSUSFKtb6JTm2qEgSJxJXZJJs2UJFqm0eBBMtMqHHgWCrIBPXI5MwRSZiFHisMhwBOt8ik7BEJqpDJqFDJkwqB1tgoyPHZHw9k7khk3giE9sjkzBAJkhiF9euWCvUXIGqpDwXbJCJLFe1SBo+O2QShsikUPPydltkEpfIxJba60yH9PRB2iyT+ISZ5JOZpI6ZxD0zQTsRloJwqOTTM5P4VcxEzZhJ3DOT1wEG2zGT+Lz6aZwxE4Q5BgDd0lZK2Ml0wpX0Os0kjplJkudA9veRWW9G74QuzMSqmmai+7O1cZNmQu+Mh8pdx0zilpkYpGMWr1D1zCSumIkuaSY9M4lLZhIKKYGVE9ewQyZxi0xwDoBpJjhTpOMT6Tcy8XxNimkmmIEtMomPkIlnuUvqPEMvYx5c5EQm9YQ5k+5aZBI7ZBJwNARVb1jvK5fiZOLO2TgT3CKTOEEmiKFQZMWVpgRhNEcGyCSjN4jGMoJakehu1yOTOEUmAeAoy4jQ+ccfHTKJgywT5E+fWSZB98gkzrNM2GCq5G1in6tlJnGTZ2JKazUm+jYrTFwyE8tzN5AqexRtnkncMxMUHyo+GD7bPJO4ZCZl33uQZxJ7ZqKL/1xiOI80EzMVuaWZuHLAB6W188AqDJCJIoEoyESXPhTJzwUbZhIPtNfihLYsGKOnohdmwjKZzNGIHTOJHTMxLFJM35FxReyZSfwaZhJneSbMGvWlJGbLTOKUmaCIRo1+jR4wk7hgJpgApraMGzCTOGEmbspM4izPxDOphy0akU7qtd7INXkmmtCEuCXtJG/QhA1JJK4b5ZnER3kmruaZuC4Kjas8k1TyTEwHTWKfZ8LidoolFmrAK0ujm0tdqElgKTiZbyA8HTWJE2rClS9Tb7AeY1u3pSZxRU08+wepV6/BgX0YUhP/rgPnB77KiJqgqDjDiFiyuaHno9t9HTWJS2pSku1hsFNPTeKKmiCDQYRsoSaeRctGb3JFTRgk1zPj/KPjJnHKTVKtQsNUE+xg9Mag4yaGmzFs2YUNoMj4zqzkbuCElfnygWqIHTiJU3CCiIO/lH1WEBzGgU1YpJqUmv+2FEjvwUkcgxN9KmEo6G5gZgfghEsA4kvYPEc4xa2y4NRSfAtO4hKcBPaZRXKdY25EC07iPNUEbb5M1Kzzk6DFmjmcHTiJG3DCFo7QaoIT/tWBkzgBJ2wGUQ/JYKcCh1xD6hXrCk6Yt8ZK4myzGdAHciJwSzXBSNHx6LlJHKWalE6epcfjMNUkTrkJSqfA5gYmMXbcJA65SV0yle+4Sey4Cdtv2Rc3od20M5kbN/GLVJM4TDXx71QTHCCHY5zyXPDOTRDHOVdTTVzPTWLPTTTBR0016blJWqeaIEESOYfuBJ9trkl6wE28KadzcLXWWUp7biL6wspnot2ZNcubaCU95CbYYi71rUqB4IabpAfc5OwZ2HOT9JybpBk3sRaLSfI1pZhOanc8J31FeZA0yTVBuQxEntgA7bhJWnETjoAO9ayn3wneuAkdNJhzxGONL5IeHc+x9XiO7bhJ2uWaDLlJWnCTwII2GCPs26K+8+BxN6kmqbSpxnttuUnacRNTCWlU4+M56fHxHM/FEJ8dN0kbbpJLchUyhVT/wu7cxHO3n1VzLM/GazidofVy01dwkzTjJpEHn3A8B4rYcZM04iZgXzEaxAg4xRuZ69txkzTnJjgRn1FSndxE/ui4SRqkmmAjwlVuYhHQDubzmJvgWGI6WJgqmY6apE2mSTi3vfvTOWlJTQIzTQypiXV9pknaU5NAAFIyTWyXaZK2mSaJWHewUt2pSWSBEmZsmxIlt9gkzTJNzkRZazpskobYBLGbYl0xLENsQpDcXK6jJpjQJXNscDonTTJN7Jlp0lOT1JUQQRWlkrVeTuc4tkWZCm0DtjSmJkGrSk3QfLelJmlITcoxi0JNIluV9NQkLagJzGelJnpATdKAmpS2y+V0Dkq99AMxagejVDmwwAKmaDTmB8v8ApsgHYbYpM81SStskqqHC2zCGbOVHWCTclICn9Hu5C/YhD45TsW12CQNsAl7FrKMkRvnmqRZrkkpMIkk/tBTkzQ5nsOz2P7sYq5Zbnuwnsyoic/sTF1yTVJPTdKWmoSOmqRZrglaVmJ4Sg0Aw+rkfiP6aBLOqUnpYYwjf66nJmlFTRgVuFeuCargtNQkbXNNQp0wHCxlemqSptQEB2z8mW2C82T9SA2yTQKrMrBuejm7MPACZ9Ck5GGJ+pkemqQpNIG1MjwgQfoQemiSttAklaKx/GyhSRpDE8fuoDXbRHfQN03O57BPDNMvcT5H12IisuSZpfgWmqQpNEHCIYoOl/M5No+gSZpDE6Aow39q9hsRPzuMoEnanc/BtqYsE6zPjj96ZpJmzARTtqT2kJnwkWL/lm7JJsx2cCXpnrXR8sA7H0CTWN0O7zpokmbnc1CHndAE+VUtNElTaAI3zhVoEgfJJmkITUyFJraDJqmFJgCKppyssqXdu/ZuKnODJqpmHTK9yLupzBuawEbp0pMPoZD2PTRJy2STWsYOnx00ST00YWnEE5pgTb7P+bzst2tYmZyT17BClRjc/Ej+nFc864Z3AWrPDbvGmcgbahLhxutSkzNz+wxRe6PV+VG7XbYud6XWEj/FnX10mTrBeNYplL4J4pH5prBb7rnJLBrME26S0HpDVDFCddkeIKBQU0wL6UoHVncadNulfcOaQJoNr2b0NKNuu+iqbljs4tzJ1lvJ0z1EbmZg9oNHKrLqjE3ewJMg64KNFZ5ERsEb+eoe+lpGLCEsa/t55UWzXZcTXSDWV8UCL1GkfyB9xhloS8gm7Cj4jConKjy5+Uv9uUenoPlAGHJzvLFsnlzirvwyE2NNPMGnKL96cJGzPayqW7c86Y0Uln4Mbr12lWM2daotRmBdA86FRZVngluGkjuGEpA24nDIwvLcljPMqzfTe7yjYAQMmclrntnb2TClJ5v5Pe/LEpIcAlpJ8ugo/tBydzuTrmsTCs/q2oGegQAO/LjBLBiClMRiC6yFWGonSmThd6J1rNDcF8XUGFNjPsSQtqLncCkSiYiUv8jOy7otWpZ3bXZxrLG0LVD81G1Z5jyDKSzIrQpNQQMJHTq5e5ddj+jVojYUj79jvJSbytSZijzQ0gAZbqpjj5w4F3q1g6erZcvZE3gnluXu0lzyvqQjhZI7UIqfotJ6KlrXdIQ8PKRf+nAdYTggtx67IMbMDEDcioag2qY8FdrGcrkHKshAj2y6gaJc9G0Gtrlrsqs4ccrxDc01OfD4Z5yL3lpSKtKse+jm5/etrcMzW+eVlRw5aLZ/XSOm4gjSS9DGE0cwjBvJOvssa/v6mn2I9ICYd5InyMQBv4SYHCAz8oCLtjvhG8ekbld8gM/sw0a+YkzOU1UGClgo9tamabALg4ZDxrnU7GdycJgLVe1J1B62aMY+QerbSOZhg10VsSKXkhU4nydiFg1G40L2pj82YhkoZVvxaZSyc9mzyTUrI57VZbGdN9CCHqzYgJZgDkcuoUSKiq83ko/m4oirWKDhzJ8ZMuwUTm6Ynei702Riux7gcx5GSEh/lrB8d4Fbw8nM9sUx1/bFkf0v4uYSrx7GaNsWa9Vvi6i616OusS7nGU82yLxBLXXm9q/kqgail3tkwVLUI1A8Eb2WOxEUj3J75sMzpkMmo4SHcSl8408hoCh9Kb6DT90WgssjtpKg6upMR5TAIer+9XZsRdbtgFwdQkTD6o4mlcI2IS7FtzXx85CtmIjipRFhNSo9SRCfy1GYQcAxbKqrDF+ox+YTEjsMBzk79vNSfn2R22TXZSsBl6PB4F86B7UetzrcsRBjDjjILzY1oxmM+YWvmMjOfJksVdVNDesnInXAAAUCa6Q6pHYy/LUzkRdZSExuc68zsInpGHEmd/NCIkooYlhZPwWVCczshtUHsa9kKM9tiTCYnFfI4pDixWLHOLvN2K1jrLmDLBnJgmwEJXOK56LcIPRpu+RqUB8dY6lMjmqsaB/qfJpK3rSEzouqDen5h8zm6dPVJQEd3/Q5F5Ebey+7ptWyWw3SAFiajytD065mKjtsV2PbdjVz8XeTXAQEpMqoeODadjXzKzTtarBNm2u7mty2q5le5dKuJk7a1VD2GVtpvnppVyOrdmSBNDbJtV27mkZyyVXKdwdNckt3DPSfYqDuNkIPmuSOpG7tamKtpqyDadvVjGTv7WpMRaWqduUwG/F3u5pY2tXEpl0NZWbtanBeg618fFE19UDy2q3GVC1HtqnKT4Tf7Wp0rTnIk4W2bVczk2/a1ahaubt8usFwLZvk6tL7K7Xtaih5a1fDrKSSzM+CQMzAaTI8rlK7xfn63VfDGsQwPMaZcima0DasuUmdSpcVCmei8zj0DfqOwvd6Idk2rIG7gvfPYWQzwuhnwmfDmqzZmr42rAldwxrKDNvkRrYlLm1ykfeldmLXjjWptsn1bR+PoeC7TS5O6/M8bikE3XSsGQoP2uTWNUg+m441ows86FhDsRsrSewBc5RkXxSvd2YqMGxZk9qWNXeRd8saw308lmiyslo2LWvuUk2f3KazhopTyUvLmtJwHYvjPf6s37/mmyiLs0AHs9jRb9DaqcAuHLt9uWuTO+xYcxe5d6zxZxOC2HasuUs1HWvCqk3uTfJS+tuXjjV2qOkDHIJKvZYwBM0d8Z42UpeONXA1ccyr7Vgzknp3rHFHqZfADh0IYuxOtulYo2sqTak6Z7LayF861vjSsSa3HWuK1D23BGFgYGdunE9s+zvcJa4Na2I9XNA3rGlkXkri1bJhTSN21xJkBvlYp1VsG9bcRS8Na2pDSts2rCkCwy65ilsXiFaRcuZHv3HeJNdVKxpU27BmJPlukovOBeznq0dNckey99Q/UvK604RIL+zufTasieW8JPrdiv1RvY72DWtQhgv722ii4dt+Na3MtV9NqvXyePY7LaVeOoP09VjrUnNzfWC/F/1qMjBQ7ZFr2n41rfClR656dRaw/Uj2/WoM/FFmJ4BB4YwwtvLdwDf+mn41ncC9Ry4jYPbIxcTSev1Drz1yIw6wonabRRtDNIZu+9X04m2PXJgXpFSUHrm561fTXeHV41yEyDBdOcpvjO2n5rVfjQR78PyxQ0LnRE2+fW9YoycNa64C74Y1YjNLmjyMZ9ck9yrTN6hjcbcCTtzAr+wa1pjSsCa1DWvKt28Na8T1yOxUoXBwoOlXc/3+pV9NKbFA37HtV3OTePerUayeXLa5ibziVKjpkRsYgdPqmLE973vk1i6vXSsorVfUoRQS6KeI7mPt2WzS4yiYx2YnX58dUiih0Vjmlp2v6i4Bszi6r44igOLDjy/dNElg0tDsm7cU5RKJ8j11Xx04S7YsszOBu/9wqHPE+2/2C2xcjHbfjx0/Y/blzggDRrGv4PD71zwy+1Km/umuE7Akf5QshNsXzfL0Vqmx2v9sMymn8rpJ//WJAvqJ/pk2Mq8lU/iLum8OO6ZOhty06ueXX7xoX369cd99cbRvSWVNkyv3uqdm3+x1b/Vsre6tHq9XPRVLfSFujHffv6UwFmdrfOGr7uXXK77rqF2pXpjMLruwZZP5axtVot02fvLNkSq9p7rrvn9TJbf4CU271one24kuEcHNLv1Ml+wkUFATO21HCuJr1e/xYFy3YHTZpRi/96t+zAzpstP87CEn/czt4usTdXKTedO2uC5d9eLkm0M09tIS233/vjAufvWol+1EpyYtTY1a/fBui3ei2sO2l9zVMHGw3jQtHFfv5eZATu6+7AxoF0JfaUPaXmJ5sjBOO2VNnrNvkTTRukk3oDBZcUf9SVbP1i8E8WUVQvftywt0i997c0Am3wv/n0keBm8jT743ehvvPSzXff+e0rb41SNvc2LJBjV3Fxfujq2svtud4Xhb89h9ezjx7jaorWYWJoo+qRrkJ/o4qRQzU8n4Feobx37Ma9Dur7g9dTwb3Nn5vsmPGJ6nubrDf/o/\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"Date\", \"Currency\", \"Payment format\", \"Transactions\", \"Alerts\", \"Synthetic labels\", \"High amount hits\", \"High velocity hits\", \"Repeat counterparty hits\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"Date\", \"Currency\", \"Payment format\", \"Transactions\", \"Alerts\", \"Synthetic labels\", \"High amount hits\", \"High velocity hits\", \"Repeat counterparty hits\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Date\", type date}, {\"Currency\", type text}, {\"Payment format\", type text}, {\"Transactions\", Int64.Type}, {\"Alerts\", Int64.Type}, {\"Synthetic labels\", Int64.Type}, {\"High amount hits\", Int64.Type}, {\"High velocity hits\", Int64.Type}, {\"Repeat counterparty hits\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Transaction Count",
+            "expression": [
+              "SUM(FactDaily[Transactions])"
+            ],
+            "displayFolder": "Activity",
+            "description": "Complete published daily fact, not the detail sample.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Risk Alert Count",
+            "expression": [
+              "SUM(FactDaily[Alerts])"
+            ],
+            "displayFolder": "Activity",
+            "description": "Distinct transactions with rule score at least two.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Alert Rate",
+            "expression": [
+              "DIVIDE([Risk Alert Count], [Transaction Count])"
+            ],
+            "displayFolder": "Activity",
+            "description": "Numerator and denominator share the current date/currency/format context.",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Synthetic Label Count",
+            "expression": [
+              "SUM(FactDaily[Synthetic labels])"
+            ],
+            "displayFolder": "Evaluation",
+            "description": "Synthetic answer-key labels; not verified real crime.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Previous Day Transactions",
+            "expression": [
+              "VAR CurrentDate = SELECTEDVALUE(DimDate[Date])",
+              "RETURN IF(NOT ISBLANK(CurrentDate), CALCULATE([Transaction Count], REMOVEFILTERS(DimDate), DimDate[Date] = CurrentDate - 1))"
+            ],
+            "displayFolder": "Activity",
+            "description": "Returns blank if there is no single current date or no preceding observation.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Daily Change",
+            "expression": [
+              "IF(NOT ISBLANK([Previous Day Transactions]), [Transaction Count] - [Previous Day Transactions])"
+            ],
+            "displayFolder": "Activity",
+            "description": "Daily comparison at a single event date; preserves the other filters.",
+            "formatString": "#,0;-#,0"
+          },
+          {
+            "name": "Daily Change Percent",
+            "expression": [
+              "DIVIDE([Daily Change], [Previous Day Transactions])"
+            ],
+            "displayFolder": "Activity",
+            "description": "Blank when the prior day is unavailable or zero.",
+            "formatString": "0.0%;-0.0%"
+          },
+          {
+            "name": "Selected Format Share",
+            "expression": [
+              "DIVIDE([Transaction Count], CALCULATE([Transaction Count], ALLSELECTED(DimFormat[Payment format])))"
+            ],
+            "displayFolder": "Activity",
+            "description": "Share within the externally selected formats, retaining other dimensions.",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "High Amount Hits",
+            "expression": [
+              "SUM(FactDaily[High amount hits])"
+            ],
+            "displayFolder": "Rules",
+            "description": "Transactions meeting the high-amount rule; flags can overlap.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "High Velocity Hits",
+            "expression": [
+              "SUM(FactDaily[High velocity hits])"
+            ],
+            "displayFolder": "Rules",
+            "description": "Transactions meeting the high-hourly-velocity rule; flags can overlap.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Repeated Counterparty Hits",
+            "expression": [
+              "SUM(FactDaily[Repeat counterparty hits])"
+            ],
+            "displayFolder": "Rules",
+            "description": "Includes one-point repeated-counterparty signals below the alert threshold.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Rule Hits",
+            "expression": [
+              "SWITCH(SELECTEDVALUE(DimRule[Rule]),",
+              "    \"High amount\", [High Amount Hits],",
+              "    \"High hourly velocity\", [High Velocity Hits],",
+              "    \"Repeated counterparty\", [Repeated Counterparty Hits],",
+              "    BLANK())"
+            ],
+            "displayFolder": "Rules",
+            "description": "Intentionally disconnected rule selector; never sum these counts as distinct alerts.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Source Rows",
+            "expression": [
+              "SUM(FileQuality[Source rows])"
+            ],
+            "displayFolder": "Quality",
+            "description": "All selected source files; event-date/format slicers do not apply.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Accepted Rows",
+            "expression": [
+              "SUM(FileQuality[Accepted rows])"
+            ],
+            "displayFolder": "Quality",
+            "description": "File acceptance count, separate from event-date-filtered transaction count.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Rejected Rows",
+            "expression": [
+              "SUM(FileQuality[Rejected rows])"
+            ],
+            "displayFolder": "Quality",
+            "description": "Invalid rejects; duplicate candidates are counted separately.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Duplicate Candidates",
+            "expression": [
+              "SUM(FileQuality[Duplicate candidates])"
+            ],
+            "displayFolder": "Quality",
+            "description": "Excluded from the published transaction fact.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Row Balance Variance",
+            "expression": [
+              "[Source Rows] - [Accepted Rows] - [Rejected Rows] - [Duplicate Candidates]"
+            ],
+            "displayFolder": "Quality",
+            "description": "Zero is expected; missing data is separately checked by Quality Status.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Reconciliation Failures",
+            "expression": [
+              "SUM(CurrencyReconciliation[Failure count])"
+            ],
+            "displayFolder": "Quality",
+            "description": "Counts exact PostgreSQL failure flags before aggregation; opposing deltas cannot cancel.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Quality Status",
+            "expression": [
+              "VAR FilesPresent = COUNTROWS(FileQuality)",
+              "VAR CurrencyRows = CALCULATE(COUNTROWS(CurrencyReconciliation), REMOVEFILTERS(DimCurrency))",
+              "VAR AllFailures = CALCULATE([Reconciliation Failures], REMOVEFILTERS(DimCurrency))",
+              "VAR BadFiles = COUNTROWS(FILTER(FileQuality, NOT(FileQuality[Row balance OK])))",
+              "RETURN IF(FilesPresent = 0 || CurrencyRows = 0, \"NO DATA\",",
+              "    IF([Row Balance Variance] = 0 && AllFailures = 0 && BadFiles = 0, \"PASS\", \"CHECK\"))"
+            ],
+            "displayFolder": "Quality",
+            "description": "Overall selected-file status; currency slicers cannot hide another currency failure."
+          },
+          {
+            "name": "Detail Sample Rows",
+            "expression": [
+              "COUNTROWS(AlertSample)"
+            ],
+            "displayFolder": "Sample",
+            "description": "Bounded highest-score sample; never a population denominator.",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Detail Sample Note",
+            "expression": [
+              "\"Illustrative sample: \" & FORMAT([Detail Sample Rows], \"#,0\") & \" rows in the current context. Full alert workload is \" & FORMAT([Risk Alert Count], \"#,0\") & \".\""
+            ],
+            "displayFolder": "Sample",
+            "description": "The sample is intentionally nonrepresentative and may contain no rows for a valid selection."
+          },
+          {
+            "name": "Publication",
+            "expression": [
+              "\"Publication \" & FORMAT(MAX(Snapshot[Publication ID]), \"0\") & \" | \" & SELECTEDVALUE(Snapshot[Published at UTC]) & \" | static verified snapshot\""
+            ],
+            "displayFolder": "Provenance",
+            "description": "Publication time is UTC; event timestamps are not assigned a timezone."
+          },
+          {
+            "name": "Selected Period",
+            "expression": [
+              "FORMAT(MIN(DimDate[Date]), \"dd MMM yyyy\") & \" to \" & FORMAT(MAX(DimDate[Date]), \"dd MMM yyyy\")"
+            ],
+            "displayFolder": "Provenance",
+            "description": "Current date selection."
+          }
+        ]
+      },
+      {
+        "name": "FileQuality",
+        "description": "One row per source file. No event-date relationship.",
+        "columns": [
+          {
+            "name": "File key",
+            "dataType": "int64",
+            "sourceColumn": "File key",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Source rows",
+            "dataType": "int64",
+            "sourceColumn": "Source rows",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Accepted rows",
+            "dataType": "int64",
+            "sourceColumn": "Accepted rows",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Rejected rows",
+            "dataType": "int64",
+            "sourceColumn": "Rejected rows",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Duplicate candidates",
+            "dataType": "int64",
+            "sourceColumn": "Duplicate candidates",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Raw rows",
+            "dataType": "int64",
+            "sourceColumn": "Raw rows",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Staged rows",
+            "dataType": "int64",
+            "sourceColumn": "Staged rows",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Published rows",
+            "dataType": "int64",
+            "sourceColumn": "Published rows",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Row balance OK",
+            "dataType": "boolean",
+            "sourceColumn": "Row balance OK",
+            "summarizeBy": "none",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FileQuality",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"i4421DE1MLcwNjGF0MZmOgY6lhhiMLqkqDQ1NhYA\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"File key\", \"Source rows\", \"Accepted rows\", \"Rejected rows\", \"Duplicate candidates\", \"Raw rows\", \"Staged rows\", \"Published rows\", \"Row balance OK\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"File key\", \"Source rows\", \"Accepted rows\", \"Rejected rows\", \"Duplicate candidates\", \"Raw rows\", \"Staged rows\", \"Published rows\", \"Row balance OK\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"File key\", Int64.Type}, {\"Source rows\", Int64.Type}, {\"Accepted rows\", Int64.Type}, {\"Rejected rows\", Int64.Type}, {\"Duplicate candidates\", Int64.Type}, {\"Raw rows\", Int64.Type}, {\"Staged rows\", Int64.Type}, {\"Published rows\", Int64.Type}, {\"Row balance OK\", type logical}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "CurrencyReconciliation",
+        "description": "One row per file/currency. Monetary values are exact SQL decimal text; no cross-currency sum.",
+        "columns": [
+          {
+            "name": "File key",
+            "dataType": "int64",
+            "sourceColumn": "File key",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Currency",
+            "dataType": "string",
+            "sourceColumn": "Currency",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Raw source total",
+            "dataType": "string",
+            "sourceColumn": "Raw source total",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Staged total",
+            "dataType": "string",
+            "sourceColumn": "Staged total",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Expected current total",
+            "dataType": "string",
+            "sourceColumn": "Expected current total",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Published total",
+            "dataType": "string",
+            "sourceColumn": "Published total",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Raw staging delta",
+            "dataType": "string",
+            "sourceColumn": "Raw staging delta",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Effective core delta",
+            "dataType": "string",
+            "sourceColumn": "Effective core delta",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Failure count",
+            "dataType": "int64",
+            "sourceColumn": "Failure count",
+            "summarizeBy": "none",
+            "isHidden": false,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "summarizeBy": "none",
+            "isHidden": false
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CurrencyReconciliation",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"rZXJasMwEEB/xfgcxIxG2xy7XkohJPRQQg9qYqipcYoT0+XrO3bjLhSKqALeeHjkJ82MvFrhrDzpd/suNnVsi/Nt08SunJXGMRAxAXhl5AqQD0EB/HqEWTk/WS7Lu9mgclrv19u6lTcIiK32Sk5r/f9Ayge7+FY3xaKKzTgCsyEH2rBWDg+x+TRB5Cy2cfMjBQHYsnNaBlHBHMIzYYLIRd9tx4l4g6zROXDK0+f0cmmCwXX1Uq9lJebVbjBx1hnxD8ielPaH4HyaYLLo75tqGMADGkII3iMrnFbzKDhJ46kaNMQ8AKHWEIiV3D7CjoITNJax39TFon4de8WR5BTJsf1WX5kwReKheqyG72Ng8hy0Zs+KprB8muLwXO92xWUX2/WwoNbL4XBoNDuFZsIEiZurYr7t282w29oQrEVLXiszlXcmTDFYfm1WkkdpL+kz660ybkpyNk3QuK3asZ6ctDkGzUT4vcyOgFMk+jj+tayUtGx6DrVMYgrKp38b3L0D\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"File key\", \"Currency\", \"Raw source total\", \"Staged total\", \"Expected current total\", \"Published total\", \"Raw staging delta\", \"Effective core delta\", \"Failure count\", \"Status\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"File key\", \"Currency\", \"Raw source total\", \"Staged total\", \"Expected current total\", \"Published total\", \"Raw staging delta\", \"Effective core delta\", \"Failure count\", \"Status\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"File key\", Int64.Type}, {\"Currency\", type text}, {\"Raw source total\", type text}, {\"Staged total\", type text}, {\"Expected current total\", type text}, {\"Published total\", type text}, {\"Raw staging delta\", type text}, {\"Effective core delta\", type text}, {\"Failure count\", Int64.Type}, {\"Status\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "AlertSample",
+        "description": "Up to three highest-rule-score alerts per date/currency. Nonrepresentative bounded detail sample.",
+        "columns": [
+          {
+            "name": "Reference",
+            "dataType": "string",
+            "sourceColumn": "Reference",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "isHidden": false,
+            "formatString": "dd MMM yyyy",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ]
+          },
+          {
+            "name": "Event time (source)",
+            "dataType": "string",
+            "sourceColumn": "Event time (source)",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Currency",
+            "dataType": "string",
+            "sourceColumn": "Currency",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Payment format",
+            "dataType": "string",
+            "sourceColumn": "Payment format",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Amount in currency",
+            "dataType": "string",
+            "sourceColumn": "Amount in currency",
+            "summarizeBy": "none",
+            "isHidden": false
+          },
+          {
+            "name": "Rule score",
+            "dataType": "int64",
+            "sourceColumn": "Rule score",
+            "summarizeBy": "none",
+            "isHidden": false,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Triggered rules",
+            "dataType": "string",
+            "sourceColumn": "Triggered rules",
+            "summarizeBy": "none",
+            "isHidden": false
+          }
+        ],
+        "partitions": [
+          {
+            "name": "AlertSample",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"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\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"Reference\", \"Date\", \"Event time (source)\", \"Currency\", \"Payment format\", \"Amount in currency\", \"Rule score\", \"Triggered rules\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"Reference\", \"Date\", \"Event time (source)\", \"Currency\", \"Payment format\", \"Amount in currency\", \"Rule score\", \"Triggered rules\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Reference\", type text}, {\"Date\", type date}, {\"Event time (source)\", type text}, {\"Currency\", type text}, {\"Payment format\", type text}, {\"Amount in currency\", type text}, {\"Rule score\", Int64.Type}, {\"Triggered rules\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Snapshot",
+        "description": "",
+        "columns": [
+          {
+            "name": "Publication ID",
+            "dataType": "int64",
+            "sourceColumn": "Publication ID",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0"
+          },
+          {
+            "name": "Published at UTC",
+            "dataType": "string",
+            "sourceColumn": "Published at UTC",
+            "summarizeBy": "none",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Snapshot",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Encoded = Text.Combine({\"i4421FEyMjAy0zU00DUwDDEwtjI2tjI0iVKKjQUA\"}),",
+                "    Data = Json.Document(Binary.Decompress(Binary.FromText(Encoded, BinaryEncoding.Base64), Compression.Deflate)),",
+                "    Rows = Table.FromRows(Data, {\"Publication ID\", \"Published at UTC\"}),",
+                "    Selected = Table.SelectColumns(Rows, {\"Publication ID\", \"Published at UTC\"}),",
+                "    Typed = Table.TransformColumnTypes(Selected, {{\"Publication ID\", Int64.Type}, {\"Published at UTC\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "4178c16a-58ca-5221-b72c-b3ffa9e03470",
+        "fromTable": "FactDaily",
+        "fromColumn": "Date",
+        "fromCardinality": "many",
+        "toTable": "DimDate",
+        "toColumn": "Date",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "b2290282-338c-5b61-a495-0567d890f375",
+        "fromTable": "FactDaily",
+        "fromColumn": "Currency",
+        "fromCardinality": "many",
+        "toTable": "DimCurrency",
+        "toColumn": "Currency",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "54d22f63-e6c5-541a-b234-5f0f4a75375e",
+        "fromTable": "FactDaily",
+        "fromColumn": "Payment format",
+        "fromCardinality": "many",
+        "toTable": "DimFormat",
+        "toColumn": "Payment format",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "a2f6d4ea-225c-5b31-bf85-bd3ca79a1bb1",
+        "fromTable": "AlertSample",
+        "fromColumn": "Date",
+        "fromCardinality": "many",
+        "toTable": "DimDate",
+        "toColumn": "Date",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "dc737c5e-957d-52ab-a40f-16218a315e13",
+        "fromTable": "AlertSample",
+        "fromColumn": "Currency",
+        "fromCardinality": "many",
+        "toTable": "DimCurrency",
+        "toColumn": "Currency",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "92a23d86-1735-59cb-822e-4a7e9db53944",
+        "fromTable": "AlertSample",
+        "fromColumn": "Payment format",
+        "fromCardinality": "many",
+        "toTable": "DimFormat",
+        "toColumn": "Payment format",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "b33f9d33-6617-52cc-a9fa-7261d4b45b60",
+        "fromTable": "FileQuality",
+        "fromColumn": "File key",
+        "fromCardinality": "many",
+        "toTable": "DimFile",
+        "toColumn": "File key",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "cd52033d-d427-5df4-bff8-03c31bbc8048",
+        "fromTable": "CurrencyReconciliation",
+        "fromColumn": "File key",
+        "fromCardinality": "many",
+        "toTable": "DimFile",
+        "toColumn": "File key",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "f848a354-54eb-52e2-92b9-16c2b8906bcf",
+        "fromTable": "CurrencyReconciliation",
+        "fromColumn": "Currency",
+        "fromCardinality": "many",
+        "toTable": "DimCurrency",
+        "toColumn": "Currency",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      }
+    ],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "SnapshotSHA256",
+        "value": "412e247ef9dc37180b3d6a5d9d4109cc771be24937ee983e88a306b5d1252daa"
+      },
+      {
+        "name": "RuntimeVerification",
+        "value": "Power BI Desktop refresh and render pending; no service deployment claimed."
+      }
+    ]
+  }
+}

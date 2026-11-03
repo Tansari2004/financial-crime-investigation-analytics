@@ -1,0 +1,6 @@
+{"accepted_rows": 3, "duplicate_candidates": 1, "health_status": "PUBLISHED", "publication_id": 1, "published_rows": 3, "published_usd": "60.000000", "quarantined_rows": 1, "source_rows": 4, "step": "1_load"}
+{"counts_and_published_rows_unchanged": true, "file_status": "skipped", "health_status": "PUBLISHED", "publication_status": "skipped", "step": "2_replay"}
+{"accepted_rows": 3, "correction_id": 1, "correction_paid": "15.00", "current_paid": "15.000000", "duplicate_candidates": 1, "health_status": "PUBLISHED", "original_paid": "10.00", "publication_id": 2, "published_rows": 3, "published_usd": "65.000000", "source_rows": 4, "step": "3_correction"}
+{"accepted_rows": 4, "all_published_rows_unchanged": true, "duplicate_candidates": 1, "error": "amount reconciliation failed", "expected_paid": "40.00", "failure_log_rows": 1, "health_status": "PUBLICATION FAILED", "injected_paid": "999.00", "publication_id": 2, "published_rows": 3, "published_usd": "65.000000", "source_rows": 5, "step": "4_blocked_publication"}
+{"accepted_rows": 4, "duplicate_candidates": 1, "health_status": "PUBLISHED", "imbalanced_currency_groups": 0, "publication_id": 3, "published_rows": 4, "published_usd": "105.000000", "quality_policy_unchanged": true, "source_rows": 5, "step": "5_recovered"}
+PASS: all five steps; temporary database removed.

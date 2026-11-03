@@ -25,7 +25,7 @@ flowchart LR
 Engineering evidence: SHA-256 file manifests and safe reruns; ingestion-ID
 watermarks that retain late events; bounded promotion batches; immutable source
 rows plus explicit correction history; transaction-scoped analytics publication;
-currency-aware amount reconciliation; 11 Python tests and 24 dbt checks; and a
+currency-aware amount reconciliation; Python regression tests and 24 dbt checks; and a
 [reproducible 50,000-row benchmark](pipeline/BENCHMARK.md). The complete IBM
 HI-Small file has now been run through this new pipeline: **5,078,345 source
 rows**, **5,078,336 accepted and published**, **nine exact-payload duplicate
@@ -33,6 +33,45 @@ candidates**, and **zero invalid rejects**. The [full-run report](pipeline/evide
 passed every count, currency-amount, and publication-boundary check; 24 dbt
 checks passed against the published database. The local browser preview and the
 saved Power BI report are separate artifacts.
+
+### Replay, correction, and recovery demonstration
+
+With Python dependencies installed (`python -m pip install -e .`) and a local
+PostgreSQL 16 connection with `CREATEDB` permission, run:
+
+```sh
+python scripts/demo_banking_recovery.py
+```
+
+The script creates and removes its own randomly named database; it never
+bootstraps or changes an existing database. Use `--admin-dsn` or
+`BANKING_DEMO_ADMIN_DSN` if your local connection differs from
+`postgresql:///postgres`. The five-step demonstration loads fabricated payments,
+skips a replay, preserves correction history, blocks a deliberately faulty
+transformation, and then repairs and publishes it **without relaxing quality
+checks**. It checks every row of the published tables before and after failure.
+See the [walkthrough and recorded outputs](pipeline/RECOVERY_DEMO.md).
+
+**Duplicate policy.** This demonstration accepts the first valid exact payload
+and retains subsequent matching payloads as `duplicate_candidate` rows in
+`raw.transaction_record` and `quarantine.rejected_record`, excluding them from
+the published transaction fact to avoid counting an assumed replay twice. The
+source has no durable transaction ID: two legitimate payments can have identical
+fields, so exclusion is an explicit demonstration policy, not proof of a
+duplicate. A real integration should use a validated upstream transaction/event
+identifier and version or sequence to distinguish replay, corrections, and
+legitimate repeated payments; ambiguous cases need a documented review policy.
+
+### Inspect pipeline health
+
+Run `python -m banking_pipeline.health --dsn YOUR_LOCAL_DATABASE_CONNECTION`
+to write a read-only JSON summary and a single HTML table under `data/processed/`.
+It combines status, latest file-ingestion duration, accepted/rejected/duplicate
+counts, published counts, the latest successful publication time and its age at
+capture. Counts from source manifests are labelled separately from published
+counts. The duration is the existing recorded ingestion interval, not an invented
+end-to-end runtime. No credentials or account identifiers enter the output.
+See [health definitions and evidence](pipeline/HEALTH.md).
 
 ### Banking pipeline Power BI report
 
@@ -42,7 +81,9 @@ The four-page [Banking Transaction Pipeline Analytics report](https://app.powerb
 
 [Pipeline health](pipeline/screenshots/pipeline-health.png) · [Currency reconciliation](pipeline/screenshots/reconciliation.png) · [Risk monitoring](pipeline/screenshots/risk-monitoring.png) · [All four page images](pipeline/powerbi/README.md#page-images)
 
-The report uses a **static Excel import** exported from the verified PostgreSQL publication. It is not connected live to PostgreSQL or set up for automatic refresh, and this repository does not contain a `.pbix` or `.pbip` source file. The source workbook contains row-level account identifiers and is not published here. The [report notes](pipeline/powerbi/README.md) document the pages and these limitations.
+The saved workspace report uses a **static Excel import** exported from the verified PostgreSQL publication. It is not connected live to PostgreSQL or set up for automatic refresh. Its original `.pbix` export is unavailable from the current signed-in browser. The original workbook contains row-level account identifiers and is not published here.
+
+An existing local **editable PBIP upgrade** is now available as a [source-preview download](pipeline/powerbi/Banking_Analytics_Source_Preview.zip) and [reviewable source files](pipeline/powerbi/upgrade/README.md). Its ten queries embed a complete aggregate snapshot, with no external connections or database credentials. Source/data checks, M parsing and Microsoft's PBIR validation pass. **Native Power BI refresh, DAX execution, visual rendering and workspace publication remain unverified.** It is not an export of, or replacement for, the saved four-page report. See the [inspection evidence](pipeline/powerbi/upgrade/verification/source_audit.json).
 
 Start with the [pipeline guide](pipeline/README.md), [architecture decisions](pipeline/ARCHITECTURE.md),
 [operations runbook](pipeline/RUNBOOK.md), and [Power BI report notes](pipeline/powerbi/README.md).

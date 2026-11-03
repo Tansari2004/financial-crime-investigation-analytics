@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "9c0211c51d04574fdaee",
+  "displayName": "Alert sample details",
+  "displayOption": "FitToPage",
+  "height": 900,
+  "width": 1440,
+  "visibility": "HiddenInViewMode",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter966aa43825f5043f743a0000",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimCurrency"
+              }
+            },
+            "Property": "Currency"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "Pod",
+    "type": "Drillthrough",
+    "acceptsFilterContext": "Default",
+    "parameters": [
+      {
+        "name": "Param_Filter966aa43825f5043f743a0000",
+        "boundFilter": "Filter966aa43825f5043f743a0000",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimCurrency"
+              }
+            },
+            "Property": "Currency"
+          }
+        }
+      }
+    ]
+  }
+}

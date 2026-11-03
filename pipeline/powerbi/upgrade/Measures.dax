@@ -1,0 +1,101 @@
+// Complete published daily fact, not the detail sample.
+Transaction Count =
+SUM(FactDaily[Transactions])
+
+// Distinct transactions with rule score at least two.
+Risk Alert Count =
+SUM(FactDaily[Alerts])
+
+// Numerator and denominator share the current date/currency/format context.
+Alert Rate =
+DIVIDE([Risk Alert Count], [Transaction Count])
+
+// Synthetic answer-key labels; not verified real crime.
+Synthetic Label Count =
+SUM(FactDaily[Synthetic labels])
+
+// Returns blank if there is no single current date or no preceding observation.
+Previous Day Transactions =
+VAR CurrentDate = SELECTEDVALUE(DimDate[Date])
+RETURN IF(NOT ISBLANK(CurrentDate), CALCULATE([Transaction Count], REMOVEFILTERS(DimDate), DimDate[Date] = CurrentDate - 1))
+
+// Daily comparison at a single event date; preserves the other filters.
+Daily Change =
+IF(NOT ISBLANK([Previous Day Transactions]), [Transaction Count] - [Previous Day Transactions])
+
+// Blank when the prior day is unavailable or zero.
+Daily Change Percent =
+DIVIDE([Daily Change], [Previous Day Transactions])
+
+// Share within the externally selected formats, retaining other dimensions.
+Selected Format Share =
+DIVIDE([Transaction Count], CALCULATE([Transaction Count], ALLSELECTED(DimFormat[Payment format])))
+
+// Transactions meeting the high-amount rule; flags can overlap.
+High Amount Hits =
+SUM(FactDaily[High amount hits])
+
+// Transactions meeting the high-hourly-velocity rule; flags can overlap.
+High Velocity Hits =
+SUM(FactDaily[High velocity hits])
+
+// Includes one-point repeated-counterparty signals below the alert threshold.
+Repeated Counterparty Hits =
+SUM(FactDaily[Repeat counterparty hits])
+
+// Intentionally disconnected rule selector; never sum these counts as distinct alerts.
+Rule Hits =
+SWITCH(SELECTEDVALUE(DimRule[Rule]),
+    "High amount", [High Amount Hits],
+    "High hourly velocity", [High Velocity Hits],
+    "Repeated counterparty", [Repeated Counterparty Hits],
+    BLANK())
+
+// All selected source files; event-date/format slicers do not apply.
+Source Rows =
+SUM(FileQuality[Source rows])
+
+// File acceptance count, separate from event-date-filtered transaction count.
+Accepted Rows =
+SUM(FileQuality[Accepted rows])
+
+// Invalid rejects; duplicate candidates are counted separately.
+Rejected Rows =
+SUM(FileQuality[Rejected rows])
+
+// Excluded from the published transaction fact.
+Duplicate Candidates =
+SUM(FileQuality[Duplicate candidates])
+
+// Zero is expected; missing data is separately checked by Quality Status.
+Row Balance Variance =
+[Source Rows] - [Accepted Rows] - [Rejected Rows] - [Duplicate Candidates]
+
+// Counts exact PostgreSQL failure flags before aggregation; opposing deltas cannot cancel.
+Reconciliation Failures =
+SUM(CurrencyReconciliation[Failure count])
+
+// Overall selected-file status; currency slicers cannot hide another currency failure.
+Quality Status =
+VAR FilesPresent = COUNTROWS(FileQuality)
+VAR CurrencyRows = CALCULATE(COUNTROWS(CurrencyReconciliation), REMOVEFILTERS(DimCurrency))
+VAR AllFailures = CALCULATE([Reconciliation Failures], REMOVEFILTERS(DimCurrency))
+VAR BadFiles = COUNTROWS(FILTER(FileQuality, NOT(FileQuality[Row balance OK])))
+RETURN IF(FilesPresent = 0 || CurrencyRows = 0, "NO DATA",
+    IF([Row Balance Variance] = 0 && AllFailures = 0 && BadFiles = 0, "PASS", "CHECK"))
+
+// Bounded highest-score sample; never a population denominator.
+Detail Sample Rows =
+COUNTROWS(AlertSample)
+
+// The sample is intentionally nonrepresentative and may contain no rows for a valid selection.
+Detail Sample Note =
+"Illustrative sample: " & FORMAT([Detail Sample Rows], "#,0") & " rows in the current context. Full alert workload is " & FORMAT([Risk Alert Count], "#,0") & "."
+
+// Publication time is UTC; event timestamps are not assigned a timezone.
+Publication =
+"Publication " & FORMAT(MAX(Snapshot[Publication ID]), "0") & " | " & SELECTEDVALUE(Snapshot[Published at UTC]) & " | static verified snapshot"
+
+// Current date selection.
+Selected Period =
+FORMAT(MIN(DimDate[Date]), "dd MMM yyyy") & " to " & FORMAT(MAX(DimDate[Date]), "dd MMM yyyy")

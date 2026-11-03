@@ -1,6 +1,26 @@
 # Power BI report: Banking Transaction Pipeline Analytics
 
-The [four-page report](https://app.powerbi.com/groups/0a05dc72-9fe5-4d16-9ad8-96d9a86f8c09/reports/11bcb2bd-eee1-4e92-8d16-6321df6267e6) was authored and saved in a private Power BI workspace. Download the [complete PDF export](banking-transaction-pipeline-analytics.pdf) or open any page image below without workspace access. A `.pbix` or `.pbip` source file has **not** been exported to this repository.
+## Editable source preview inspected November 3, 2026
+
+Download the [complete PBIP project](Banking_Analytics_Source_Preview.zip), or inspect
+the [source](upgrade/README.md) and [connection audit](upgrade/verification/source_audit.json).
+This is the locally prepared upgrade, not an export of the original workspace
+report. Its report references the adjacent semantic model by relative path; all
+ten import queries load embedded aggregate/sample data. No external connections,
+database credentials, original account identifiers or bank identifiers were found
+in the inspected model. Microsoft's PBIR validator reports zero errors/warnings,
+all ten M queries parse, and 335 offline checks pass. These checks do not execute
+Power BI, DAX or a native refresh.
+
+The original `.pbix` was not found locally. The browser export attempt redirects
+to Fabric signup, where the organisation reports signup disabled; the existing
+Sign In action returns to that page. Therefore the original export and native
+workspace verification/publication could not be completed. The saved report,
+PDF and screenshots below are unchanged. The editable source is published as a
+**preview requiring Power BI Desktop for Windows verification**, not a verified
+replacement for that report.
+
+The [four-page report](https://app.powerbi.com/groups/0a05dc72-9fe5-4d16-9ad8-96d9a86f8c09/reports/11bcb2bd-eee1-4e92-8d16-6321df6267e6) was authored and saved in a private Power BI workspace. Download the [complete PDF export](banking-transaction-pipeline-analytics.pdf) or open any page image below without workspace access. The original workspace report's editable source has **not** been exported; the separate PBIP source preview above is a locally prepared upgrade.
 
 The report's semantic model was built from an Excel workbook exported from the verified full-source PostgreSQL publication (`banking_pipeline_fullrun`, publication ID 1). This is a **static snapshot**, not a live PostgreSQL connection or automatic refresh. The source workbook also contains a row-level alert sample with account identifiers, so it is not committed as public evidence. The authoritative counts and quality checks remain in [`../evidence/full_run.json`](../evidence/full_run.json); the report presents them visually.
 

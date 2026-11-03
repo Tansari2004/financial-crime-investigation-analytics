@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "acef2c15bcd349db900d",
+  "displayName": "Data quality and reconciliation",
+  "displayOption": "FitToPage",
+  "height": 900,
+  "width": 1440
+}

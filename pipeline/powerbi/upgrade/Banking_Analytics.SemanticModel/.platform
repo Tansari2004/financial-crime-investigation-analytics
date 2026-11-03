@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Banking Analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0dfb406a-5feb-589d-9148-6082da269ee4"
+  }
+}

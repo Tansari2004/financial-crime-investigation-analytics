@@ -1,0 +1,142 @@
+{
+  "checked_at_utc": "2026-11-03T15:58:14.831697+00:00",
+  "status": "passed",
+  "report_connection": {
+    "byPath": {
+      "path": "../Banking_Analytics.SemanticModel"
+    }
+  },
+  "tables": [
+    {
+      "table": "DimDate",
+      "rows": 18,
+      "columns": [
+        "Date"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "DimCurrency",
+      "rows": 15,
+      "columns": [
+        "Currency"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "DimFormat",
+      "rows": 7,
+      "columns": [
+        "Payment format"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "DimFile",
+      "rows": 1,
+      "columns": [
+        "File key",
+        "Dataset"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "DimRule",
+      "rows": 3,
+      "columns": [
+        "Rule"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "FactDaily",
+      "rows": 862,
+      "columns": [
+        "Date",
+        "Currency",
+        "Payment format",
+        "Transactions",
+        "Alerts",
+        "Synthetic labels",
+        "High amount hits",
+        "High velocity hits",
+        "Repeat counterparty hits"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "FileQuality",
+      "rows": 1,
+      "columns": [
+        "File key",
+        "Source rows",
+        "Accepted rows",
+        "Rejected rows",
+        "Duplicate candidates",
+        "Raw rows",
+        "Staged rows",
+        "Published rows",
+        "Row balance OK"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "CurrencyReconciliation",
+      "rows": 15,
+      "columns": [
+        "File key",
+        "Currency",
+        "Raw source total",
+        "Staged total",
+        "Expected current total",
+        "Published total",
+        "Raw staging delta",
+        "Effective core delta",
+        "Failure count",
+        "Status"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "AlertSample",
+      "rows": 455,
+      "columns": [
+        "Reference",
+        "Date",
+        "Event time (source)",
+        "Currency",
+        "Payment format",
+        "Amount in currency",
+        "Rule score",
+        "Triggered rules"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    },
+    {
+      "table": "Snapshot",
+      "rows": 1,
+      "columns": [
+        "Publication ID",
+        "Published at UTC"
+      ],
+      "mode": "import",
+      "source": "embedded compressed JSON"
+    }
+  ],
+  "external_connections_found": [],
+  "model_data_sources": [],
+  "credentials_required_for_initial_refresh": false,
+  "native_power_bi_runtime_verified": false,
+  "original_workspace_pbix_exported": false,
+  "service_export_blocker": "Browser redirects to Fabric signup; organisation reports signup disabled; existing sign-in returns to the same page.",
+  "scope": "Reviewed local PBIP source preview; not an export of the original saved workspace report. Name/connection checks are targeted inspection, not a general secret-scanning guarantee."
+}
