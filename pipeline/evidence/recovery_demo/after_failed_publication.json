@@ -1,0 +1,140 @@
+{
+  "publication_state": [
+    {
+      "state_id": 1,
+      "last_file_id": 1,
+      "published_at": "2026-11-03T10:36:20.185831-05:00",
+      "last_publication_id": 2,
+      "last_promotion_run_id": 2
+    }
+  ],
+  "publication_run": [
+    {
+      "status": "published",
+      "published_at": "2026-11-03T10:36:20.087163-05:00",
+      "affected_days": 1,
+      "affected_files": 1,
+      "publication_id": 1,
+      "through_file_id": 1,
+      "refreshed_risk_rows": 3,
+      "refreshed_daily_rows": 1,
+      "through_promotion_run_id": 1
+    },
+    {
+      "status": "published",
+      "published_at": "2026-11-03T10:36:20.185831-05:00",
+      "affected_days": 1,
+      "affected_files": 1,
+      "publication_id": 2,
+      "through_file_id": 1,
+      "refreshed_risk_rows": 3,
+      "refreshed_daily_rows": 1,
+      "through_promotion_run_id": 2
+    }
+  ],
+  "fact_daily_transaction": [
+    {
+      "event_date": "2026-01-02",
+      "paid_amount": 65.0,
+      "refreshed_at": "2026-11-03T10:36:20.185831-05:00",
+      "from_bank_key": 1,
+      "payment_format": "Wire",
+      "payment_currency": "US Dollar",
+      "risk_alert_count": 0,
+      "transaction_count": 3,
+      "labelled_laundering_count": 0
+    }
+  ],
+  "fact_risk_signal": [
+    {
+      "event_date": "2026-01-02",
+      "event_time": "2026-01-02T09:00:00",
+      "risk_score": 0,
+      "amount_paid": 15.0,
+      "refreshed_at": "2026-11-03T10:36:20.185831-05:00",
+      "to_bank_code": "DEMO02",
+      "is_laundering": false,
+      "from_bank_code": "DEMO01",
+      "payment_format": "Wire",
+      "to_account_code": "recipient",
+      "transaction_key": 1,
+      "payment_currency": "US Dollar",
+      "from_account_code": "sender-a",
+      "high_hourly_velocity": false,
+      "source_raw_record_id": 1,
+      "current_correction_id": 1,
+      "repeated_counterparty": false,
+      "high_amount_for_currency_day": false
+    },
+    {
+      "event_date": "2026-01-02",
+      "event_time": "2026-01-02T09:00:00",
+      "risk_score": 0,
+      "amount_paid": 20.0,
+      "refreshed_at": "2026-11-03T10:36:20.185831-05:00",
+      "to_bank_code": "DEMO02",
+      "is_laundering": false,
+      "from_bank_code": "DEMO01",
+      "payment_format": "Wire",
+      "to_account_code": "recipient",
+      "transaction_key": 2,
+      "payment_currency": "US Dollar",
+      "from_account_code": "sender-b",
+      "high_hourly_velocity": false,
+      "source_raw_record_id": 2,
+      "current_correction_id": null,
+      "repeated_counterparty": false,
+      "high_amount_for_currency_day": false
+    },
+    {
+      "event_date": "2026-01-02",
+      "event_time": "2026-01-02T09:00:00",
+      "risk_score": 0,
+      "amount_paid": 30.0,
+      "refreshed_at": "2026-11-03T10:36:20.185831-05:00",
+      "to_bank_code": "DEMO02",
+      "is_laundering": false,
+      "from_bank_code": "DEMO01",
+      "payment_format": "Wire",
+      "to_account_code": "recipient",
+      "transaction_key": 3,
+      "payment_currency": "US Dollar",
+      "from_account_code": "sender-c",
+      "high_hourly_velocity": false,
+      "source_raw_record_id": 3,
+      "current_correction_id": null,
+      "repeated_counterparty": false,
+      "high_amount_for_currency_day": false
+    }
+  ],
+  "file_row_reconciliation": [
+    {
+      "file_id": 1,
+      "raw_total": 4,
+      "checked_at": "2026-11-03T10:36:20.185831-05:00",
+      "core_count": 3,
+      "is_balanced": true,
+      "raw_accepted": 3,
+      "raw_rejected": 0,
+      "staged_count": 3,
+      "manifest_total": 4,
+      "manifest_accepted": 3,
+      "manifest_rejected": 0,
+      "raw_duplicate_candidates": 1,
+      "manifest_duplicate_candidates": 1
+    }
+  ],
+  "file_amount_reconciliation": [
+    {
+      "file_id": 1,
+      "core_paid": 65.0,
+      "checked_at": "2026-11-03T10:36:20.185831-05:00",
+      "payment_currency": "US Dollar",
+      "raw_original_paid": 60.0,
+      "raw_staging_delta": 0.0,
+      "effective_core_delta": 0.0,
+      "staged_original_paid": 60.0,
+      "expected_current_paid": 65.0
+    }
+  ]
+}

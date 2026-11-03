@@ -1,0 +1,116 @@
+{
+  "source_snapshot_sha256": "412e247ef9dc37180b3d6a5d9d4109cc771be24937ee983e88a306b5d1252daa",
+  "controls": {
+    "published_transactions": 5078336,
+    "alerts": 766725,
+    "synthetic_labels": 5177,
+    "source_daily_rows": 217161,
+    "date_count": 18,
+    "currencies": 15,
+    "formats": 7,
+    "min_date": "2022-09-01",
+    "max_date": "2022-09-18",
+    "exported_daily_rows": 862
+  },
+  "daily": [
+    {
+      "date": "2022-09-01",
+      "transactions": 1114919,
+      "alerts": 127041
+    },
+    {
+      "date": "2022-09-02",
+      "transactions": 754449,
+      "alerts": 126793
+    },
+    {
+      "date": "2022-09-03",
+      "transactions": 207382,
+      "alerts": 29189
+    },
+    {
+      "date": "2022-09-04",
+      "transactions": 207430,
+      "alerts": 28990
+    },
+    {
+      "date": "2022-09-05",
+      "transactions": 482650,
+      "alerts": 80474
+    },
+    {
+      "date": "2022-09-06",
+      "transactions": 482089,
+      "alerts": 80500
+    },
+    {
+      "date": "2022-09-07",
+      "transactions": 482750,
+      "alerts": 80923
+    },
+    {
+      "date": "2022-09-08",
+      "transactions": 482771,
+      "alerts": 80397
+    },
+    {
+      "date": "2022-09-09",
+      "transactions": 654463,
+      "alerts": 103119
+    },
+    {
+      "date": "2022-09-10",
+      "transactions": 208325,
+      "alerts": 29294
+    },
+    {
+      "date": "2022-09-11",
+      "transactions": 396,
+      "alerts": 3
+    },
+    {
+      "date": "2022-09-12",
+      "transactions": 281,
+      "alerts": 2
+    },
+    {
+      "date": "2022-09-13",
+      "transactions": 184,
+      "alerts": 0
+    },
+    {
+      "date": "2022-09-14",
+      "transactions": 121,
+      "alerts": 0
+    },
+    {
+      "date": "2022-09-15",
+      "transactions": 46,
+      "alerts": 0
+    },
+    {
+      "date": "2022-09-16",
+      "transactions": 46,
+      "alerts": 0
+    },
+    {
+      "date": "2022-09-17",
+      "transactions": 23,
+      "alerts": 0
+    },
+    {
+      "date": "2022-09-18",
+      "transactions": 11,
+      "alerts": 0
+    }
+  ],
+  "late_period_transactions": 1108,
+  "detail_sample_rows": 455,
+  "event_time_timezone": "unspecified",
+  "publication": {
+    "publication_id": 1,
+    "published_at_utc": "2026-10-01T03:33:14Z"
+  },
+  "power_bi_runtime_verified": false,
+  "live_report_updated": false
+}

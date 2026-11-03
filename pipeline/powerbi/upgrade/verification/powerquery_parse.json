@@ -1,0 +1,46 @@
+{
+  "parser": "@microsoft/powerquery-parser 4.0.1",
+  "runtimeEvaluated": false,
+  "results": [
+    {
+      "table": "DimDate",
+      "ok": true
+    },
+    {
+      "table": "DimCurrency",
+      "ok": true
+    },
+    {
+      "table": "DimFormat",
+      "ok": true
+    },
+    {
+      "table": "DimFile",
+      "ok": true
+    },
+    {
+      "table": "DimRule",
+      "ok": true
+    },
+    {
+      "table": "FactDaily",
+      "ok": true
+    },
+    {
+      "table": "FileQuality",
+      "ok": true
+    },
+    {
+      "table": "CurrencyReconciliation",
+      "ok": true
+    },
+    {
+      "table": "AlertSample",
+      "ok": true
+    },
+    {
+      "table": "Snapshot",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "steps": [
+    {
+      "step": "1_load",
+      "source_rows": 4,
+      "accepted_rows": 3,
+      "duplicate_candidates": 1,
+      "published_rows": 3,
+      "published_usd": "60.000000",
+      "publication_id": 1,
+      "quarantined_rows": 1,
+      "health_status": "PUBLISHED"
+    },
+    {
+      "step": "2_replay",
+      "file_status": "skipped",
+      "publication_status": "skipped",
+      "counts_and_published_rows_unchanged": true,
+      "health_status": "PUBLISHED"
+    },
+    {
+      "step": "3_correction",
+      "original_paid": "10.00",
+      "correction_paid": "15.00",
+      "current_paid": "15.000000",
+      "correction_id": 1,
+      "source_rows": 4,
+      "accepted_rows": 3,
+      "duplicate_candidates": 1,
+      "published_rows": 3,
+      "published_usd": "65.000000",
+      "publication_id": 2,
+      "health_status": "PUBLISHED"
+    },
+    {
+      "step": "4_blocked_publication",
+      "error": "amount reconciliation failed",
+      "injected_paid": "999.00",
+      "expected_paid": "40.00",
+      "all_published_rows_unchanged": true,
+      "failure_log_rows": 1,
+      "source_rows": 5,
+      "accepted_rows": 4,
+      "duplicate_candidates": 1,
+      "published_rows": 3,
+      "published_usd": "65.000000",
+      "publication_id": 2,
+      "health_status": "PUBLICATION FAILED"
+    },
+    {
+      "step": "5_recovered",
+      "quality_policy_unchanged": true,
+      "imbalanced_currency_groups": 0,
+      "source_rows": 5,
+      "accepted_rows": 4,
+      "duplicate_candidates": 1,
+      "published_rows": 4,
+      "published_usd": "105.000000",
+      "publication_id": 3,
+      "health_status": "PUBLISHED"
+    }
+  ],
+  "environment": {
+    "postgresql": "16.15 (Homebrew)",
+    "python": "3.12.14"
+  },
+  "scope": "Fabricated four-row initial fixture and one additional payment; not the full IBM dataset.",
+  "failure_method": "Intentional core amount mismatch in a new disposable database; no quality threshold relaxed.",
+  "checked_at_utc": "2026-11-03T15:36:20.318769+00:00",
+  "database": "banking_demo_ee5d64b87d7440fca111b2d325500693",
+  "temporary_database_removed": true
+}

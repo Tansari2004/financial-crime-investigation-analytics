@@ -1,0 +1,113 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "04eb64b10e0e20f1fe89",
+  "position": {
+    "x": 24,
+    "y": 738,
+    "z": 9000,
+    "tabOrder": 9000,
+    "width": 1392,
+    "height": 76
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Full-source finding: volume falls from 208,325 on 10 Sep to 396 on 11 Sep. SQL confirms the drop.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "14px",
+                      "color": "#536579"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "The final eight dates contain only 1,108 transactions; this is the supplied synthetic distribution, not evidence of a banking outage.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "14px",
+                      "color": "#536579"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

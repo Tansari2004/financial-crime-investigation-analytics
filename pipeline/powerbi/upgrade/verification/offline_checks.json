@@ -1,0 +1,1396 @@
+{
+  "status": "passed",
+  "offline_checks": 335,
+  "data_checks": 67,
+  "reference_filter_cases": [
+    {
+      "date": "2022-09-01",
+      "currency": "US Dollar",
+      "format": "ACH",
+      "transactions": 34098,
+      "alerts": 4440,
+      "rate": 0.13021291571353158,
+      "sample_rows": 1
+    },
+    {
+      "date": "2022-09-11",
+      "currency": "Saudi Riyal",
+      "format": null,
+      "transactions": 30,
+      "alerts": 0,
+      "rate": 0.0,
+      "sample_rows": 0
+    },
+    {
+      "date": null,
+      "currency": "Canadian Dollar",
+      "format": "Wire",
+      "transactions": 4843,
+      "alerts": 987,
+      "rate": 0.2037992979558125,
+      "sample_rows": 3
+    },
+    {
+      "date": "2022-09-18",
+      "currency": "Euro",
+      "format": null,
+      "transactions": 2,
+      "alerts": 0,
+      "rate": 0.0,
+      "sample_rows": 0
+    },
+    {
+      "date": null,
+      "currency": "Not present",
+      "format": null,
+      "transactions": 0,
+      "alerts": 0,
+      "rate": null,
+      "sample_rows": 0
+    }
+  ],
+  "checks": [
+    {
+      "check": "DimDate: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "DimCurrency: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "DimFormat: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "DimFile: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "DimRule: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "FactDaily: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "FileQuality: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "CurrencyReconciliation: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "AlertSample: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "Snapshot: row widths match source columns",
+      "passed": true
+    },
+    {
+      "check": "embedded daily data exactly matches audited snapshot",
+      "passed": true
+    },
+    {
+      "check": "complete accepted population",
+      "passed": true
+    },
+    {
+      "check": "complete distinct alert count",
+      "passed": true
+    },
+    {
+      "check": "synthetic labels retained as evaluation-only data",
+      "passed": true
+    },
+    {
+      "check": "complete daily aggregate, unique grain",
+      "passed": true
+    },
+    {
+      "check": "all 18 event dates retained",
+      "passed": true
+    },
+    {
+      "check": "all currencies and formats retained",
+      "passed": true
+    },
+    {
+      "check": "no source account or bank identifiers exported",
+      "passed": true
+    },
+    {
+      "check": "FactDaily.Date: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "4178c16a-58ca-5221-b72c-b3ffa9e03470: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "FactDaily.Currency: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "b2290282-338c-5b61-a495-0567d890f375: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "FactDaily.Payment format: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "54d22f63-e6c5-541a-b234-5f0f4a75375e: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "AlertSample.Date: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "a2f6d4ea-225c-5b31-bf85-bd3ca79a1bb1: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "AlertSample.Currency: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "dc737c5e-957d-52ab-a40f-16218a315e13: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "AlertSample.Payment format: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "92a23d86-1735-59cb-822e-4a7e9db53944: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "FileQuality.File key: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "b33f9d33-6617-52cc-a9fa-7261d4b45b60: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "CurrencyReconciliation.File key: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "cd52033d-d427-5df4-bff8-03c31bbc8048: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "CurrencyReconciliation.Currency: unique dimension and no orphan keys",
+      "passed": true
+    },
+    {
+      "check": "f848a354-54eb-52e2-92b9-16c2b8906bcf: single-direction many-to-one",
+      "passed": true
+    },
+    {
+      "check": "quality facts are not linked to event dates",
+      "passed": true
+    },
+    {
+      "check": "rule selector intentionally disconnected",
+      "passed": true
+    },
+    {
+      "check": "USD maximum alert count",
+      "passed": true
+    },
+    {
+      "check": "Saudi Riyal maximum alert rate",
+      "passed": true
+    },
+    {
+      "check": "September drop matches database",
+      "passed": true
+    },
+    {
+      "check": "all later dates retained, not truncated",
+      "passed": true
+    },
+    {
+      "check": "rule signals bounded and alert union consistent",
+      "passed": true
+    },
+    {
+      "check": "filter context 2022-09-01/US Dollar/ACH: valid rate and bounded sample",
+      "passed": true
+    },
+    {
+      "check": "filter context 2022-09-11/Saudi Riyal/None: valid rate and bounded sample",
+      "passed": true
+    },
+    {
+      "check": "filter context None/Canadian Dollar/Wire: valid rate and bounded sample",
+      "passed": true
+    },
+    {
+      "check": "filter context 2022-09-18/Euro/None: valid rate and bounded sample",
+      "passed": true
+    },
+    {
+      "check": "filter context None/Not present/None: valid rate and bounded sample",
+      "passed": true
+    },
+    {
+      "check": "sample not mistaken for population",
+      "passed": true
+    },
+    {
+      "check": "sample transaction references unique",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Australian Dollar",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Bitcoin",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Brazil Real",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Canadian Dollar",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Euro",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Mexican Peso",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Ruble",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Rupee",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Saudi Riyal",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Shekel",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Swiss Franc",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: UK Pound",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: US Dollar",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Yen",
+      "passed": true
+    },
+    {
+      "check": "exact reconciliation flag: Yuan",
+      "passed": true
+    },
+    {
+      "check": "opposing deltas cannot hide reconciliation failures",
+      "passed": true
+    },
+    {
+      "check": "file source arithmetic",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: e74e767975d11b319067",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimFormat.Payment format",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: d7afcea63cb223ba7bf1",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 43f51e1d41568c9c3b56",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimFormat.Payment format",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Transaction Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Selected Format Share",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Alert Rate",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Transaction Count",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 9fbdab6f413cc388771b",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: ebf4c6982e4cba5e2d1d",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimCurrency.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: a35752d51d421b203e37",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Transaction Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Risk Alert Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Alert Rate",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 04eb64b10e0e20f1fe89",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimDate.Date",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Transaction Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Risk Alert Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Alert Rate",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Daily Change Percent",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimDate.Date",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimDate.Date",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/d7afcea63cb223ba7bf1",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/43f51e1d41568c9c3b56",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/9fbdab6f413cc388771b",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/ebf4c6982e4cba5e2d1d",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/a35752d51d421b203e37",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/04eb64b10e0e20f1fe89",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e74e767975d11b319067/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/43f51e1d41568c9c3b56",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/9fbdab6f413cc388771b",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/ebf4c6982e4cba5e2d1d",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/a35752d51d421b203e37",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/04eb64b10e0e20f1fe89",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d7afcea63cb223ba7bf1/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 43f51e1d41568c9c3b56/9fbdab6f413cc388771b",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 43f51e1d41568c9c3b56/ebf4c6982e4cba5e2d1d",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 43f51e1d41568c9c3b56/a35752d51d421b203e37",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 43f51e1d41568c9c3b56/04eb64b10e0e20f1fe89",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 43f51e1d41568c9c3b56/d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 43f51e1d41568c9c3b56/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 43f51e1d41568c9c3b56/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9fbdab6f413cc388771b/ebf4c6982e4cba5e2d1d",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9fbdab6f413cc388771b/a35752d51d421b203e37",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9fbdab6f413cc388771b/04eb64b10e0e20f1fe89",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9fbdab6f413cc388771b/d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9fbdab6f413cc388771b/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9fbdab6f413cc388771b/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ebf4c6982e4cba5e2d1d/a35752d51d421b203e37",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ebf4c6982e4cba5e2d1d/04eb64b10e0e20f1fe89",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ebf4c6982e4cba5e2d1d/d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ebf4c6982e4cba5e2d1d/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ebf4c6982e4cba5e2d1d/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a35752d51d421b203e37/04eb64b10e0e20f1fe89",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a35752d51d421b203e37/d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a35752d51d421b203e37/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a35752d51d421b203e37/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 04eb64b10e0e20f1fe89/d0d6bfd5dd4d77780e55",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 04eb64b10e0e20f1fe89/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 04eb64b10e0e20f1fe89/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d0d6bfd5dd4d77780e55/583163b57c9cd39946c8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: d0d6bfd5dd4d77780e55/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 583163b57c9cd39946c8/c70a9da03ac7a9607ac5",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: df4f81b756ea327a88cc",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: e7aa4397d896798e3110",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 77378e9cedf86a12af11",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 1c0aea04a149eef79d99",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Source Rows",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Accepted Rows",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Duplicate Candidates",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Quality Status",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 2c4aaee9ca1188c2e389",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: CurrencyReconciliation.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: CurrencyReconciliation.Raw source total",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: CurrencyReconciliation.Staged total",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: CurrencyReconciliation.Expected current total",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: CurrencyReconciliation.Published total",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: CurrencyReconciliation.Status",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 547286094d32c47b60c9",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimCurrency.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: a313b257e0a0db68694c",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: df4f81b756ea327a88cc/e7aa4397d896798e3110",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: df4f81b756ea327a88cc/77378e9cedf86a12af11",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: df4f81b756ea327a88cc/1c0aea04a149eef79d99",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: df4f81b756ea327a88cc/2c4aaee9ca1188c2e389",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: df4f81b756ea327a88cc/547286094d32c47b60c9",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: df4f81b756ea327a88cc/a313b257e0a0db68694c",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7aa4397d896798e3110/77378e9cedf86a12af11",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7aa4397d896798e3110/1c0aea04a149eef79d99",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7aa4397d896798e3110/2c4aaee9ca1188c2e389",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7aa4397d896798e3110/547286094d32c47b60c9",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7aa4397d896798e3110/a313b257e0a0db68694c",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 77378e9cedf86a12af11/1c0aea04a149eef79d99",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 77378e9cedf86a12af11/2c4aaee9ca1188c2e389",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 77378e9cedf86a12af11/547286094d32c47b60c9",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 77378e9cedf86a12af11/a313b257e0a0db68694c",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 1c0aea04a149eef79d99/2c4aaee9ca1188c2e389",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 1c0aea04a149eef79d99/547286094d32c47b60c9",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 1c0aea04a149eef79d99/a313b257e0a0db68694c",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 2c4aaee9ca1188c2e389/547286094d32c47b60c9",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 2c4aaee9ca1188c2e389/a313b257e0a0db68694c",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 547286094d32c47b60c9/a313b257e0a0db68694c",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: ea0502e2b148e2d0cbfe",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 81bda382f81257057d52",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: a19aae6cc8e058d38f77",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimCurrency.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: f00066f52522ead33692",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimRule.Rule",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Rule Hits",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Rule Hits",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 0ec3547b291ce70883d3",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: b20b6edef4304be02011",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimDate.Date",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 539d0a51fe7417ea6fa6",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimCurrency.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Risk Alert Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Transaction Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Alert Rate",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Risk Alert Count",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimFormat.Payment format",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimCurrency.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Alert Rate",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Transaction Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Risk Alert Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Alert Rate",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Risk Alert Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Alert Rate",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Detail Sample Rows",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/81bda382f81257057d52",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/a19aae6cc8e058d38f77",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/f00066f52522ead33692",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/0ec3547b291ce70883d3",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/b20b6edef4304be02011",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/539d0a51fe7417ea6fa6",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ea0502e2b148e2d0cbfe/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/a19aae6cc8e058d38f77",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/f00066f52522ead33692",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/0ec3547b291ce70883d3",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/b20b6edef4304be02011",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/539d0a51fe7417ea6fa6",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 81bda382f81257057d52/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/f00066f52522ead33692",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/0ec3547b291ce70883d3",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/b20b6edef4304be02011",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/539d0a51fe7417ea6fa6",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: a19aae6cc8e058d38f77/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f00066f52522ead33692/0ec3547b291ce70883d3",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f00066f52522ead33692/b20b6edef4304be02011",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f00066f52522ead33692/539d0a51fe7417ea6fa6",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f00066f52522ead33692/ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f00066f52522ead33692/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f00066f52522ead33692/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f00066f52522ead33692/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 0ec3547b291ce70883d3/b20b6edef4304be02011",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 0ec3547b291ce70883d3/539d0a51fe7417ea6fa6",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 0ec3547b291ce70883d3/ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 0ec3547b291ce70883d3/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 0ec3547b291ce70883d3/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 0ec3547b291ce70883d3/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: b20b6edef4304be02011/539d0a51fe7417ea6fa6",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: b20b6edef4304be02011/ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: b20b6edef4304be02011/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: b20b6edef4304be02011/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: b20b6edef4304be02011/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 539d0a51fe7417ea6fa6/ed58bca70d7e7ea3c250",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 539d0a51fe7417ea6fa6/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 539d0a51fe7417ea6fa6/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 539d0a51fe7417ea6fa6/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ed58bca70d7e7ea3c250/03ddcf3328182f272ac0",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ed58bca70d7e7ea3c250/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ed58bca70d7e7ea3c250/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 03ddcf3328182f272ac0/f72a12a92d548ed984f8",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 03ddcf3328182f272ac0/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: f72a12a92d548ed984f8/b5f2eb7de89ad334a13e",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: ad0d8b29fec8fe834ee0",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 9942a3a53ab0de8a8de1",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimCurrency.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 7c3933e4ed7f232b4092",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 6adae0227b2f5f4987a7",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Reference",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Event time (source)",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Currency",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Amount in currency",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Payment format",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Rule score",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Triggered rules",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Rule score",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: AlertSample.Event time (source)",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 168a137c303e8fdef6cc",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: e7a16c298714ce688a8f",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 169efd9278a5549eecbd",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimDate.Date",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: 6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Risk Alert Count",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: FactDaily.Detail Sample Rows",
+      "passed": true
+    },
+    {
+      "check": "visual fits page: b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "visual field resolves: DimFormat.Payment format",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/9942a3a53ab0de8a8de1",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/7c3933e4ed7f232b4092",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/6adae0227b2f5f4987a7",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/168a137c303e8fdef6cc",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/e7a16c298714ce688a8f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/169efd9278a5549eecbd",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: ad0d8b29fec8fe834ee0/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/7c3933e4ed7f232b4092",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/6adae0227b2f5f4987a7",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/168a137c303e8fdef6cc",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/e7a16c298714ce688a8f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/169efd9278a5549eecbd",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 9942a3a53ab0de8a8de1/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7c3933e4ed7f232b4092/6adae0227b2f5f4987a7",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7c3933e4ed7f232b4092/168a137c303e8fdef6cc",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7c3933e4ed7f232b4092/e7a16c298714ce688a8f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7c3933e4ed7f232b4092/169efd9278a5549eecbd",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7c3933e4ed7f232b4092/7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7c3933e4ed7f232b4092/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7c3933e4ed7f232b4092/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 6adae0227b2f5f4987a7/168a137c303e8fdef6cc",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 6adae0227b2f5f4987a7/e7a16c298714ce688a8f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 6adae0227b2f5f4987a7/169efd9278a5549eecbd",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 6adae0227b2f5f4987a7/7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 6adae0227b2f5f4987a7/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 6adae0227b2f5f4987a7/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 168a137c303e8fdef6cc/e7a16c298714ce688a8f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 168a137c303e8fdef6cc/169efd9278a5549eecbd",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 168a137c303e8fdef6cc/7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 168a137c303e8fdef6cc/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 168a137c303e8fdef6cc/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7a16c298714ce688a8f/169efd9278a5549eecbd",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7a16c298714ce688a8f/7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7a16c298714ce688a8f/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: e7a16c298714ce688a8f/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 169efd9278a5549eecbd/7ff9c774125dec9b3db2",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 169efd9278a5549eecbd/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 169efd9278a5549eecbd/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7ff9c774125dec9b3db2/6408dac51dd7cd1d8dcf",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 7ff9c774125dec9b3db2/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "no visual overlap: 6408dac51dd7cd1d8dcf/b535047892a64748c25f",
+      "passed": true
+    },
+    {
+      "check": "drillthrough retains extra filter context",
+      "passed": true
+    },
+    {
+      "check": "drillthrough has a Back action",
+      "passed": true
+    },
+    {
+      "check": "three visible pages and one drillthrough",
+      "passed": true
+    }
+  ],
+  "power_bi_runtime_verified": false,
+  "note": "Reference arithmetic and structural checks do not execute native DAX, M refresh, visual rendering or browser interactions."
+}
