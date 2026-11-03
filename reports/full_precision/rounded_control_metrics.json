@@ -1,0 +1,181 @@
+{
+  "model_version": "numpy_logistic_v2_tie_aware",
+  "features_sha256": "4664d7276ff22f5ec3ac165be0a0c5a56b2fb3247ee2e8d792d96a039d5aead1",
+  "scores_sha256": "1d6bdfc8d78652c1541655cb990a066654f0cf1facac5ac7b1aaaa0f3d017aae",
+  "score_export_scope": "validation_and_test",
+  "training_settings": {
+    "epochs": 3,
+    "chunk_size": 200000
+  },
+  "model_type": "logistic regression implemented with NumPy mini-batch gradient descent",
+  "score_warning": "Class weighting changes calibration; review_score is a ranking score, not a crime probability.",
+  "split": {
+    "train": "before 2022-09-08",
+    "validation": "2022-09-08",
+    "test": "2022-09-09 onward"
+  },
+  "train": {
+    "rows": 3731672,
+    "positives": 3027
+  },
+  "validation": {
+    "rows": 482773,
+    "positives": 539,
+    "prevalence": 0.0011164667452405169,
+    "average_precision": 0.03399430483945348,
+    "pr_auc": 0.03399430483945348,
+    "roc_auc": 0.945826750611061,
+    "precision_at_0_5": 0.008760712308896227,
+    "recall_at_0_5": 0.8515769944341373,
+    "confusion_matrix_at_0_5": [
+      [
+        430300,
+        51934
+      ],
+      [
+        80,
+        459
+      ]
+    ],
+    "ranking": [
+      {
+        "k": 100,
+        "positives_found": 12,
+        "precision": 0.12,
+        "recall": 0.022263450834879406
+      },
+      {
+        "k": 500,
+        "positives_found": 28,
+        "precision": 0.056,
+        "recall": 0.05194805194805195
+      },
+      {
+        "k": 1000,
+        "positives_found": 65,
+        "precision": 0.065,
+        "recall": 0.12059369202226346
+      },
+      {
+        "k": 5000,
+        "positives_found": 198,
+        "precision": 0.0396,
+        "recall": 0.3673469387755102
+      }
+    ]
+  },
+  "test": {
+    "rows": 863900,
+    "positives": 1611,
+    "prevalence": 0.0018647991665702048,
+    "average_precision": 0.1288358315004709,
+    "pr_auc": 0.1288358315004709,
+    "roc_auc": 0.9635099464835191,
+    "precision_at_0_5": 0.012816895387114701,
+    "recall_at_0_5": 0.930477963997517,
+    "confusion_matrix_at_0_5": [
+      [
+        746833,
+        115456
+      ],
+      [
+        112,
+        1499
+      ]
+    ],
+    "ranking": [
+      {
+        "k": 100,
+        "positives_found": 37,
+        "precision": 0.37,
+        "recall": 0.022967101179391682
+      },
+      {
+        "k": 500,
+        "positives_found": 149,
+        "precision": 0.298,
+        "recall": 0.09248913718187461
+      },
+      {
+        "k": 1000,
+        "positives_found": 270,
+        "precision": 0.27,
+        "recall": 0.16759776536312848
+      },
+      {
+        "k": 5000,
+        "positives_found": 668,
+        "precision": 0.1336,
+        "recall": 0.41464928615766605
+      }
+    ]
+  },
+  "largest_negative_coefficients": [
+    [
+      "payment_format=Wire",
+      -1.81369182590438
+    ],
+    [
+      "payment_format=Cheque",
+      -1.537146050431037
+    ],
+    [
+      "payment_format=Credit Card",
+      -1.5213744761798496
+    ],
+    [
+      "payment_format=Cash",
+      -1.4450561358015028
+    ],
+    [
+      "self_transfer",
+      -0.48138843728422176
+    ],
+    [
+      "has_prior_history",
+      -0.4698645142542102
+    ],
+    [
+      "receiving_currency=Mexican Peso",
+      -0.4398469336588876
+    ],
+    [
+      "payment_currency=Mexican Peso",
+      -0.4326474979074109
+    ]
+  ],
+  "largest_positive_coefficients": [
+    [
+      "payment_format=ACH",
+      1.3262470235077317
+    ],
+    [
+      "log_amount_paid",
+      0.5118731729021826
+    ],
+    [
+      "log_prior_transaction_count",
+      0.47570115881211117
+    ],
+    [
+      "payment_currency=Saudi Riyal",
+      0.3184608164096903
+    ],
+    [
+      "receiving_currency=Saudi Riyal",
+      0.3085700009619231
+    ],
+    [
+      "weekday_cos",
+      0.27015847558349704
+    ],
+    [
+      "payment_format=UNKNOWN",
+      0.0
+    ],
+    [
+      "receiving_currency=UNKNOWN",
+      0.0
+    ]
+  ]
+}

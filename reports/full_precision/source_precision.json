@@ -1,0 +1,12 @@
+{
+  "source_sha256": "b19d39f515523373f991b689c07e11e7b0b95c17a2c27a87d91584ae16c5b040",
+  "source_bytes": 475664283,
+  "rows": 5078345,
+  "paid_rows_with_more_than_two_decimal_precision": 145670,
+  "received_rows_with_more_than_two_decimal_precision": 147755,
+  "import_amount_type": "DuckDB DECIMAL(38,12), all source values prevalidated as exactly representable",
+  "features_amount_type": "double precision for modelling only",
+  "engine": "1.4.1",
+  "full_postgresql_rebuild": false,
+  "features_sha256": "fbe60cab898c6d2318f5d76a1fb51d86b3b6cf373c8c6923149008e17576efef"
+}

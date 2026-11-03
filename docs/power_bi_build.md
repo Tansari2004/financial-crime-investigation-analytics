@@ -1,5 +1,7 @@
 # Power BI investigation dashboard
 
+**Version note:** this documents the original rounded-amount PostgreSQL/Power BI snapshot. It was not refreshed by the full-precision model audit. See the [current model report](../reports/model_report.md) for recomputed metrics and limitations.
+
 ## Current status
 
 The project generates `data/processed/dashboard_cases.csv`, a 10,000-row, 3.6 MB export of the highest-ranked **later-period test transactions**. Each row has the existing model review score, up to three model factors that increased it, and a separate transparent amount-spike rule. The file is local and excluded from Git because it contains generated transaction records.

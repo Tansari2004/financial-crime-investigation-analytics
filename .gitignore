@@ -20,6 +20,8 @@ reports/*
 !reports/legacy/
 !reports/legacy/**
 !reports/financial_upgrade_status.json
+!reports/full_precision/
+!reports/full_precision/**
 models/*
 !models/.gitkeep
 *.egg-info/

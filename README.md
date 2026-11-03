@@ -34,9 +34,11 @@ passed every count, currency-amount, and publication-boundary check; 24 dbt
 checks passed against the published database. The local browser preview and the
 saved Power BI report are separate artifacts.
 
-### Financial modelling correction · November 2026
+### Financial modelling audit · completed November 2026
 
-The separate financial-crime modelling workflow now fixes tied-score average precision and preserves source decimal amounts on fresh import. Ten regression tests pass, including live PostgreSQL precision and a 180-row comparison with the bounded-space rebuild. Full-precision retraining and capacity-rule comparisons on all 5.08M rows remain pending because local storage is insufficient; old published model scores are explicitly historical. See [correction, reproducible commands and reviewer walkthrough](docs/financial_evaluation_upgrade.md). These modelling changes do not alter the separate banking pipeline publication.
+All 5.08M original source rows were re-read, decimal features rebuilt and the model retrained using a bounded-space DuckDB audit. The full-precision model retrieves **267 positives / 1,000 reviews**, versus **34** for amount/history and **1** for prior frequency. A matched two-decimal control retrieves **270**, so this is a correctness fix rather than a ranking improvement. Both runs pass **3,644 independent reference assertions**.
+
+**Read the date caveat:** 217 of those 267 positives come from a tiny high-prevalence late tail. On the two high-volume test dates, the model retrieves **76/1,000**, versus **26** for amount/history. All global top-1,000 cases are ACH. These are synthetic retrospective results. [Current audit and reproducible commands](docs/financial_evaluation_upgrade.md) · [full evidence](reports/full_precision/README.md). The older saved Power BI views remain v1; the separate banking pipeline publication is unchanged.
 
 ## Replay, correction, and recovery demonstration
 
@@ -112,17 +114,17 @@ PostgreSQL and machine-learning investigation pipeline across **5,078,345 synthe
 
 The business question is: which transaction patterns merit closer investigation? Eight reproducible analyses cover size, label balance, data quality, currency-specific amounts, payment methods, outgoing account volume, hourly activity, and payments relative to strictly earlier account history.
 
-The chronological logistic baseline was trained on dates before September 8 and tested on September 9 onward. In the later test period, its top 1,000 transactions contained **199 of 1,611** positive labels: **19.9% Precision@1,000**, **12.35% Recall@1,000**, and **0.1016 PR-AUC**. Test prevalence was 0.1865%, giving about 107× enrichment at K=1,000 within this synthetic test period.
+The current full-source recomputation preserves the same train/validation/test dates and uses explicit source-ID ordering. Test average precision is **0.1276433**, with **267/1,000** positive labels retrieved. The [model report](reports/model_report.md) includes rule comparisons, the matched precision control, and the important time/format limitations. The original v1 result of 199/1,000 is archived rather than presented as the current audit.
 
 ### Power BI report and dashboard
 
-The **Financial Crime Review Queue** report was built in Power BI from the top **10,000 ranked later-period test transactions**. Its first page is a case table with review rank, model score, transaction ID and time, model-derived reason, amount and currency, and sender/receiver bank and account IDs. The second page counts those cases by payment currency. A **Financial Crime Investigation Dashboard** was also created in My workspace; the verified dashboard tile shows the currency chart. The table is verified in the report, but has not been verified as a tile on that same dashboard.
+The **original v1 Financial Crime Review Queue** report was built in Power BI from the top **10,000 ranked later-period test transactions**. Its first page is a case table with review rank, model score, transaction ID and time, model-derived reason, amount and currency, and sender/receiver bank and account IDs. The second page counts those cases by payment currency. A **Financial Crime Investigation Dashboard** was also created in My workspace; the verified dashboard tile shows the currency chart. The table is verified in the report, but has not been verified as a tile on that same dashboard.
 
 ![Power BI dashboard showing case counts by payment currency](docs/images/power-bi-dashboard.png)
 
 [View the ranked review-queue report screenshot](docs/images/power-bi-review-queue.png) · [Power BI build details](docs/power_bi_build.md)
 
-The screenshots document the result without requiring access to the private Power BI workspace. The report visualizes a **ranked sample**, not all 5.08 million rows. Its review scores are prioritization scores, not calibrated probabilities or proof of financial crime.
+These unchanged screenshots document the older v1 result, not the new audit, without requiring access to the private Power BI workspace. The report visualizes a **ranked sample**, not all 5.08 million rows. Its review scores are prioritization scores, not calibrated probabilities or proof of financial crime.
 
 See the [model report](reports/model_report.md), [raw model metrics](reports/model_metrics.json), [findings](docs/findings.md), [resume and LinkedIn text](docs/career.md), and [interview guide](docs/interview.md).
 
@@ -159,7 +161,7 @@ Build features, train, score every transaction, and load the scores:
 
 ```sh
 psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/model_features.sql
-psql -X -v ON_ERROR_STOP=1 -d financial_crime -c "\copy model_features TO 'data/processed/model_features.csv' WITH (FORMAT csv, HEADER true)"
+psql -X -v ON_ERROR_STOP=1 -d financial_crime -c "\copy (SELECT * FROM model_features ORDER BY transaction_id) TO 'data/processed/model_features.csv' WITH (FORMAT csv, HEADER true)"
 python src/financial_crime/train_model.py
 psql -X -v ON_ERROR_STOP=1 -d financial_crime -f sql/model_scores.sql
 ```
