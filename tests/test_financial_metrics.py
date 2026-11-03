@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 from sklearn.metrics import average_precision_score
 
-from financial_crime.train_model import average_precision, ranking_at_k
+from financial_crime.train_model import average_precision, ranking_at_k, evaluate
 
 
 def test_tied_score_permutations_match_reference():
@@ -36,3 +36,9 @@ def test_invalid_metric_input_fails(labels, scores):
 
 def test_capacity_ties_use_stable_source_order():
     assert ranking_at_k(np.array([1, 0, 0]), np.array([.5, .5, .5]), 1)["positives_found"] == 1
+
+
+def test_single_class_slice_does_not_claim_roc_discrimination():
+    result = evaluate(np.array([0, 0]), np.array([.1, .2]))
+    assert result["roc_auc"] is None
+    assert result["average_precision"] == result["pr_auc"] == 0

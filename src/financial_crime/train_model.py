@@ -117,9 +117,11 @@ def evaluate(labels: np.ndarray, scores: np.ndarray) -> dict:
     predictions = scores >= 0.5
     tp = int((predictions & (labels == 1)).sum()); fp = int((predictions & (labels == 0)).sum())
     tn = int(((~predictions) & (labels == 0)).sum()); fn = int(((~predictions) & (labels == 1)).sum())
+    ap = average_precision(labels, scores)
     return {"rows": int(len(labels)), "positives": int(labels.sum()),
-            "prevalence": float(labels.mean()), "pr_auc": average_precision(labels, scores),
-            "roc_auc": roc_auc(labels, scores),
+            "prevalence": float(labels.mean()), "average_precision": ap,
+            "pr_auc": ap,  # Backward-compatible key; not trapezoidal PR area.
+            "roc_auc": roc_auc(labels, scores) if 0 < labels.sum() < len(labels) else None,
             "precision_at_0_5": tp / (tp + fp) if tp + fp else 0.0,
             "recall_at_0_5": tp / (tp + fn) if tp + fn else 0.0,
             "confusion_matrix_at_0_5": [[tn, fp], [fn, tp]],

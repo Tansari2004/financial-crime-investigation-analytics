@@ -36,7 +36,7 @@ saved Power BI report are separate artifacts.
 
 ### Financial modelling correction · November 2026
 
-The separate financial-crime modelling workflow now fixes tied-score average precision and preserves source decimal amounts on fresh import. Nine regression tests pass, including live PostgreSQL precision and a 180-row comparison with the bounded-space rebuild. Full-precision retraining and capacity-rule comparisons on all 5.08M rows remain pending because local storage is insufficient; old published model scores are explicitly historical. See [correction, reproducible commands and reviewer walkthrough](docs/financial_evaluation_upgrade.md). These modelling changes do not alter the separate banking pipeline publication.
+The separate financial-crime modelling workflow now fixes tied-score average precision and preserves source decimal amounts on fresh import. Ten regression tests pass, including live PostgreSQL precision and a 180-row comparison with the bounded-space rebuild. Full-precision retraining and capacity-rule comparisons on all 5.08M rows remain pending because local storage is insufficient; old published model scores are explicitly historical. See [correction, reproducible commands and reviewer walkthrough](docs/financial_evaluation_upgrade.md). These modelling changes do not alter the separate banking pipeline publication.
 
 ## Replay, correction, and recovery demonstration
 

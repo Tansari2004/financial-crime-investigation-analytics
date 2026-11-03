@@ -8,7 +8,7 @@ The original modelling schema now uses unconstrained PostgreSQL `NUMERIC` for so
 
 The bounded-space alternative validates every source decimal before using `DECIMAL(38,12)`, and refuses values it cannot represent exactly. On the 180-row fabricated multi-day test, its features agree with the PostgreSQL SQL output within 1e-12. Both keep earlier-calendar-day history and convert to double only at the modelling-feature boundary. That is a fixture equivalence check, not proof of equivalence on all inputs or a complete full PostgreSQL import.
 
-Nine regression tests pass. A separate 180-row fabricated smoke run completed PostgreSQL import, feature export, training, hash-matched scores, rule comparisons and date/currency/format diagnostics. Those fixture scores are not portfolio performance results.
+Ten regression tests pass. A separate 180-row fabricated smoke run completed PostgreSQL import, feature export, training, hash-matched scores, rule comparisons and date/currency/format diagnostics. Those fixture scores are not portfolio performance results.
 
 ## Full-dataset status: pending
 
@@ -36,7 +36,7 @@ Feature, score and metric SHA-256 checks prevent comparing old scores with newly
 
 The comparison evaluates the model and two untuned earlier-history rules at K=100, 500, 1,000 and 5,000 on identical rows: amount divided by the account's earlier same-currency average; and earlier-days transaction frequency within currency. The amount ratio is zero when there is no positive prior average. It is not an exchange-rate conversion. No raw dollar/Bitcoin magnitudes are ranked against each other.
 
-Rows are ordered by source transaction ID before ties are broken, never by outcome labels. Rule ties at the capacity boundary can affect found counts and must be acknowledged. The same precision/recall/AP computation applies to every method. Date, currency and payment-format diagnostics retain counts/prevalence and per-method capacity results; a group with few positives is not reliable evidence of subgroup performance. Different group prevalence, simulator construction and the short 18-day window limit interpretation. These are retrospective diagnostics, not a new untouched final test or a demonstrated real-bank benefit.
+Rows are ordered by source transaction ID before ties are broken, never by outcome labels. Rule ties at the capacity boundary can affect found counts and must be acknowledged. The same precision/recall/AP computation applies to every method. Date, currency and payment-format diagnostics retain counts/prevalence and per-method capacity results; a group with few positives is not reliable evidence of subgroup performance. ROC-AUC is null for single-class slices; average precision is reported explicitly (the old `pr_auc` key remains an alias, not trapezoidal PR area). Different group prevalence, simulator construction and the short 18-day window limit interpretation. These are retrospective diagnostics, not a new untouched final test or a demonstrated real-bank benefit.
 
 ## Reviewer walkthrough
 
