@@ -1,4 +1,6 @@
-# Logistic baseline results
+# Historical logistic baseline results
+
+**Status:** these are the original v1 results, not recomputed v2 results. The source now fixes tied-score average precision and preserves decimal imports. A complete full-precision rerun is pending. The old AP value has not been independently re-established after the correction. See [correction and rebuild status](../docs/financial_evaluation_upgrade.md).
 
 Model: `numpy_logistic_v1`, a class-weighted logistic regression trained in chunks with NumPy.
 

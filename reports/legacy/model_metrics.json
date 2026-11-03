@@ -1,0 +1,172 @@
+{
+  "model_version": "numpy_logistic_v1",
+  "model_type": "logistic regression implemented with NumPy mini-batch gradient descent",
+  "score_warning": "Class weighting changes calibration; review_score is a ranking score, not a crime probability.",
+  "split": {
+    "train": "before 2022-09-08",
+    "validation": "2022-09-08",
+    "test": "2022-09-09 onward"
+  },
+  "train": {
+    "rows": 3731672,
+    "positives": 3027
+  },
+  "validation": {
+    "rows": 482773,
+    "positives": 539,
+    "prevalence": 0.0011164667452405169,
+    "pr_auc": 0.0219659048428728,
+    "roc_auc": 0.8975799422328345,
+    "precision_at_0_5": 0.008949072711215778,
+    "recall_at_0_5": 0.8460111317254174,
+    "confusion_matrix_at_0_5": [
+      [
+        431735,
+        50499
+      ],
+      [
+        83,
+        456
+      ]
+    ],
+    "ranking": [
+      {
+        "k": 100,
+        "positives_found": 6,
+        "precision": 0.06,
+        "recall": 0.011131725417439703
+      },
+      {
+        "k": 500,
+        "positives_found": 23,
+        "precision": 0.046,
+        "recall": 0.04267161410018553
+      },
+      {
+        "k": 1000,
+        "positives_found": 33,
+        "precision": 0.033,
+        "recall": 0.061224489795918366
+      },
+      {
+        "k": 5000,
+        "positives_found": 131,
+        "precision": 0.0262,
+        "recall": 0.24304267161410018
+      }
+    ]
+  },
+  "test": {
+    "rows": 863900,
+    "positives": 1611,
+    "prevalence": 0.0018647991665702048,
+    "pr_auc": 0.10163379566982862,
+    "roc_auc": 0.9330367893186963,
+    "precision_at_0_5": 0.012561938516195382,
+    "recall_at_0_5": 0.9174425822470516,
+    "confusion_matrix_at_0_5": [
+      [
+        746110,
+        116179
+      ],
+      [
+        133,
+        1478
+      ]
+    ],
+    "ranking": [
+      {
+        "k": 100,
+        "positives_found": 35,
+        "precision": 0.35,
+        "recall": 0.021725636250775917
+      },
+      {
+        "k": 500,
+        "positives_found": 103,
+        "precision": 0.206,
+        "recall": 0.06393544382371198
+      },
+      {
+        "k": 1000,
+        "positives_found": 199,
+        "precision": 0.199,
+        "recall": 0.12352576039726877
+      },
+      {
+        "k": 5000,
+        "positives_found": 592,
+        "precision": 0.1184,
+        "recall": 0.3674736188702669
+      }
+    ]
+  },
+  "largest_negative_coefficients": [
+    [
+      "payment_format=Wire",
+      -1.709918550186795
+    ],
+    [
+      "payment_format=Cheque",
+      -0.905829108330256
+    ],
+    [
+      "payment_format=Credit Card",
+      -0.8911720382955958
+    ],
+    [
+      "self_transfer",
+      -0.856610507771192
+    ],
+    [
+      "payment_format=Reinvestment",
+      -0.8469564161597213
+    ],
+    [
+      "payment_format=Cash",
+      -0.774039738051229
+    ],
+    [
+      "same_bank",
+      -0.5507832553027334
+    ],
+    [
+      "receiving_currency=Yen",
+      -0.3957021583492898
+    ]
+  ],
+  "largest_positive_coefficients": [
+    [
+      "payment_format=ACH",
+      1.4297195975196333
+    ],
+    [
+      "log_prior_average_amount",
+      0.42713019845972444
+    ],
+    [
+      "weekday_cos",
+      0.41487463314989687
+    ],
+    [
+      "payment_currency=Saudi Riyal",
+      0.37954261292885466
+    ],
+    [
+      "log_amount_paid",
+      0.3326581121386238
+    ],
+    [
+      "receiving_currency=Saudi Riyal",
+      0.3316635757251114
+    ],
+    [
+      "payment_currency=Bitcoin",
+      0.21687164880290657
+    ],
+    [
+      "payment_format=Bitcoin",
+      0.2155529843287719
+    ]
+  ]
+}

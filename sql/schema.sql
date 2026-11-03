@@ -6,9 +6,11 @@ CREATE TABLE transactions (
     from_account TEXT,
     to_bank TEXT,
     to_account TEXT,
-    amount_received NUMERIC(18, 2),
+    -- Preserve source decimals. Widening an already loaded table would NOT
+    -- recover rounded amounts: rebuild from the original CSV in a new DB.
+    amount_received NUMERIC,
     receiving_currency TEXT,
-    amount_paid NUMERIC(18, 2),
+    amount_paid NUMERIC,
     payment_currency TEXT,
     payment_format TEXT,
     is_laundering SMALLINT

@@ -34,7 +34,11 @@ passed every count, currency-amount, and publication-boundary check; 24 dbt
 checks passed against the published database. The local browser preview and the
 saved Power BI report are separate artifacts.
 
-### Replay, correction, and recovery demonstration
+### Financial modelling correction · November 2026
+
+The separate financial-crime modelling workflow now fixes tied-score average precision and preserves source decimal amounts on fresh import. Nine regression tests pass, including live PostgreSQL precision and a 180-row comparison with the bounded-space rebuild. Full-precision retraining and capacity-rule comparisons on all 5.08M rows remain pending because local storage is insufficient; old published model scores are explicitly historical. See [correction, reproducible commands and reviewer walkthrough](docs/financial_evaluation_upgrade.md). These modelling changes do not alter the separate banking pipeline publication.
+
+## Replay, correction, and recovery demonstration
 
 With Python dependencies installed (`python -m pip install -e .`) and a local
 PostgreSQL 16 connection with `CREATEDB` permission, run:

@@ -168,5 +168,6 @@
       "payment_format=Bitcoin",
       0.2155529843287719
     ]
-  ]
+  ],
+  "verification_status": "Historical v1 rounded-amount experiment. AP implementation corrected in source; full-precision recomputation is pending. Do not present these metrics as corrected v2 results."
 }
