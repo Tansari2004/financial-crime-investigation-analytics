@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -17,7 +18,15 @@ NUMERIC_FEATURES = [
 CATEGORICAL_FEATURES = ["payment_currency", "receiving_currency", "payment_format"]
 TRAIN_END = pd.Timestamp("2022-09-08")
 VALIDATION_END = pd.Timestamp("2022-09-09")
-MODEL_VERSION = "numpy_logistic_v1"
+MODEL_VERSION = "numpy_logistic_v2_tie_aware"
+
+
+def file_sha256(path):
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        while block := stream.read(1024 * 1024):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def numeric_matrix(frame: pd.DataFrame) -> np.ndarray:
@@ -62,11 +71,25 @@ def sigmoid(values: np.ndarray) -> np.ndarray:
 
 
 def average_precision(labels: np.ndarray, scores: np.ndarray) -> float:
+    """Non-interpolated AP, evaluated once per distinct score threshold.
+
+    All members of a tie enter together; their source order cannot change AP.
+    Matches sklearn.metrics.average_precision_score for binary finite inputs.
+    """
+    labels = np.asarray(labels)
+    scores = np.asarray(scores, dtype=float)
+    if labels.ndim != 1 or scores.shape != labels.shape or not len(labels):
+        raise ValueError("Expected nonempty, equally sized one-dimensional arrays")
+    if not np.isin(labels, [0, 1]).all() or not np.isfinite(scores).all():
+        raise ValueError("Expected binary labels and finite scores")
     positives = int(labels.sum())
     if positives == 0: return 0.0
-    ordered = labels[np.argsort(scores)[::-1]]
-    precision = np.cumsum(ordered) / np.arange(1, len(ordered) + 1)
-    return float(precision[ordered == 1].sum() / positives)
+    order = np.argsort(-scores, kind="stable")
+    ends = np.r_[np.flatnonzero(np.diff(scores[order])), len(scores) - 1]
+    true_positives = np.cumsum(labels[order])[ends]
+    precision = true_positives / (ends + 1)
+    recall_increments = np.diff(np.r_[0, true_positives]) / positives
+    return float(np.sum(recall_increments * precision))
 
 
 def roc_auc(labels: np.ndarray, scores: np.ndarray) -> float:
@@ -82,7 +105,9 @@ def roc_auc(labels: np.ndarray, scores: np.ndarray) -> float:
 
 
 def ranking_at_k(labels: np.ndarray, scores: np.ndarray, k: int) -> dict:
-    actual_k = min(k, len(labels)); chosen = np.argsort(scores)[::-1][:actual_k]
+    # Stable source order (transaction_id in the exported feature file) breaks
+    # capacity-boundary ties deterministically; unlike AP this selects K rows.
+    actual_k = min(k, len(labels)); chosen = np.argsort(-scores, kind="stable")[:actual_k]
     found = int(labels[chosen].sum()); total = int(labels.sum())
     return {"k": actual_k, "positives_found": found, "precision": found / actual_k,
             "recall": found / total if total else 0.0}
@@ -92,9 +117,11 @@ def evaluate(labels: np.ndarray, scores: np.ndarray) -> dict:
     predictions = scores >= 0.5
     tp = int((predictions & (labels == 1)).sum()); fp = int((predictions & (labels == 0)).sum())
     tn = int(((~predictions) & (labels == 0)).sum()); fn = int(((~predictions) & (labels == 1)).sum())
+    ap = average_precision(labels, scores)
     return {"rows": int(len(labels)), "positives": int(labels.sum()),
-            "prevalence": float(labels.mean()), "pr_auc": average_precision(labels, scores),
-            "roc_auc": roc_auc(labels, scores),
+            "prevalence": float(labels.mean()), "average_precision": ap,
+            "pr_auc": ap,  # Backward-compatible key; not trapezoidal PR area.
+            "roc_auc": roc_auc(labels, scores) if 0 < labels.sum() < len(labels) else None,
             "precision_at_0_5": tp / (tp + fp) if tp + fp else 0.0,
             "recall_at_0_5": tp / (tp + fn) if tp + fn else 0.0,
             "confusion_matrix_at_0_5": [[tn, fp], [fn, tp]],
@@ -160,6 +187,8 @@ def main() -> None:
         feature_names += [f"{column}={value}" for value in category_maps[column]] + [f"{column}=UNKNOWN"]
     coefficients = sorted(zip(feature_names, weights, strict=True), key=lambda pair: pair[1])
     metrics = {"model_version": MODEL_VERSION,
+               "features_sha256": file_sha256(args.features),
+               "scores_sha256": file_sha256(args.scores),
                "model_type": "logistic regression implemented with NumPy mini-batch gradient descent",
                "score_warning": "Class weighting changes calibration; review_score is a ranking score, not a crime probability.",
                "split": {"train": "before 2022-09-08", "validation": "2022-09-08", "test": "2022-09-09 onward"},

@@ -1,0 +1,12 @@
+{
+  "status": "implementation_verified_full_rerun_pending",
+  "average_precision": "tie-aware; regression checked against sklearn.metrics.average_precision_score",
+  "source_schema": "unconstrained PostgreSQL NUMERIC, tested by COPY and feature extraction",
+  "tests_passed": 10,
+  "postgresql_and_bounded_fixture_rows": 180,
+  "full_source_sha256_observed": "b19d39f515523373f991b689c07e11e7b0b95c17a2c27a87d91584ae16c5b040",
+  "full_precision_metrics_recomputed": false,
+  "full_rerun_blocker": "Less than 0.5 GB free local disk and original source in cloud-managed storage. Full import/retraining not completed.",
+  "rule_comparison_and_group_diagnostics": "Implemented; full-dataset results pending",
+  "historical_results": "reports/legacy/model_metrics.json"
+}

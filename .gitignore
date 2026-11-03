@@ -17,6 +17,9 @@ reports/*
 !reports/sql_findings.txt
 !reports/model_metrics.json
 !reports/model_report.md
+!reports/legacy/
+!reports/legacy/**
+!reports/financial_upgrade_status.json
 models/*
 !models/.gitkeep
 *.egg-info/
