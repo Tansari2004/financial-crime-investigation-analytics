@@ -132,10 +132,12 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--features", type=Path, default=Path("data/processed/model_features.csv"))
     parser.add_argument("--scores", type=Path, default=Path("data/processed/model_scores.csv"))
-    parser.add_argument("--model", type=Path, default=Path("models/numpy_logistic_v1.npz"))
+    parser.add_argument("--model", type=Path, default=Path(f"models/{MODEL_VERSION}.npz"))
     parser.add_argument("--metrics", type=Path, default=Path("reports/model_metrics.json"))
     parser.add_argument("--chunk-size", type=int, default=200_000)
     parser.add_argument("--epochs", type=int, default=3)
+    parser.add_argument("--evaluation-scores-only", action="store_true",
+                        help="Save validation/test scores only, reducing export disk use")
     args = parser.parse_args()
 
     total = np.zeros(len(NUMERIC_FEATURES)); square_total = np.zeros(len(NUMERIC_FEATURES))
@@ -174,10 +176,14 @@ def main() -> None:
     for chunk in pd.read_csv(args.features, chunksize=args.chunk_size, parse_dates=["transaction_time"]):
         scores = sigmoid(design_matrix(chunk, mean, scale, category_maps) @ weights + bias)
         names = split_names(chunk["transaction_time"])
-        pd.DataFrame({"transaction_id": chunk["transaction_id"].astype("int64"), "review_score": scores,
-                      "data_split": names, "model_version": MODEL_VERSION}).to_csv(
-            args.scores, mode="w" if not wrote_header else "a", header=not wrote_header, index=False)
-        wrote_header = True; labels = chunk["is_laundering"].to_numpy(dtype="int8")
+        export = np.ones(len(chunk), dtype=bool) if not args.evaluation_scores_only else names != "train"
+        if export.any():
+            pd.DataFrame({"transaction_id": chunk.loc[export, "transaction_id"].astype("int64"),
+                          "review_score": scores[export], "data_split": names[export],
+                          "model_version": MODEL_VERSION}).to_csv(
+                args.scores, mode="w" if not wrote_header else "a", header=not wrote_header, index=False)
+            wrote_header = True
+        labels = chunk["is_laundering"].to_numpy(dtype="int8")
         for name in ("validation", "test"):
             mask = names == name
             if mask.any(): collected_labels[name].append(labels[mask]); collected_scores[name].append(scores[mask])
@@ -189,6 +195,8 @@ def main() -> None:
     metrics = {"model_version": MODEL_VERSION,
                "features_sha256": file_sha256(args.features),
                "scores_sha256": file_sha256(args.scores),
+               "score_export_scope": "validation_and_test" if args.evaluation_scores_only else "all_rows",
+               "training_settings": {"epochs": args.epochs, "chunk_size": args.chunk_size},
                "model_type": "logistic regression implemented with NumPy mini-batch gradient descent",
                "score_warning": "Class weighting changes calibration; review_score is a ranking score, not a crime probability.",
                "split": {"train": "before 2022-09-08", "validation": "2022-09-08", "test": "2022-09-09 onward"},

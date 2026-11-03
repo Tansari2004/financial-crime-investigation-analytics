@@ -1,0 +1,4656 @@
+{
+  "precision_import": {
+    "source_sha256": "b19d39f515523373f991b689c07e11e7b0b95c17a2c27a87d91584ae16c5b040",
+    "source_bytes": 475664283,
+    "rows": 5078345,
+    "paid_rows_with_more_than_two_decimal_precision": 145670,
+    "received_rows_with_more_than_two_decimal_precision": 147755,
+    "affected_paid_rows_by_currency": {
+      "Bitcoin": 145670
+    },
+    "affected_received_rows_by_currency": {
+      "Bitcoin": 147755
+    },
+    "import_amount_type": "DuckDB DECIMAL(38,12), all source values prevalidated as exactly representable",
+    "features_amount_type": "double precision for modelling only",
+    "engine": "1.4.1",
+    "full_postgresql_rebuild": false,
+    "amount_mode": "rounded_control_18_2",
+    "features_sha256": "4664d7276ff22f5ec3ac165be0a0c5a56b2fb3247ee2e8d792d96a039d5aead1"
+  },
+  "ap_definition": "Tie-aware non-interpolated average precision; regression-checked against scikit-learn",
+  "capacity_ties": "Stable transaction_id source order, never truth labels; rule ties at K may affect found counts",
+  "amount_rule": "Amount / earlier-days account average in the same currency; zero when no positive prior average",
+  "frequency_rule": "Count of account transactions on earlier days, within the same currency",
+  "evaluation_status": "Retrospective synthetic-data diagnostic; no new final holdout",
+  "splits": {
+    "validation": {
+      "logistic": {
+        "rows": 482773,
+        "positives": 539,
+        "prevalence": 0.0011164667452405169,
+        "average_precision": 0.03399430483945348,
+        "pr_auc": 0.03399430483945348,
+        "roc_auc": 0.945826750611061,
+        "precision_at_0_5": 0.008760712308896227,
+        "recall_at_0_5": 0.8515769944341373,
+        "confusion_matrix_at_0_5": [
+          [
+            430300,
+            51934
+          ],
+          [
+            80,
+            459
+          ]
+        ],
+        "ranking": [
+          {
+            "k": 100,
+            "positives_found": 12,
+            "precision": 0.12,
+            "recall": 0.022263450834879406
+          },
+          {
+            "k": 500,
+            "positives_found": 28,
+            "precision": 0.056,
+            "recall": 0.05194805194805195
+          },
+          {
+            "k": 1000,
+            "positives_found": 65,
+            "precision": 0.065,
+            "recall": 0.12059369202226346
+          },
+          {
+            "k": 5000,
+            "positives_found": 198,
+            "precision": 0.0396,
+            "recall": 0.3673469387755102
+          }
+        ]
+      },
+      "amount_vs_prior_same_currency_average": {
+        "rows": 482773,
+        "positives": 539,
+        "prevalence": 0.0011164667452405169,
+        "average_precision": 0.0015779397212953117,
+        "pr_auc": 0.0015779397212953117,
+        "roc_auc": 0.3104691289795854,
+        "precision_at_0_5": 0.0007488291035834876,
+        "recall_at_0_5": 0.20408163265306123,
+        "confusion_matrix_at_0_5": [
+          [
+            335448,
+            146786
+          ],
+          [
+            429,
+            110
+          ]
+        ],
+        "ranking": [
+          {
+            "k": 100,
+            "positives_found": 1,
+            "precision": 0.01,
+            "recall": 0.0018552875695732839
+          },
+          {
+            "k": 500,
+            "positives_found": 8,
+            "precision": 0.016,
+            "recall": 0.014842300556586271
+          },
+          {
+            "k": 1000,
+            "positives_found": 12,
+            "precision": 0.012,
+            "recall": 0.022263450834879406
+          },
+          {
+            "k": 5000,
+            "positives_found": 29,
+            "precision": 0.0058,
+            "recall": 0.05380333951762523
+          }
+        ]
+      },
+      "prior_transaction_frequency": {
+        "rows": 482773,
+        "positives": 539,
+        "prevalence": 0.0011164667452405169,
+        "average_precision": 0.0008436124592441226,
+        "pr_auc": 0.0008436124592441226,
+        "roc_auc": 0.1945670637746032,
+        "precision_at_0_5": 0.0007103334828772245,
+        "recall_at_0_5": 0.634508348794063,
+        "confusion_matrix_at_0_5": [
+          [
+            1112,
+            481122
+          ],
+          [
+            197,
+            342
+          ]
+        ],
+        "ranking": [
+          {
+            "k": 100,
+            "positives_found": 0,
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          {
+            "k": 500,
+            "positives_found": 0,
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          {
+            "k": 1000,
+            "positives_found": 0,
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          {
+            "k": 5000,
+            "positives_found": 5,
+            "precision": 0.001,
+            "recall": 0.00927643784786642
+          }
+        ]
+      }
+    },
+    "test": {
+      "logistic": {
+        "rows": 863900,
+        "positives": 1611,
+        "prevalence": 0.0018647991665702048,
+        "average_precision": 0.1288358315004709,
+        "pr_auc": 0.1288358315004709,
+        "roc_auc": 0.9635099464835191,
+        "precision_at_0_5": 0.012816895387114701,
+        "recall_at_0_5": 0.930477963997517,
+        "confusion_matrix_at_0_5": [
+          [
+            746833,
+            115456
+          ],
+          [
+            112,
+            1499
+          ]
+        ],
+        "ranking": [
+          {
+            "k": 100,
+            "positives_found": 37,
+            "precision": 0.37,
+            "recall": 0.022967101179391682
+          },
+          {
+            "k": 500,
+            "positives_found": 149,
+            "precision": 0.298,
+            "recall": 0.09248913718187461
+          },
+          {
+            "k": 1000,
+            "positives_found": 270,
+            "precision": 0.27,
+            "recall": 0.16759776536312848
+          },
+          {
+            "k": 5000,
+            "positives_found": 668,
+            "precision": 0.1336,
+            "recall": 0.41464928615766605
+          }
+        ]
+      },
+      "amount_vs_prior_same_currency_average": {
+        "rows": 863900,
+        "positives": 1611,
+        "prevalence": 0.0018647991665702048,
+        "average_precision": 0.0037429096572197005,
+        "pr_auc": 0.0037429096572197005,
+        "roc_auc": 0.34014579814489243,
+        "precision_at_0_5": 0.001398258532554909,
+        "recall_at_0_5": 0.28677839851024206,
+        "confusion_matrix_at_0_5": [
+          [
+            532340,
+            329949
+          ],
+          [
+            1149,
+            462
+          ]
+        ],
+        "ranking": [
+          {
+            "k": 100,
+            "positives_found": 4,
+            "precision": 0.04,
+            "recall": 0.002482929857231533
+          },
+          {
+            "k": 500,
+            "positives_found": 17,
+            "precision": 0.034,
+            "recall": 0.010552451893234015
+          },
+          {
+            "k": 1000,
+            "positives_found": 34,
+            "precision": 0.034,
+            "recall": 0.02110490378646803
+          },
+          {
+            "k": 5000,
+            "positives_found": 84,
+            "precision": 0.0168,
+            "recall": 0.0521415270018622
+          }
+        ]
+      },
+      "prior_transaction_frequency": {
+        "rows": 863900,
+        "positives": 1611,
+        "prevalence": 0.0018647991665702048,
+        "average_precision": 0.0012963292020406394,
+        "pr_auc": 0.0012963292020406394,
+        "roc_auc": 0.19759026949288588,
+        "precision_at_0_5": 0.0011254394614615382,
+        "recall_at_0_5": 0.6014897579143389,
+        "confusion_matrix_at_0_5": [
+          [
+            2261,
+            860028
+          ],
+          [
+            642,
+            969
+          ]
+        ],
+        "ranking": [
+          {
+            "k": 100,
+            "positives_found": 1,
+            "precision": 0.01,
+            "recall": 0.0006207324643078833
+          },
+          {
+            "k": 500,
+            "positives_found": 1,
+            "precision": 0.002,
+            "recall": 0.0006207324643078833
+          },
+          {
+            "k": 1000,
+            "positives_found": 1,
+            "precision": 0.001,
+            "recall": 0.0006207324643078833
+          },
+          {
+            "k": 5000,
+            "positives_found": 5,
+            "precision": 0.001,
+            "recall": 0.0031036623215394167
+          }
+        ]
+      }
+    }
+  },
+  "test_slices": {
+    "date": {
+      "2022-09-09": {
+        "logistic": {
+          "rows": 654467,
+          "positives": 514,
+          "prevalence": 0.0007853719133279447,
+          "average_precision": 0.022183905280469155,
+          "pr_auc": 0.022183905280469155,
+          "roc_auc": 0.9377242174515558,
+          "precision_at_0_5": 0.005116591175977185,
+          "recall_at_0_5": 0.830739299610895,
+          "confusion_matrix_at_0_5": [
+            [
+              570926,
+              83027
+            ],
+            [
+              87,
+              427
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 9,
+              "precision": 0.09,
+              "recall": 0.017509727626459144
+            },
+            {
+              "k": 500,
+              "positives_found": 18,
+              "precision": 0.036,
+              "recall": 0.03501945525291829
+            },
+            {
+              "k": 1000,
+              "positives_found": 33,
+              "precision": 0.033,
+              "recall": 0.06420233463035019
+            },
+            {
+              "k": 5000,
+              "positives_found": 160,
+              "precision": 0.032,
+              "recall": 0.311284046692607
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 654467,
+          "positives": 514,
+          "prevalence": 0.0007853719133279447,
+          "average_precision": 0.0035571288403035504,
+          "pr_auc": 0.0035571288403035504,
+          "roc_auc": 0.31360458108577527,
+          "precision_at_0_5": 0.0004910707591729019,
+          "recall_at_0_5": 0.25486381322957197,
+          "confusion_matrix_at_0_5": [
+            [
+              387320,
+              266633
+            ],
+            [
+              383,
+              131
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 6,
+              "precision": 0.06,
+              "recall": 0.011673151750972763
+            },
+            {
+              "k": 500,
+              "positives_found": 19,
+              "precision": 0.038,
+              "recall": 0.03696498054474708
+            },
+            {
+              "k": 1000,
+              "positives_found": 25,
+              "precision": 0.025,
+              "recall": 0.048638132295719845
+            },
+            {
+              "k": 5000,
+              "positives_found": 35,
+              "precision": 0.007,
+              "recall": 0.06809338521400778
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 654467,
+          "positives": 514,
+          "prevalence": 0.0007853719133279447,
+          "average_precision": 0.000767288554287729,
+          "pr_auc": 0.000767288554287729,
+          "roc_auc": 0.2841336540201984,
+          "precision_at_0_5": 0.0005342616320544733,
+          "recall_at_0_5": 0.6789883268482491,
+          "confusion_matrix_at_0_5": [
+            [
+              1064,
+              652889
+            ],
+            [
+              165,
+              349
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 12,
+              "precision": 0.0024,
+              "recall": 0.023346303501945526
+            }
+          ]
+        }
+      },
+      "2022-09-10": {
+        "logistic": {
+          "rows": 208325,
+          "positives": 442,
+          "prevalence": 0.002121684867394696,
+          "average_precision": 0.0586766829420134,
+          "pr_auc": 0.0586766829420134,
+          "roc_auc": 0.950571624401587,
+          "precision_at_0_5": 0.012756736960966826,
+          "recall_at_0_5": 0.9457013574660633,
+          "confusion_matrix_at_0_5": [
+            [
+              175534,
+              32349
+            ],
+            [
+              24,
+              418
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 13,
+              "precision": 0.13,
+              "recall": 0.029411764705882353
+            },
+            {
+              "k": 500,
+              "positives_found": 52,
+              "precision": 0.104,
+              "recall": 0.11764705882352941
+            },
+            {
+              "k": 1000,
+              "positives_found": 100,
+              "precision": 0.1,
+              "recall": 0.22624434389140272
+            },
+            {
+              "k": 5000,
+              "positives_found": 224,
+              "precision": 0.0448,
+              "recall": 0.5067873303167421
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 208325,
+          "positives": 442,
+          "prevalence": 0.002121684867394696,
+          "average_precision": 0.003200418696880805,
+          "pr_auc": 0.003200418696880805,
+          "roc_auc": 0.34869815498158196,
+          "precision_at_0_5": 0.001851119373467289,
+          "recall_at_0_5": 0.2647058823529412,
+          "confusion_matrix_at_0_5": [
+            [
+              144795,
+              63088
+            ],
+            [
+              325,
+              117
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 8,
+              "precision": 0.016,
+              "recall": 0.01809954751131222
+            },
+            {
+              "k": 1000,
+              "positives_found": 14,
+              "precision": 0.014,
+              "recall": 0.03167420814479638
+            },
+            {
+              "k": 5000,
+              "positives_found": 40,
+              "precision": 0.008,
+              "recall": 0.09049773755656108
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 208325,
+          "positives": 442,
+          "prevalence": 0.002121684867394696,
+          "average_precision": 0.0013645263516439967,
+          "pr_auc": 0.0013645263516439967,
+          "roc_auc": 0.1335365167880828,
+          "precision_at_0_5": 0.0013186940581481285,
+          "recall_at_0_5": 0.6176470588235294,
+          "confusion_matrix_at_0_5": [
+            [
+              1133,
+              206750
+            ],
+            [
+              169,
+              273
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.0022624434389140274
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.0022624434389140274
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.0022624434389140274
+            },
+            {
+              "k": 5000,
+              "positives_found": 5,
+              "precision": 0.001,
+              "recall": 0.011312217194570135
+            }
+          ]
+        }
+      },
+      "2022-09-11": {
+        "logistic": {
+          "rows": 396,
+          "positives": 232,
+          "prevalence": 0.5858585858585859,
+          "average_precision": 0.9367381601543738,
+          "pr_auc": 0.9367381601543738,
+          "roc_auc": 0.9372371740958789,
+          "precision_at_0_5": 0.8405797101449275,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              120,
+              44
+            ],
+            [
+              0,
+              232
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 98,
+              "precision": 0.98,
+              "recall": 0.4224137931034483
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 396,
+          "positives": 232,
+          "prevalence": 0.5858585858585859,
+          "average_precision": 0.5342291981651002,
+          "pr_auc": 0.5342291981651002,
+          "roc_auc": 0.35394764507989906,
+          "precision_at_0_5": 0.48026315789473684,
+          "recall_at_0_5": 0.3146551724137931,
+          "confusion_matrix_at_0_5": [
+            [
+              85,
+              79
+            ],
+            [
+              159,
+              73
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 48,
+              "precision": 0.48,
+              "recall": 0.20689655172413793
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 396,
+          "positives": 232,
+          "prevalence": 0.5858585858585859,
+          "average_precision": 0.5624248867891057,
+          "pr_auc": 0.5624248867891057,
+          "roc_auc": 0.3810449957947855,
+          "precision_at_0_5": 0.47410358565737054,
+          "recall_at_0_5": 0.5129310344827587,
+          "confusion_matrix_at_0_5": [
+            [
+              32,
+              132
+            ],
+            [
+              113,
+              119
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 57,
+              "precision": 0.57,
+              "recall": 0.24568965517241378
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            },
+            {
+              "k": 396,
+              "positives_found": 232,
+              "precision": 0.5858585858585859,
+              "recall": 1.0
+            }
+          ]
+        }
+      },
+      "2022-09-12": {
+        "logistic": {
+          "rows": 281,
+          "positives": 170,
+          "prevalence": 0.604982206405694,
+          "average_precision": 0.9482769844521932,
+          "pr_auc": 0.9482769844521932,
+          "roc_auc": 0.952888182299947,
+          "precision_at_0_5": 0.9239130434782609,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              97,
+              14
+            ],
+            [
+              0,
+              170
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 95,
+              "precision": 0.95,
+              "recall": 0.5588235294117647
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 281,
+          "positives": 170,
+          "prevalence": 0.604982206405694,
+          "average_precision": 0.5129700813744613,
+          "pr_auc": 0.5129700813744613,
+          "roc_auc": 0.29305776364599895,
+          "precision_at_0_5": 0.45081967213114754,
+          "recall_at_0_5": 0.3235294117647059,
+          "confusion_matrix_at_0_5": [
+            [
+              44,
+              67
+            ],
+            [
+              115,
+              55
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 46,
+              "precision": 0.46,
+              "recall": 0.27058823529411763
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 281,
+          "positives": 170,
+          "prevalence": 0.604982206405694,
+          "average_precision": 0.6012359520015498,
+          "pr_auc": 0.6012359520015498,
+          "roc_auc": 0.3626391096979332,
+          "precision_at_0_5": 0.4731182795698925,
+          "recall_at_0_5": 0.5176470588235295,
+          "confusion_matrix_at_0_5": [
+            [
+              13,
+              98
+            ],
+            [
+              82,
+              88
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 51,
+              "precision": 0.51,
+              "recall": 0.3
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            },
+            {
+              "k": 281,
+              "positives_found": 170,
+              "precision": 0.604982206405694,
+              "recall": 1.0
+            }
+          ]
+        }
+      },
+      "2022-09-13": {
+        "logistic": {
+          "rows": 184,
+          "positives": 106,
+          "prevalence": 0.5760869565217391,
+          "average_precision": 0.9181448470525073,
+          "pr_auc": 0.9181448470525073,
+          "roc_auc": 0.9423076923076923,
+          "precision_at_0_5": 0.8907563025210085,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              65,
+              13
+            ],
+            [
+              0,
+              106
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 92,
+              "precision": 0.92,
+              "recall": 0.8679245283018868
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 184,
+          "positives": 106,
+          "prevalence": 0.5760869565217391,
+          "average_precision": 0.4896824225368823,
+          "pr_auc": 0.4896824225368823,
+          "roc_auc": 0.26771891630382194,
+          "precision_at_0_5": 0.4126984126984127,
+          "recall_at_0_5": 0.24528301886792453,
+          "confusion_matrix_at_0_5": [
+            [
+              41,
+              37
+            ],
+            [
+              80,
+              26
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 39,
+              "precision": 0.39,
+              "recall": 0.36792452830188677
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 184,
+          "positives": 106,
+          "prevalence": 0.5760869565217391,
+          "average_precision": 0.5047272514761134,
+          "pr_auc": 0.5047272514761134,
+          "roc_auc": 0.276003870343493,
+          "precision_at_0_5": 0.4017857142857143,
+          "recall_at_0_5": 0.42452830188679247,
+          "confusion_matrix_at_0_5": [
+            [
+              11,
+              67
+            ],
+            [
+              61,
+              45
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 39,
+              "precision": 0.39,
+              "recall": 0.36792452830188677
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            },
+            {
+              "k": 184,
+              "positives_found": 106,
+              "precision": 0.5760869565217391,
+              "recall": 1.0
+            }
+          ]
+        }
+      },
+      "2022-09-14": {
+        "logistic": {
+          "rows": 121,
+          "positives": 70,
+          "prevalence": 0.5785123966942148,
+          "average_precision": 0.9323222262606294,
+          "pr_auc": 0.9323222262606294,
+          "roc_auc": 0.9313725490196079,
+          "precision_at_0_5": 0.8974358974358975,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              43,
+              8
+            ],
+            [
+              0,
+              70
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 70,
+              "precision": 0.7,
+              "recall": 1.0
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 121,
+          "positives": 70,
+          "prevalence": 0.5785123966942148,
+          "average_precision": 0.5059255335542538,
+          "pr_auc": 0.5059255335542538,
+          "roc_auc": 0.3619047619047619,
+          "precision_at_0_5": 0.5106382978723404,
+          "recall_at_0_5": 0.34285714285714286,
+          "confusion_matrix_at_0_5": [
+            [
+              28,
+              23
+            ],
+            [
+              46,
+              24
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 55,
+              "precision": 0.55,
+              "recall": 0.7857142857142857
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 121,
+          "positives": 70,
+          "prevalence": 0.5785123966942148,
+          "average_precision": 0.5643587718651375,
+          "pr_auc": 0.5643587718651375,
+          "roc_auc": 0.39873949579831935,
+          "precision_at_0_5": 0.4819277108433735,
+          "recall_at_0_5": 0.5714285714285714,
+          "confusion_matrix_at_0_5": [
+            [
+              8,
+              43
+            ],
+            [
+              30,
+              40
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 55,
+              "precision": 0.55,
+              "recall": 0.7857142857142857
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            },
+            {
+              "k": 121,
+              "positives_found": 70,
+              "precision": 0.5785123966942148,
+              "recall": 1.0
+            }
+          ]
+        }
+      },
+      "2022-09-15": {
+        "logistic": {
+          "rows": 46,
+          "positives": 28,
+          "prevalence": 0.6086956521739131,
+          "average_precision": 0.9852173521270222,
+          "pr_auc": 0.9852173521270222,
+          "roc_auc": 0.9801587301587301,
+          "precision_at_0_5": 0.9642857142857143,
+          "recall_at_0_5": 0.9642857142857143,
+          "confusion_matrix_at_0_5": [
+            [
+              17,
+              1
+            ],
+            [
+              1,
+              27
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 46,
+          "positives": 28,
+          "prevalence": 0.6086956521739131,
+          "average_precision": 0.6863510298333066,
+          "pr_auc": 0.6863510298333066,
+          "roc_auc": 0.3888888888888889,
+          "precision_at_0_5": 0.5,
+          "recall_at_0_5": 0.35714285714285715,
+          "confusion_matrix_at_0_5": [
+            [
+              8,
+              10
+            ],
+            [
+              18,
+              10
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 46,
+          "positives": 28,
+          "prevalence": 0.6086956521739131,
+          "average_precision": 0.5119089203533851,
+          "pr_auc": 0.5119089203533851,
+          "roc_auc": 0.23115079365079366,
+          "precision_at_0_5": 0.47058823529411764,
+          "recall_at_0_5": 0.5714285714285714,
+          "confusion_matrix_at_0_5": [
+            [
+              0,
+              18
+            ],
+            [
+              12,
+              16
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 28,
+              "precision": 0.6086956521739131,
+              "recall": 1.0
+            }
+          ]
+        }
+      },
+      "2022-09-16": {
+        "logistic": {
+          "rows": 46,
+          "positives": 26,
+          "prevalence": 0.5652173913043478,
+          "average_precision": 1.0,
+          "pr_auc": 1.0,
+          "roc_auc": 1.0,
+          "precision_at_0_5": 1.0,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              20,
+              0
+            ],
+            [
+              0,
+              26
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 46,
+          "positives": 26,
+          "prevalence": 0.5652173913043478,
+          "average_precision": 0.7146236288132891,
+          "pr_auc": 0.7146236288132891,
+          "roc_auc": 0.5634615384615385,
+          "precision_at_0_5": 0.6086956521739131,
+          "recall_at_0_5": 0.5384615384615384,
+          "confusion_matrix_at_0_5": [
+            [
+              11,
+              9
+            ],
+            [
+              12,
+              14
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 46,
+          "positives": 26,
+          "prevalence": 0.5652173913043478,
+          "average_precision": 0.41953761604812234,
+          "pr_auc": 0.41953761604812234,
+          "roc_auc": 0.12788461538461537,
+          "precision_at_0_5": 0.5,
+          "recall_at_0_5": 0.7692307692307693,
+          "confusion_matrix_at_0_5": [
+            [
+              0,
+              20
+            ],
+            [
+              6,
+              20
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            },
+            {
+              "k": 46,
+              "positives_found": 26,
+              "precision": 0.5652173913043478,
+              "recall": 1.0
+            }
+          ]
+        }
+      },
+      "2022-09-17": {
+        "logistic": {
+          "rows": 23,
+          "positives": 15,
+          "prevalence": 0.6521739130434783,
+          "average_precision": 1.0,
+          "pr_auc": 1.0,
+          "roc_auc": 1.0,
+          "precision_at_0_5": 1.0,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              8,
+              0
+            ],
+            [
+              0,
+              15
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 23,
+          "positives": 15,
+          "prevalence": 0.6521739130434783,
+          "average_precision": 0.7610859832598963,
+          "pr_auc": 0.7610859832598963,
+          "roc_auc": 0.5333333333333333,
+          "precision_at_0_5": 0.8,
+          "recall_at_0_5": 0.5333333333333333,
+          "confusion_matrix_at_0_5": [
+            [
+              6,
+              2
+            ],
+            [
+              7,
+              8
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 23,
+          "positives": 15,
+          "prevalence": 0.6521739130434783,
+          "average_precision": 0.5559212259898759,
+          "pr_auc": 0.5559212259898759,
+          "roc_auc": 0.19583333333333333,
+          "precision_at_0_5": 0.6,
+          "recall_at_0_5": 0.8,
+          "confusion_matrix_at_0_5": [
+            [
+              0,
+              8
+            ],
+            [
+              3,
+              12
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            },
+            {
+              "k": 23,
+              "positives_found": 15,
+              "precision": 0.6521739130434783,
+              "recall": 1.0
+            }
+          ]
+        }
+      },
+      "2022-09-18": {
+        "logistic": {
+          "rows": 11,
+          "positives": 8,
+          "prevalence": 0.7272727272727273,
+          "average_precision": 1.0,
+          "pr_auc": 1.0,
+          "roc_auc": 1.0,
+          "precision_at_0_5": 1.0,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              3,
+              0
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 11,
+          "positives": 8,
+          "prevalence": 0.7272727272727273,
+          "average_precision": 0.751176948051948,
+          "pr_auc": 0.751176948051948,
+          "roc_auc": 0.5833333333333334,
+          "precision_at_0_5": 0.8,
+          "recall_at_0_5": 0.5,
+          "confusion_matrix_at_0_5": [
+            [
+              2,
+              1
+            ],
+            [
+              4,
+              4
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 11,
+          "positives": 8,
+          "prevalence": 0.7272727272727273,
+          "average_precision": 0.7398674242424244,
+          "pr_auc": 0.7398674242424244,
+          "roc_auc": 0.4583333333333333,
+          "precision_at_0_5": 0.7,
+          "recall_at_0_5": 0.875,
+          "confusion_matrix_at_0_5": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              7
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            },
+            {
+              "k": 11,
+              "positives_found": 8,
+              "precision": 0.7272727272727273,
+              "recall": 1.0
+            }
+          ]
+        }
+      }
+    },
+    "payment_currency": {
+      "Australian Dollar": {
+        "logistic": {
+          "rows": 23249,
+          "positives": 44,
+          "prevalence": 0.001892554518473913,
+          "average_precision": 0.3336337258628916,
+          "pr_auc": 0.3336337258628916,
+          "roc_auc": 0.9716508981214863,
+          "precision_at_0_5": 0.014996342355523043,
+          "recall_at_0_5": 0.9318181818181818,
+          "confusion_matrix_at_0_5": [
+            [
+              20512,
+              2693
+            ],
+            [
+              3,
+              41
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 25,
+              "precision": 0.25,
+              "recall": 0.5681818181818182
+            },
+            {
+              "k": 500,
+              "positives_found": 31,
+              "precision": 0.062,
+              "recall": 0.7045454545454546
+            },
+            {
+              "k": 1000,
+              "positives_found": 35,
+              "precision": 0.035,
+              "recall": 0.7954545454545454
+            },
+            {
+              "k": 5000,
+              "positives_found": 44,
+              "precision": 0.0088,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 23249,
+          "positives": 44,
+          "prevalence": 0.001892554518473913,
+          "average_precision": 0.002892414652657503,
+          "pr_auc": 0.002892414652657503,
+          "roc_auc": 0.08645765998707175,
+          "precision_at_0_5": 0.00011181930001118193,
+          "recall_at_0_5": 0.022727272727272728,
+          "confusion_matrix_at_0_5": [
+            [
+              14263,
+              8942
+            ],
+            [
+              43,
+              1
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.022727272727272728
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.022727272727272728
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.022727272727272728
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.022727272727272728
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 23249,
+          "positives": 44,
+          "prevalence": 0.001892554518473913,
+          "average_precision": 0.0015031815089535684,
+          "pr_auc": 0.0015031815089535684,
+          "roc_auc": 0.0695319386495857,
+          "precision_at_0_5": 0.0005179558011049724,
+          "recall_at_0_5": 0.2727272727272727,
+          "confusion_matrix_at_0_5": [
+            [
+              49,
+              23156
+            ],
+            [
+              32,
+              12
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.022727272727272728
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.045454545454545456
+            }
+          ]
+        }
+      },
+      "Bitcoin": {
+        "logistic": {
+          "rows": 24328,
+          "positives": 10,
+          "prevalence": 0.00041104899704044723,
+          "average_precision": 0.0006225690957305634,
+          "pr_auc": 0.0006225690957305634,
+          "roc_auc": 0.4652253474792335,
+          "precision_at_0_5": 0.0013486176668914363,
+          "recall_at_0_5": 0.2,
+          "confusion_matrix_at_0_5": [
+            [
+              22837,
+              1481
+            ],
+            [
+              8,
+              2
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.1
+            },
+            {
+              "k": 5000,
+              "positives_found": 3,
+              "precision": 0.0006,
+              "recall": 0.3
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 24328,
+          "positives": 10,
+          "prevalence": 0.00041104899704044723,
+          "average_precision": 0.00041790334814975356,
+          "pr_auc": 0.00041790334814975356,
+          "roc_auc": 0.31065054691997696,
+          "precision_at_0_5": 0.00012393109431156277,
+          "recall_at_0_5": 0.1,
+          "confusion_matrix_at_0_5": [
+            [
+              16250,
+              8068
+            ],
+            [
+              9,
+              1
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.1
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.1
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 24328,
+          "positives": 10,
+          "prevalence": 0.00041104899704044723,
+          "average_precision": 0.0004384460219250486,
+          "pr_auc": 0.0004384460219250486,
+          "roc_auc": 0.31055391068344435,
+          "precision_at_0_5": 0.000370904595095817,
+          "recall_at_0_5": 0.9,
+          "confusion_matrix_at_0_5": [
+            [
+              62,
+              24256
+            ],
+            [
+              1,
+              9
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.2
+            }
+          ]
+        }
+      },
+      "Brazil Real": {
+        "logistic": {
+          "rows": 12223,
+          "positives": 17,
+          "prevalence": 0.0013908205841446453,
+          "average_precision": 0.17391089966569767,
+          "pr_auc": 0.17391089966569767,
+          "roc_auc": 0.968800300719993,
+          "precision_at_0_5": 0.009502515371716043,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              10434,
+              1772
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 9,
+              "precision": 0.09,
+              "recall": 0.5294117647058824
+            },
+            {
+              "k": 500,
+              "positives_found": 11,
+              "precision": 0.022,
+              "recall": 0.6470588235294118
+            },
+            {
+              "k": 1000,
+              "positives_found": 15,
+              "precision": 0.015,
+              "recall": 0.8823529411764706
+            },
+            {
+              "k": 5000,
+              "positives_found": 17,
+              "precision": 0.0034,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 12223,
+          "positives": 17,
+          "prevalence": 0.0013908205841446453,
+          "average_precision": 0.0009827638810555677,
+          "pr_auc": 0.0009827638810555677,
+          "roc_auc": 0.16019363668783915,
+          "precision_at_0_5": 0.00022256843979523704,
+          "recall_at_0_5": 0.058823529411764705,
+          "confusion_matrix_at_0_5": [
+            [
+              7714,
+              4492
+            ],
+            [
+              16,
+              1
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.11764705882352941
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 12223,
+          "positives": 17,
+          "prevalence": 0.0013908205841446453,
+          "average_precision": 0.0009432023595608776,
+          "pr_auc": 0.0009432023595608776,
+          "roc_auc": 0.043312835538934565,
+          "precision_at_0_5": 0.0006570841889117043,
+          "recall_at_0_5": 0.47058823529411764,
+          "confusion_matrix_at_0_5": [
+            [
+              39,
+              12167
+            ],
+            [
+              9,
+              8
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          ]
+        }
+      },
+      "Canadian Dollar": {
+        "logistic": {
+          "rows": 23915,
+          "positives": 27,
+          "prevalence": 0.0011289985364833785,
+          "average_precision": 0.13710389708362633,
+          "pr_auc": 0.13710389708362633,
+          "roc_auc": 0.9652963831212324,
+          "precision_at_0_5": 0.008406186953597848,
+          "recall_at_0_5": 0.9259259259259259,
+          "confusion_matrix_at_0_5": [
+            [
+              20939,
+              2949
+            ],
+            [
+              2,
+              25
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 13,
+              "precision": 0.13,
+              "recall": 0.48148148148148145
+            },
+            {
+              "k": 500,
+              "positives_found": 15,
+              "precision": 0.03,
+              "recall": 0.5555555555555556
+            },
+            {
+              "k": 1000,
+              "positives_found": 18,
+              "precision": 0.018,
+              "recall": 0.6666666666666666
+            },
+            {
+              "k": 5000,
+              "positives_found": 27,
+              "precision": 0.0054,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 23915,
+          "positives": 27,
+          "prevalence": 0.0011289985364833785,
+          "average_precision": 0.005719179745298751,
+          "pr_auc": 0.005719179745298751,
+          "roc_auc": 0.3278742154746843,
+          "precision_at_0_5": 0.0008500690681117841,
+          "recall_at_0_5": 0.2962962962962963,
+          "confusion_matrix_at_0_5": [
+            [
+              14485,
+              9403
+            ],
+            [
+              19,
+              8
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 2,
+              "precision": 0.02,
+              "recall": 0.07407407407407407
+            },
+            {
+              "k": 500,
+              "positives_found": 3,
+              "precision": 0.006,
+              "recall": 0.1111111111111111
+            },
+            {
+              "k": 1000,
+              "positives_found": 4,
+              "precision": 0.004,
+              "recall": 0.14814814814814814
+            },
+            {
+              "k": 5000,
+              "positives_found": 7,
+              "precision": 0.0014,
+              "recall": 0.25925925925925924
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 23915,
+          "positives": 27,
+          "prevalence": 0.0011289985364833785,
+          "average_precision": 0.0007768002372434081,
+          "pr_auc": 0.0007768002372434081,
+          "roc_auc": 0.08030066235022698,
+          "precision_at_0_5": 0.0005452562704471102,
+          "recall_at_0_5": 0.48148148148148145,
+          "confusion_matrix_at_0_5": [
+            [
+              59,
+              23829
+            ],
+            [
+              14,
+              13
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.037037037037037035
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.037037037037037035
+            }
+          ]
+        }
+      },
+      "Euro": {
+        "logistic": {
+          "rows": 198504,
+          "positives": 416,
+          "prevalence": 0.0020956756538911053,
+          "average_precision": 0.10738515015276615,
+          "pr_auc": 0.10738515015276615,
+          "roc_auc": 0.9575704067423025,
+          "precision_at_0_5": 0.013411943180251,
+          "recall_at_0_5": 0.9350961538461539,
+          "confusion_matrix_at_0_5": [
+            [
+              169473,
+              28615
+            ],
+            [
+              27,
+              389
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 31,
+              "precision": 0.31,
+              "recall": 0.07451923076923077
+            },
+            {
+              "k": 500,
+              "positives_found": 78,
+              "precision": 0.156,
+              "recall": 0.1875
+            },
+            {
+              "k": 1000,
+              "positives_found": 125,
+              "precision": 0.125,
+              "recall": 0.3004807692307692
+            },
+            {
+              "k": 5000,
+              "positives_found": 230,
+              "precision": 0.046,
+              "recall": 0.5528846153846154
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 198504,
+          "positives": 416,
+          "prevalence": 0.0020956756538911053,
+          "average_precision": 0.00592989674417501,
+          "pr_auc": 0.00592989674417501,
+          "roc_auc": 0.40572835441435506,
+          "precision_at_0_5": 0.0018455014266642235,
+          "recall_at_0_5": 0.3389423076923077,
+          "confusion_matrix_at_0_5": [
+            [
+              121827,
+              76261
+            ],
+            [
+              275,
+              141
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 6,
+              "precision": 0.06,
+              "recall": 0.014423076923076924
+            },
+            {
+              "k": 500,
+              "positives_found": 16,
+              "precision": 0.032,
+              "recall": 0.038461538461538464
+            },
+            {
+              "k": 1000,
+              "positives_found": 30,
+              "precision": 0.03,
+              "recall": 0.07211538461538461
+            },
+            {
+              "k": 5000,
+              "positives_found": 45,
+              "precision": 0.009,
+              "recall": 0.10817307692307693
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 198504,
+          "positives": 416,
+          "prevalence": 0.0020956756538911053,
+          "average_precision": 0.0015121098890298486,
+          "pr_auc": 0.0015121098890298486,
+          "roc_auc": 0.25065739042166185,
+          "precision_at_0_5": 0.0014509532307723418,
+          "recall_at_0_5": 0.6899038461538461,
+          "confusion_matrix_at_0_5": [
+            [
+              574,
+              197514
+            ],
+            [
+              129,
+              287
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.002403846153846154
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.002403846153846154
+            },
+            {
+              "k": 5000,
+              "positives_found": 7,
+              "precision": 0.0014,
+              "recall": 0.016826923076923076
+            }
+          ]
+        }
+      },
+      "Mexican Peso": {
+        "logistic": {
+          "rows": 18594,
+          "positives": 36,
+          "prevalence": 0.001936108422071636,
+          "average_precision": 0.2224541380794591,
+          "pr_auc": 0.2224541380794591,
+          "roc_auc": 0.9613044988085402,
+          "precision_at_0_5": 0.01569620253164557,
+          "recall_at_0_5": 0.8611111111111112,
+          "confusion_matrix_at_0_5": [
+            [
+              16614,
+              1944
+            ],
+            [
+              5,
+              31
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 19,
+              "precision": 0.19,
+              "recall": 0.5277777777777778
+            },
+            {
+              "k": 500,
+              "positives_found": 25,
+              "precision": 0.05,
+              "recall": 0.6944444444444444
+            },
+            {
+              "k": 1000,
+              "positives_found": 27,
+              "precision": 0.027,
+              "recall": 0.75
+            },
+            {
+              "k": 5000,
+              "positives_found": 36,
+              "precision": 0.0072,
+              "recall": 1.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 18594,
+          "positives": 36,
+          "prevalence": 0.001936108422071636,
+          "average_precision": 0.0026010994384307257,
+          "pr_auc": 0.0026010994384307257,
+          "roc_auc": 0.17617664140053407,
+          "precision_at_0_5": 0.0005715102157451065,
+          "recall_at_0_5": 0.1111111111111111,
+          "confusion_matrix_at_0_5": [
+            [
+              11563,
+              6995
+            ],
+            [
+              32,
+              4
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.027777777777777776
+            },
+            {
+              "k": 500,
+              "positives_found": 2,
+              "precision": 0.004,
+              "recall": 0.05555555555555555
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.05555555555555555
+            },
+            {
+              "k": 5000,
+              "positives_found": 3,
+              "precision": 0.0006,
+              "recall": 0.08333333333333333
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 18594,
+          "positives": 36,
+          "prevalence": 0.001936108422071636,
+          "average_precision": 0.001603908293314961,
+          "pr_auc": 0.001603908293314961,
+          "roc_auc": 0.17719447138700292,
+          "precision_at_0_5": 0.0008098477486232588,
+          "recall_at_0_5": 0.4166666666666667,
+          "confusion_matrix_at_0_5": [
+            [
+              51,
+              18507
+            ],
+            [
+              21,
+              15
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.027777777777777776
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.027777777777777776
+            },
+            {
+              "k": 5000,
+              "positives_found": 4,
+              "precision": 0.0008,
+              "recall": 0.1111111111111111
+            }
+          ]
+        }
+      },
+      "Ruble": {
+        "logistic": {
+          "rows": 26541,
+          "positives": 36,
+          "prevalence": 0.0013563919972872161,
+          "average_precision": 0.17373292915115976,
+          "pr_auc": 0.17373292915115976,
+          "roc_auc": 0.9484866587017124,
+          "precision_at_0_5": 0.010085574572127139,
+          "recall_at_0_5": 0.9166666666666666,
+          "confusion_matrix_at_0_5": [
+            [
+              23266,
+              3239
+            ],
+            [
+              3,
+              33
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 16,
+              "precision": 0.16,
+              "recall": 0.4444444444444444
+            },
+            {
+              "k": 500,
+              "positives_found": 23,
+              "precision": 0.046,
+              "recall": 0.6388888888888888
+            },
+            {
+              "k": 1000,
+              "positives_found": 24,
+              "precision": 0.024,
+              "recall": 0.6666666666666666
+            },
+            {
+              "k": 5000,
+              "positives_found": 34,
+              "precision": 0.0068,
+              "recall": 0.9444444444444444
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 26541,
+          "positives": 36,
+          "prevalence": 0.0013563919972872161,
+          "average_precision": 0.0017037441690121217,
+          "pr_auc": 0.0017037441690121217,
+          "roc_auc": 0.12322098555828041,
+          "precision_at_0_5": 0.0003918111470271329,
+          "recall_at_0_5": 0.1111111111111111,
+          "confusion_matrix_at_0_5": [
+            [
+              16300,
+              10205
+            ],
+            [
+              32,
+              4
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.027777777777777776
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.027777777777777776
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.027777777777777776
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.05555555555555555
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 26541,
+          "positives": 36,
+          "prevalence": 0.0013563919972872161,
+          "average_precision": 0.00104602519713048,
+          "pr_auc": 0.00104602519713048,
+          "roc_auc": 0.070874468129703,
+          "precision_at_0_5": 0.0004536176003628941,
+          "recall_at_0_5": 0.3333333333333333,
+          "confusion_matrix_at_0_5": [
+            [
+              63,
+              26442
+            ],
+            [
+              24,
+              12
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.05555555555555555
+            }
+          ]
+        }
+      },
+      "Rupee": {
+        "logistic": {
+          "rows": 32241,
+          "positives": 39,
+          "prevalence": 0.0012096398995068392,
+          "average_precision": 0.3250606784927494,
+          "pr_auc": 0.3250606784927494,
+          "roc_auc": 0.970998775358753,
+          "precision_at_0_5": 0.008652946679139382,
+          "recall_at_0_5": 0.9487179487179487,
+          "confusion_matrix_at_0_5": [
+            [
+              27963,
+              4239
+            ],
+            [
+              2,
+              37
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 22,
+              "precision": 0.22,
+              "recall": 0.5641025641025641
+            },
+            {
+              "k": 500,
+              "positives_found": 27,
+              "precision": 0.054,
+              "recall": 0.6923076923076923
+            },
+            {
+              "k": 1000,
+              "positives_found": 30,
+              "precision": 0.03,
+              "recall": 0.7692307692307693
+            },
+            {
+              "k": 5000,
+              "positives_found": 37,
+              "precision": 0.0074,
+              "recall": 0.9487179487179487
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 32241,
+          "positives": 39,
+          "prevalence": 0.0012096398995068392,
+          "average_precision": 0.0011081280739283187,
+          "pr_auc": 0.0011081280739283187,
+          "roc_auc": 0.06850267303034212,
+          "precision_at_0_5": 0.00016214025131738955,
+          "recall_at_0_5": 0.05128205128205128,
+          "confusion_matrix_at_0_5": [
+            [
+              19869,
+              12333
+            ],
+            [
+              37,
+              2
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.02564102564102564
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.02564102564102564
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.02564102564102564
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 32241,
+          "positives": 39,
+          "prevalence": 0.0012096398995068392,
+          "average_precision": 0.0009818218717475475,
+          "pr_auc": 0.0009818218717475475,
+          "roc_auc": 0.07254805004944748,
+          "precision_at_0_5": 0.00031154589070970157,
+          "recall_at_0_5": 0.2564102564102564,
+          "confusion_matrix_at_0_5": [
+            [
+              114,
+              32088
+            ],
+            [
+              29,
+              10
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.05128205128205128
+            }
+          ]
+        }
+      },
+      "Saudi Riyal": {
+        "logistic": {
+          "rows": 15255,
+          "positives": 150,
+          "prevalence": 0.00983284169124877,
+          "average_precision": 0.19090408545507717,
+          "pr_auc": 0.19090408545507717,
+          "roc_auc": 0.9620249365552246,
+          "precision_at_0_5": 0.043867502238137866,
+          "recall_at_0_5": 0.98,
+          "confusion_matrix_at_0_5": [
+            [
+              11901,
+              3204
+            ],
+            [
+              3,
+              147
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 21,
+              "precision": 0.21,
+              "recall": 0.14
+            },
+            {
+              "k": 500,
+              "positives_found": 94,
+              "precision": 0.188,
+              "recall": 0.6266666666666667
+            },
+            {
+              "k": 1000,
+              "positives_found": 120,
+              "precision": 0.12,
+              "recall": 0.8
+            },
+            {
+              "k": 5000,
+              "positives_found": 149,
+              "precision": 0.0298,
+              "recall": 0.9933333333333333
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 15255,
+          "positives": 150,
+          "prevalence": 0.00983284169124877,
+          "average_precision": 0.02859376627306948,
+          "pr_auc": 0.02859376627306948,
+          "roc_auc": 0.6151883482290632,
+          "precision_at_0_5": 0.015693112467306015,
+          "recall_at_0_5": 0.6,
+          "confusion_matrix_at_0_5": [
+            [
+              9460,
+              5645
+            ],
+            [
+              60,
+              90
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 4,
+              "precision": 0.04,
+              "recall": 0.02666666666666667
+            },
+            {
+              "k": 500,
+              "positives_found": 21,
+              "precision": 0.042,
+              "recall": 0.14
+            },
+            {
+              "k": 1000,
+              "positives_found": 30,
+              "precision": 0.03,
+              "recall": 0.2
+            },
+            {
+              "k": 5000,
+              "positives_found": 79,
+              "precision": 0.0158,
+              "recall": 0.5266666666666666
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 15255,
+          "positives": 150,
+          "prevalence": 0.00983284169124877,
+          "average_precision": 0.0069562948440143445,
+          "pr_auc": 0.0069562948440143445,
+          "roc_auc": 0.35251042701092355,
+          "precision_at_0_5": 0.009404182559515981,
+          "recall_at_0_5": 0.9533333333333334,
+          "confusion_matrix_at_0_5": [
+            [
+              42,
+              15063
+            ],
+            [
+              7,
+              143
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.006666666666666667
+            },
+            {
+              "k": 1000,
+              "positives_found": 4,
+              "precision": 0.004,
+              "recall": 0.02666666666666667
+            },
+            {
+              "k": 5000,
+              "positives_found": 20,
+              "precision": 0.004,
+              "recall": 0.13333333333333333
+            }
+          ]
+        }
+      },
+      "Shekel": {
+        "logistic": {
+          "rows": 32757,
+          "positives": 20,
+          "prevalence": 0.0006105565222700492,
+          "average_precision": 0.022035976694015084,
+          "pr_auc": 0.022035976694015084,
+          "roc_auc": 0.9610776796896477,
+          "precision_at_0_5": 0.0050105485232067514,
+          "recall_at_0_5": 0.95,
+          "confusion_matrix_at_0_5": [
+            [
+              28964,
+              3773
+            ],
+            [
+              1,
+              19
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 3,
+              "precision": 0.03,
+              "recall": 0.15
+            },
+            {
+              "k": 500,
+              "positives_found": 9,
+              "precision": 0.018,
+              "recall": 0.45
+            },
+            {
+              "k": 1000,
+              "positives_found": 11,
+              "precision": 0.011,
+              "recall": 0.55
+            },
+            {
+              "k": 5000,
+              "positives_found": 19,
+              "precision": 0.0038,
+              "recall": 0.95
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 32757,
+          "positives": 20,
+          "prevalence": 0.0006105565222700492,
+          "average_precision": 0.002255541664244241,
+          "pr_auc": 0.002255541664244241,
+          "roc_auc": 0.18352017594770442,
+          "precision_at_0_5": 0.0001576789656259855,
+          "recall_at_0_5": 0.1,
+          "confusion_matrix_at_0_5": [
+            [
+              20055,
+              12682
+            ],
+            [
+              18,
+              2
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.05
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.05
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.05
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.05
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 32757,
+          "positives": 20,
+          "prevalence": 0.0006105565222700492,
+          "average_precision": 0.00041502165643312754,
+          "pr_auc": 0.00041502165643312754,
+          "roc_auc": 0.15440251092036533,
+          "precision_at_0_5": 0.0003367209501652994,
+          "recall_at_0_5": 0.55,
+          "confusion_matrix_at_0_5": [
+            [
+              80,
+              32657
+            ],
+            [
+              9,
+              11
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.05
+            }
+          ]
+        }
+      },
+      "Swiss Franc": {
+        "logistic": {
+          "rows": 39722,
+          "positives": 58,
+          "prevalence": 0.0014601480288001611,
+          "average_precision": 0.15746665480022762,
+          "pr_auc": 0.15746665480022762,
+          "roc_auc": 0.9718762605889472,
+          "precision_at_0_5": 0.010800508259212199,
+          "recall_at_0_5": 0.8793103448275862,
+          "confusion_matrix_at_0_5": [
+            [
+              34993,
+              4671
+            ],
+            [
+              7,
+              51
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 22,
+              "precision": 0.22,
+              "recall": 0.3793103448275862
+            },
+            {
+              "k": 500,
+              "positives_found": 41,
+              "precision": 0.082,
+              "recall": 0.7068965517241379
+            },
+            {
+              "k": 1000,
+              "positives_found": 43,
+              "precision": 0.043,
+              "recall": 0.7413793103448276
+            },
+            {
+              "k": 5000,
+              "positives_found": 51,
+              "precision": 0.0102,
+              "recall": 0.8793103448275862
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 39722,
+          "positives": 58,
+          "prevalence": 0.0014601480288001611,
+          "average_precision": 0.002983112397886297,
+          "pr_auc": 0.002983112397886297,
+          "roc_auc": 0.10338676781516462,
+          "precision_at_0_5": 0.0001945651468966859,
+          "recall_at_0_5": 0.05172413793103448,
+          "confusion_matrix_at_0_5": [
+            [
+              24248,
+              15416
+            ],
+            [
+              55,
+              3
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.017241379310344827
+            },
+            {
+              "k": 500,
+              "positives_found": 2,
+              "precision": 0.004,
+              "recall": 0.034482758620689655
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.034482758620689655
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.034482758620689655
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 39722,
+          "positives": 58,
+          "prevalence": 0.0014601480288001611,
+          "average_precision": 0.0014969476354330154,
+          "pr_auc": 0.0014969476354330154,
+          "roc_auc": 0.12141362444534086,
+          "precision_at_0_5": 0.00037852023821540327,
+          "recall_at_0_5": 0.25862068965517243,
+          "confusion_matrix_at_0_5": [
+            [
+              51,
+              39613
+            ],
+            [
+              43,
+              15
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 3,
+              "precision": 0.006,
+              "recall": 0.05172413793103448
+            },
+            {
+              "k": 1000,
+              "positives_found": 4,
+              "precision": 0.004,
+              "recall": 0.06896551724137931
+            },
+            {
+              "k": 5000,
+              "positives_found": 6,
+              "precision": 0.0012,
+              "recall": 0.10344827586206896
+            }
+          ]
+        }
+      },
+      "UK Pound": {
+        "logistic": {
+          "rows": 30944,
+          "positives": 32,
+          "prevalence": 0.001034126163391934,
+          "average_precision": 0.08674936208182583,
+          "pr_auc": 0.08674936208182583,
+          "roc_auc": 0.934271075957557,
+          "precision_at_0_5": 0.006415191172696947,
+          "recall_at_0_5": 0.78125,
+          "confusion_matrix_at_0_5": [
+            [
+              27040,
+              3872
+            ],
+            [
+              7,
+              25
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 6,
+              "precision": 0.06,
+              "recall": 0.1875
+            },
+            {
+              "k": 500,
+              "positives_found": 17,
+              "precision": 0.034,
+              "recall": 0.53125
+            },
+            {
+              "k": 1000,
+              "positives_found": 17,
+              "precision": 0.017,
+              "recall": 0.53125
+            },
+            {
+              "k": 5000,
+              "positives_found": 27,
+              "precision": 0.0054,
+              "recall": 0.84375
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 30944,
+          "positives": 32,
+          "prevalence": 0.001034126163391934,
+          "average_precision": 0.0010407696505351127,
+          "pr_auc": 0.0010407696505351127,
+          "roc_auc": 0.17154897369953417,
+          "precision_at_0_5": 0.0003336391692384686,
+          "recall_at_0_5": 0.125,
+          "confusion_matrix_at_0_5": [
+            [
+              18927,
+              11985
+            ],
+            [
+              28,
+              4
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.03125
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.0625
+            },
+            {
+              "k": 5000,
+              "positives_found": 3,
+              "precision": 0.0006,
+              "recall": 0.09375
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 30944,
+          "positives": 32,
+          "prevalence": 0.001034126163391934,
+          "average_precision": 0.001204726544014249,
+          "pr_auc": 0.001204726544014249,
+          "roc_auc": 0.23963236364518634,
+          "precision_at_0_5": 0.0004864128672417148,
+          "recall_at_0_5": 0.46875,
+          "confusion_matrix_at_0_5": [
+            [
+              89,
+              30823
+            ],
+            [
+              17,
+              15
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 2,
+              "precision": 0.004,
+              "recall": 0.0625
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.0625
+            },
+            {
+              "k": 5000,
+              "positives_found": 7,
+              "precision": 0.0014,
+              "recall": 0.21875
+            }
+          ]
+        }
+      },
+      "US Dollar": {
+        "logistic": {
+          "rows": 323037,
+          "positives": 612,
+          "prevalence": 0.0018945198228066753,
+          "average_precision": 0.12606736410463446,
+          "pr_auc": 0.12606736410463446,
+          "roc_auc": 0.9635442046866044,
+          "precision_at_0_5": 0.01240915500596594,
+          "recall_at_0_5": 0.934640522875817,
+          "confusion_matrix_at_0_5": [
+            [
+              276902,
+              45523
+            ],
+            [
+              40,
+              572
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 42,
+              "precision": 0.42,
+              "recall": 0.06862745098039216
+            },
+            {
+              "k": 500,
+              "positives_found": 110,
+              "precision": 0.22,
+              "recall": 0.17973856209150327
+            },
+            {
+              "k": 1000,
+              "positives_found": 153,
+              "precision": 0.153,
+              "recall": 0.25
+            },
+            {
+              "k": 5000,
+              "positives_found": 295,
+              "precision": 0.059,
+              "recall": 0.4820261437908497
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 323037,
+          "positives": 612,
+          "prevalence": 0.0018945198228066753,
+          "average_precision": 0.004269013250564149,
+          "pr_auc": 0.004269013250564149,
+          "roc_auc": 0.36368622231141556,
+          "precision_at_0_5": 0.0015392674376435507,
+          "recall_at_0_5": 0.31209150326797386,
+          "confusion_matrix_at_0_5": [
+            [
+              198531,
+              123894
+            ],
+            [
+              421,
+              191
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 3,
+              "precision": 0.03,
+              "recall": 0.004901960784313725
+            },
+            {
+              "k": 500,
+              "positives_found": 19,
+              "precision": 0.038,
+              "recall": 0.03104575163398693
+            },
+            {
+              "k": 1000,
+              "positives_found": 31,
+              "precision": 0.031,
+              "recall": 0.05065359477124183
+            },
+            {
+              "k": 5000,
+              "positives_found": 50,
+              "precision": 0.01,
+              "recall": 0.08169934640522876
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 323037,
+          "positives": 612,
+          "prevalence": 0.0018945198228066753,
+          "average_precision": 0.0012866503945436966,
+          "pr_auc": 0.0012866503945436966,
+          "roc_auc": 0.1867327609754713,
+          "precision_at_0_5": 0.0012019716061384411,
+          "recall_at_0_5": 0.6323529411764706,
+          "confusion_matrix_at_0_5": [
+            [
+              841,
+              321584
+            ],
+            [
+              225,
+              387
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.0016339869281045752
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.0016339869281045752
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.0016339869281045752
+            },
+            {
+              "k": 5000,
+              "positives_found": 5,
+              "precision": 0.001,
+              "recall": 0.008169934640522876
+            }
+          ]
+        }
+      },
+      "Yen": {
+        "logistic": {
+          "rows": 26350,
+          "positives": 68,
+          "prevalence": 0.0025806451612903226,
+          "average_precision": 0.4495006674484721,
+          "pr_auc": 0.4495006674484721,
+          "roc_auc": 0.9812167352292108,
+          "precision_at_0_5": 0.020537124802527645,
+          "recall_at_0_5": 0.9558823529411765,
+          "confusion_matrix_at_0_5": [
+            [
+              23182,
+              3100
+            ],
+            [
+              3,
+              65
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 41,
+              "precision": 0.41,
+              "recall": 0.6029411764705882
+            },
+            {
+              "k": 500,
+              "positives_found": 54,
+              "precision": 0.108,
+              "recall": 0.7941176470588235
+            },
+            {
+              "k": 1000,
+              "positives_found": 58,
+              "precision": 0.058,
+              "recall": 0.8529411764705882
+            },
+            {
+              "k": 5000,
+              "positives_found": 66,
+              "precision": 0.0132,
+              "recall": 0.9705882352941176
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 26350,
+          "positives": 68,
+          "prevalence": 0.0025806451612903226,
+          "average_precision": 0.0025635963520149407,
+          "pr_auc": 0.0025635963520149407,
+          "roc_auc": 0.10871536994677637,
+          "precision_at_0_5": 0.0003965500148706256,
+          "recall_at_0_5": 0.058823529411764705,
+          "confusion_matrix_at_0_5": [
+            [
+              16199,
+              10083
+            ],
+            [
+              64,
+              4
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.014705882352941176
+            },
+            {
+              "k": 500,
+              "positives_found": 2,
+              "precision": 0.004,
+              "recall": 0.029411764705882353
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.029411764705882353
+            },
+            {
+              "k": 5000,
+              "positives_found": 3,
+              "precision": 0.0006,
+              "recall": 0.04411764705882353
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 26350,
+          "positives": 68,
+          "prevalence": 0.0025806451612903226,
+          "average_precision": 0.0021494903179011668,
+          "pr_auc": 0.0021494903179011668,
+          "roc_auc": 0.0702295129298961,
+          "precision_at_0_5": 0.0006481128478841022,
+          "recall_at_0_5": 0.25,
+          "confusion_matrix_at_0_5": [
+            [
+              69,
+              26213
+            ],
+            [
+              51,
+              17
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.014705882352941176
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.029411764705882353
+            },
+            {
+              "k": 5000,
+              "positives_found": 3,
+              "precision": 0.0006,
+              "recall": 0.04411764705882353
+            }
+          ]
+        }
+      },
+      "Yuan": {
+        "logistic": {
+          "rows": 36240,
+          "positives": 46,
+          "prevalence": 0.0012693156732891833,
+          "average_precision": 0.21361623483859477,
+          "pr_auc": 0.21361623483859477,
+          "roc_auc": 0.9791155632329164,
+          "precision_at_0_5": 0.01016719385449616,
+          "recall_at_0_5": 0.9782608695652174,
+          "confusion_matrix_at_0_5": [
+            [
+              31813,
+              4381
+            ],
+            [
+              1,
+              45
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 15,
+              "precision": 0.15,
+              "recall": 0.32608695652173914
+            },
+            {
+              "k": 500,
+              "positives_found": 30,
+              "precision": 0.06,
+              "recall": 0.6521739130434783
+            },
+            {
+              "k": 1000,
+              "positives_found": 35,
+              "precision": 0.035,
+              "recall": 0.7608695652173914
+            },
+            {
+              "k": 5000,
+              "positives_found": 45,
+              "precision": 0.009,
+              "recall": 0.9782608695652174
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 36240,
+          "positives": 46,
+          "prevalence": 0.0012693156732891833,
+          "average_precision": 0.01212125437995844,
+          "pr_auc": 0.01212125437995844,
+          "roc_auc": 0.18786142790902166,
+          "precision_at_0_5": 0.00044277175116227583,
+          "recall_at_0_5": 0.13043478260869565,
+          "confusion_matrix_at_0_5": [
+            [
+              22649,
+              13545
+            ],
+            [
+              40,
+              6
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.021739130434782608
+            },
+            {
+              "k": 500,
+              "positives_found": 2,
+              "precision": 0.004,
+              "recall": 0.043478260869565216
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.043478260869565216
+            },
+            {
+              "k": 5000,
+              "positives_found": 4,
+              "precision": 0.0008,
+              "recall": 0.08695652173913043
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 36240,
+          "positives": 46,
+          "prevalence": 0.0012693156732891833,
+          "average_precision": 0.0009473254947613315,
+          "pr_auc": 0.0009473254947613315,
+          "roc_auc": 0.05330153208194488,
+          "precision_at_0_5": 0.0004151559602557361,
+          "recall_at_0_5": 0.32608695652173914,
+          "confusion_matrix_at_0_5": [
+            [
+              78,
+              36116
+            ],
+            [
+              31,
+              15
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.021739130434782608
+            }
+          ]
+        }
+      }
+    },
+    "payment_format": {
+      "ACH": {
+        "logistic": {
+          "rows": 120303,
+          "positives": 1489,
+          "prevalence": 0.012377081203295013,
+          "average_precision": 0.1387055819282043,
+          "pr_auc": 0.1387055819282043,
+          "roc_auc": 0.842421471724184,
+          "precision_at_0_5": 0.01448807497407603,
+          "recall_at_0_5": 0.9946272666218939,
+          "confusion_matrix_at_0_5": [
+            [
+              18073,
+              100741
+            ],
+            [
+              8,
+              1481
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 37,
+              "precision": 0.37,
+              "recall": 0.024848891873740765
+            },
+            {
+              "k": 500,
+              "positives_found": 149,
+              "precision": 0.298,
+              "recall": 0.10006715916722633
+            },
+            {
+              "k": 1000,
+              "positives_found": 270,
+              "precision": 0.27,
+              "recall": 0.18132975151108127
+            },
+            {
+              "k": 5000,
+              "positives_found": 668,
+              "precision": 0.1336,
+              "recall": 0.4486232370718603
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 120303,
+          "positives": 1489,
+          "prevalence": 0.012377081203295013,
+          "average_precision": 0.012907152131172656,
+          "pr_auc": 0.012907152131172656,
+          "roc_auc": 0.32525415760374393,
+          "precision_at_0_5": 0.00805693091270475,
+          "recall_at_0_5": 0.3049026192075218,
+          "confusion_matrix_at_0_5": [
+            [
+              62919,
+              55895
+            ],
+            [
+              1035,
+              454
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 4,
+              "precision": 0.04,
+              "recall": 0.002686366689053056
+            },
+            {
+              "k": 500,
+              "positives_found": 19,
+              "precision": 0.038,
+              "recall": 0.012760241773002015
+            },
+            {
+              "k": 1000,
+              "positives_found": 38,
+              "precision": 0.038,
+              "recall": 0.02552048354600403
+            },
+            {
+              "k": 5000,
+              "positives_found": 108,
+              "precision": 0.0216,
+              "recall": 0.0725319006044325
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 120303,
+          "positives": 1489,
+          "prevalence": 0.012377081203295013,
+          "average_precision": 0.008454514601463417,
+          "pr_auc": 0.008454514601463417,
+          "roc_auc": 0.22497110263364845,
+          "precision_at_0_5": 0.0071977863411818626,
+          "recall_at_0_5": 0.5695097380792478,
+          "confusion_matrix_at_0_5": [
+            [
+              1848,
+              116966
+            ],
+            [
+              641,
+              848
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 3,
+              "precision": 0.006,
+              "recall": 0.0020147750167897917
+            },
+            {
+              "k": 1000,
+              "positives_found": 6,
+              "precision": 0.006,
+              "recall": 0.004029550033579583
+            },
+            {
+              "k": 5000,
+              "positives_found": 25,
+              "precision": 0.005,
+              "recall": 0.0167897918065816
+            }
+          ]
+        }
+      },
+      "Bitcoin": {
+        "logistic": {
+          "rows": 24329,
+          "positives": 10,
+          "prevalence": 0.0004110321016071355,
+          "average_precision": 0.0006227039033550833,
+          "pr_auc": 0.0006227039033550833,
+          "roc_auc": 0.4651363131707718,
+          "precision_at_0_5": 0.001349527665317139,
+          "recall_at_0_5": 0.2,
+          "confusion_matrix_at_0_5": [
+            [
+              22839,
+              1480
+            ],
+            [
+              8,
+              2
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.1
+            },
+            {
+              "k": 5000,
+              "positives_found": 3,
+              "precision": 0.0006,
+              "recall": 0.3
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 24329,
+          "positives": 10,
+          "prevalence": 0.0004110321016071355,
+          "average_precision": 0.0004177853834139663,
+          "pr_auc": 0.0004177853834139663,
+          "roc_auc": 0.31030264402319174,
+          "precision_at_0_5": 0.00012374706100730108,
+          "recall_at_0_5": 0.1,
+          "confusion_matrix_at_0_5": [
+            [
+              16239,
+              8080
+            ],
+            [
+              9,
+              1
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.1
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.1
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 24329,
+          "positives": 10,
+          "prevalence": 0.0004110321016071355,
+          "average_precision": 0.0004383608819323652,
+          "pr_auc": 0.0004383608819323652,
+          "roc_auc": 0.3103067560343764,
+          "precision_at_0_5": 0.00037072125880462987,
+          "recall_at_0_5": 0.9,
+          "confusion_matrix_at_0_5": [
+            [
+              51,
+              24268
+            ],
+            [
+              1,
+              9
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 2,
+              "precision": 0.0004,
+              "recall": 0.2
+            }
+          ]
+        }
+      },
+      "Cash": {
+        "logistic": {
+          "rows": 91737,
+          "positives": 19,
+          "prevalence": 0.00020711381449142657,
+          "average_precision": 0.0009328107263380813,
+          "pr_auc": 0.0009328107263380813,
+          "roc_auc": 0.8757145759140431,
+          "precision_at_0_5": 0.0009982530571499876,
+          "recall_at_0_5": 0.21052631578947367,
+          "confusion_matrix_at_0_5": [
+            [
+              87715,
+              4003
+            ],
+            [
+              15,
+              4
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 4,
+              "precision": 0.0008,
+              "recall": 0.21052631578947367
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 91737,
+          "positives": 19,
+          "prevalence": 0.00020711381449142657,
+          "average_precision": 0.00014567956684667906,
+          "pr_auc": 0.00014567956684667906,
+          "roc_auc": 0.20112048257760343,
+          "precision_at_0_5": 2.9018310553959548e-05,
+          "recall_at_0_5": 0.05263157894736842,
+          "confusion_matrix_at_0_5": [
+            [
+              57258,
+              34460
+            ],
+            [
+              18,
+              1
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.05263157894736842
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 91737,
+          "positives": 19,
+          "prevalence": 0.00020711381449142657,
+          "average_precision": 0.001029841330418957,
+          "pr_auc": 0.001029841330418957,
+          "roc_auc": 0.9014249627863898,
+          "precision_at_0_5": 0.00020711381449142657,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              0,
+              91718
+            ],
+            [
+              0,
+              19
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 5,
+              "precision": 0.001,
+              "recall": 0.2631578947368421
+            }
+          ]
+        }
+      },
+      "Cheque": {
+        "logistic": {
+          "rows": 347008,
+          "positives": 60,
+          "prevalence": 0.00017290667650313537,
+          "average_precision": 0.001299413387012252,
+          "pr_auc": 0.001299413387012252,
+          "roc_auc": 0.8950753907405913,
+          "precision_at_0_5": 0.001170617500731636,
+          "recall_at_0_5": 0.13333333333333333,
+          "confusion_matrix_at_0_5": [
+            [
+              340122,
+              6826
+            ],
+            [
+              52,
+              8
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.016666666666666666
+            },
+            {
+              "k": 1000,
+              "positives_found": 3,
+              "precision": 0.003,
+              "recall": 0.05
+            },
+            {
+              "k": 5000,
+              "positives_found": 7,
+              "precision": 0.0014,
+              "recall": 0.11666666666666667
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 347008,
+          "positives": 60,
+          "prevalence": 0.00017290667650313537,
+          "average_precision": 0.0002637002234763999,
+          "pr_auc": 0.0002637002234763999,
+          "roc_auc": 0.2347487231515962,
+          "precision_at_0_5": 4.1675927983996446e-05,
+          "recall_at_0_5": 0.1,
+          "confusion_matrix_at_0_5": [
+            [
+              202986,
+              143962
+            ],
+            [
+              54,
+              6
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.016666666666666666
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.016666666666666666
+            },
+            {
+              "k": 5000,
+              "positives_found": 1,
+              "precision": 0.0002,
+              "recall": 0.016666666666666666
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 347008,
+          "positives": 60,
+          "prevalence": 0.00017290667650313537,
+          "average_precision": 0.0015962612923651198,
+          "pr_auc": 0.0015962612923651198,
+          "roc_auc": 0.8915369161949341,
+          "precision_at_0_5": 0.00017293259087607652,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              52,
+              346896
+            ],
+            [
+              0,
+              60
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 9,
+              "precision": 0.0018,
+              "recall": 0.15
+            }
+          ]
+        }
+      },
+      "Credit Card": {
+        "logistic": {
+          "rows": 250247,
+          "positives": 33,
+          "prevalence": 0.00013186971272382886,
+          "average_precision": 0.0019923996503222402,
+          "pr_auc": 0.0019923996503222402,
+          "roc_auc": 0.9429164998397735,
+          "precision_at_0_5": 0.0016743407283382169,
+          "recall_at_0_5": 0.12121212121212122,
+          "confusion_matrix_at_0_5": [
+            [
+              247829,
+              2385
+            ],
+            [
+              29,
+              4
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.030303030303030304
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.030303030303030304
+            },
+            {
+              "k": 1000,
+              "positives_found": 1,
+              "precision": 0.001,
+              "recall": 0.030303030303030304
+            },
+            {
+              "k": 5000,
+              "positives_found": 8,
+              "precision": 0.0016,
+              "recall": 0.24242424242424243
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 250247,
+          "positives": 33,
+          "prevalence": 0.00013186971272382886,
+          "average_precision": 7.568731671606965e-05,
+          "pr_auc": 7.568731671606965e-05,
+          "roc_auc": 0.1619580911467057,
+          "precision_at_0_5": 0.0,
+          "recall_at_0_5": 0.0,
+          "confusion_matrix_at_0_5": [
+            [
+              170739,
+              79475
+            ],
+            [
+              33,
+              0
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 250247,
+          "positives": 33,
+          "prevalence": 0.00013186971272382886,
+          "average_precision": 0.0015319604323799575,
+          "pr_auc": 0.0015319604323799575,
+          "roc_auc": 0.9559613940164189,
+          "precision_at_0_5": 0.00013203115935360744,
+          "recall_at_0_5": 1.0,
+          "confusion_matrix_at_0_5": [
+            [
+              306,
+              249908
+            ],
+            [
+              0,
+              33
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 1,
+              "precision": 0.01,
+              "recall": 0.030303030303030304
+            },
+            {
+              "k": 500,
+              "positives_found": 1,
+              "precision": 0.002,
+              "recall": 0.030303030303030304
+            },
+            {
+              "k": 1000,
+              "positives_found": 2,
+              "precision": 0.002,
+              "recall": 0.06060606060606061
+            },
+            {
+              "k": 5000,
+              "positives_found": 8,
+              "precision": 0.0016,
+              "recall": 0.24242424242424243
+            }
+          ]
+        }
+      },
+      "Wire": {
+        "logistic": {
+          "rows": 30276,
+          "positives": 0,
+          "prevalence": 0.0,
+          "average_precision": 0.0,
+          "pr_auc": 0.0,
+          "roc_auc": null,
+          "precision_at_0_5": 0.0,
+          "recall_at_0_5": 0.0,
+          "confusion_matrix_at_0_5": [
+            [
+              30255,
+              21
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          ]
+        },
+        "amount_vs_prior_same_currency_average": {
+          "rows": 30276,
+          "positives": 0,
+          "prevalence": 0.0,
+          "average_precision": 0.0,
+          "pr_auc": 0.0,
+          "roc_auc": null,
+          "precision_at_0_5": 0.0,
+          "recall_at_0_5": 0.0,
+          "confusion_matrix_at_0_5": [
+            [
+              22199,
+              8077
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          ]
+        },
+        "prior_transaction_frequency": {
+          "rows": 30276,
+          "positives": 0,
+          "prevalence": 0.0,
+          "average_precision": 0.0,
+          "pr_auc": 0.0,
+          "roc_auc": null,
+          "precision_at_0_5": 0.0,
+          "recall_at_0_5": 0.0,
+          "confusion_matrix_at_0_5": [
+            [
+              4,
+              30272
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "ranking": [
+            {
+              "k": 100,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 500,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 1000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            },
+            {
+              "k": 5000,
+              "positives_found": 0,
+              "precision": 0.0,
+              "recall": 0.0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

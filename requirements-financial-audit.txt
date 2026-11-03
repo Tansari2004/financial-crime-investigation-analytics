@@ -1,0 +1,5 @@
+# Python 3.12 training environment. Reference scorer may be run independently.
+numpy==2.3.5
+pandas==2.2.3
+duckdb==1.4.1
+scikit-learn==1.8.0

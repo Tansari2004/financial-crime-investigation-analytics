@@ -1,0 +1,19 @@
+{
+  "source_sha256": "b19d39f515523373f991b689c07e11e7b0b95c17a2c27a87d91584ae16c5b040",
+  "source_bytes": 475664283,
+  "rows": 5078345,
+  "paid_rows_with_more_than_two_decimal_precision": 145670,
+  "received_rows_with_more_than_two_decimal_precision": 147755,
+  "affected_paid_rows_by_currency": {
+    "Bitcoin": 145670
+  },
+  "affected_received_rows_by_currency": {
+    "Bitcoin": 147755
+  },
+  "import_amount_type": "DuckDB DECIMAL(38,12), all source values prevalidated as exactly representable",
+  "features_amount_type": "double precision for modelling only",
+  "engine": "1.4.1",
+  "full_postgresql_rebuild": false,
+  "amount_mode": "rounded_control_18_2",
+  "features_sha256": "4664d7276ff22f5ec3ac165be0a0c5a56b2fb3247ee2e8d792d96a039d5aead1"
+}

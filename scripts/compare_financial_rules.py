@@ -41,14 +41,21 @@ def main():
     metrics = json.loads(args.model_metrics.read_text())
     if metrics.get("features_sha256") != digest or metrics.get("scores_sha256") != file_sha256(args.scores):
         raise ValueError("Scores/metrics do not belong to these exact rebuilt features")
+    scores = pd.read_csv(args.scores, float_precision="round_trip")
+    if scores.transaction_id.duplicated().any():
+        raise ValueError("Score IDs must be unique")
+    scores = scores.set_index("transaction_id")
     parts = []
-    for features, scores in zip(pd.read_csv(args.features, chunksize=200_000, parse_dates=["transaction_time"]),
-                                pd.read_csv(args.scores, chunksize=200_000), strict=True):
-        if not features.transaction_id.equals(scores.transaction_id):
-            raise ValueError("Score and feature IDs/order do not match")
+    for features in pd.read_csv(args.features, chunksize=200_000, parse_dates=["transaction_time"]):
         mask = features.transaction_time >= TRAIN_END
         selected = features.loc[mask].copy()
-        selected["review_score"] = scores.loc[mask, "review_score"].to_numpy()
+        if not selected.transaction_id.isin(scores.index).all():
+            raise ValueError("Missing evaluation scores for feature IDs")
+        matched = scores.loc[selected.transaction_id]
+        expected_split = np.where(selected.transaction_time < VALIDATION_END, "validation", "test")
+        if not np.array_equal(matched.data_split.to_numpy(), expected_split):
+            raise ValueError("Score split does not match feature timestamps")
+        selected["review_score"] = matched.review_score.to_numpy()
         parts.append(selected)
     frame = pd.concat(parts, ignore_index=True).sort_values("transaction_id", kind="stable")
     results = {"precision_import": evidence,

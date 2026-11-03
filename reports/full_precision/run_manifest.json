@@ -1,0 +1,45 @@
+{
+  "audit_date": "2026-11-03",
+  "status": "full_source_recomputation_completed",
+  "source_rows": 5078345,
+  "source_sha256": "b19d39f515523373f991b689c07e11e7b0b95c17a2c27a87d91584ae16c5b040",
+  "training_runtime": {
+    "python": "3.12",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "duckdb": "1.4.1",
+    "architecture": "arm64",
+    "blas_threads": 1
+  },
+  "protocol": {
+    "row_order": "original source transaction ID ascending",
+    "train": "before 2022-09-08",
+    "validation": "2022-09-08",
+    "test": "2022-09-09 onward",
+    "epochs": 3,
+    "chunk_size": 200000,
+    "tuning_performed": false,
+    "full_postgresql_rebuild": false,
+    "engine_note": "Bounded-space DuckDB decimal rebuild; full and rounded modes fixture-checked against PostgreSQL"
+  },
+  "independent_reference": {
+    "scikit_learn": "1.6.1",
+    "numpy": "2.0.2",
+    "pandas": "2.3.3"
+  },
+  "metric_assertions_passed_total": 3644,
+  "raw_source_features_scores_published": false,
+  "artifacts": {
+    "metrics.json": "73f47d513ed6fc42f93ff2ba4218ec2673ad8de3f77dd03b0b293261f43ec308",
+    "rounded_control_metrics.json": "eb6a9e166286a169b2f90d0415b2cec29aa846965b27982d8df67c148dea98b9",
+    "rule_comparison.json": "b484e2b31ab4f2211977e5de0a287810f7d2d78bb5bbc84ca29a41564db0f588",
+    "rounded_rule_comparison.json": "0283632fd119e7dc1df210a8e8395394926a2c442b63b19586778663d09f6996",
+    "independent_verification.json": "a782e77984c1fe7ef3a1ee7562c2578498acadd8e4b1afe5ae8a16ac9cf56218",
+    "rounded_independent_verification.json": "e4e5c0193a1d8a6a89c3071aef3af69aaec7bf392f933bf585d98246004b2d86",
+    "precision_comparison.json": "466a7e0c05d0b08a6d1de9a777fbf3d1a230979e2a0e9847e74665a8d1a05b3b",
+    "source_precision.json": "5348d6633a7b377440e7772f015b0aa7b91017570068445e053cbe84d652a256",
+    "rounded_source_precision.json": "13e9c2ba0e177876e98839db092d3a5cefb647a002d87e1eb0fb9b6678d01820",
+    "model.npz": "2922544ce1f58358d72eb3013e3157440ad116ffdc786ad3124efc7f6497512b",
+    "rounded_control_model.npz": "2e7ce600ed02bcd16b17cfcb8e685e4136b2267cb30296a4d7b5df21a502d8fc"
+  }
+}

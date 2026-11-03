@@ -7,6 +7,7 @@ They are associations in synthetic training data, not causal explanations.
 from __future__ import annotations
 
 import argparse
+from decimal import Decimal
 from pathlib import Path
 
 import numpy as np
@@ -15,6 +16,7 @@ import pandas as pd
 from financial_crime.train_model import (
     CATEGORICAL_FEATURES,
     NUMERIC_FEATURES,
+    MODEL_VERSION,
     design_matrix,
     sigmoid,
 )
@@ -40,13 +42,19 @@ def model_components(model: np.lib.npyio.NpzFile) -> tuple[list[str], dict[str, 
     return names, category_maps
 
 
+def display_amount(value) -> str:
+    # Do not round Bitcoin or other high-precision model features to cents.
+    text = format(Decimal(str(value)), ",f")
+    return text.rstrip("0").rstrip(".") if "." in text else text
+
+
 def factor_text(name: str, row: pd.Series) -> str:
     if name == "log_amount_paid":
-        return f"Payment amount: {row.amount_paid:,.2f} {row.payment_currency}"
+        return f"Payment amount: {display_amount(row.amount_paid)} {row.payment_currency}"
     if name == "log_prior_transaction_count":
         return f"Earlier sender payments: {int(row.prior_transaction_count)}"
     if name == "log_prior_average_amount":
-        return f"Earlier average payment: {row.prior_average_amount:,.2f} {row.payment_currency}"
+        return f"Earlier average payment: {display_amount(row.prior_average_amount)} {row.payment_currency}"
     if name == "log_amount_to_prior_average":
         if row.prior_average_amount > 0:
             return f"Amount versus earlier average: {row.amount_paid / row.prior_average_amount:,.1f}x"
@@ -118,7 +126,7 @@ def explain(frame: pd.DataFrame, model: np.lib.npyio.NpzFile) -> pd.DataFrame:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=Path("data/processed/dashboard_cases_raw.csv"))
-    parser.add_argument("--model", type=Path, default=Path("models/numpy_logistic_v1.npz"))
+    parser.add_argument("--model", type=Path, default=Path(f"models/{MODEL_VERSION}.npz"))
     parser.add_argument("--output", type=Path, default=Path("data/processed/dashboard_cases.csv"))
     args = parser.parse_args()
     with np.load(args.model, allow_pickle=False) as model:

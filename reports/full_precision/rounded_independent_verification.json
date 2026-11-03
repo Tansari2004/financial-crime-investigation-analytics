@@ -1,0 +1,184 @@
+{
+  "status": "passed",
+  "verification": "Independent scikit-learn AP/ROC/confusion and NumPy lexsort capacity checks",
+  "reference_versions": {
+    "scikit_learn": "1.6.1",
+    "numpy": "2.0.2",
+    "pandas": "2.3.3"
+  },
+  "total_feature_rows": 5078345,
+  "evaluation_rows": 1346673,
+  "test_slices_verified": 31,
+  "metric_assertions_passed": 1822,
+  "average_precision_reference": {
+    "validation": {
+      "logistic": 0.03399430483945348,
+      "amount_vs_prior_same_currency_average": 0.001577939721295312,
+      "prior_transaction_frequency": 0.0008436124592441226
+    },
+    "test": {
+      "logistic": 0.12883583150047087,
+      "amount_vs_prior_same_currency_average": 0.003742909657219699,
+      "prior_transaction_frequency": 0.0012963292020406391
+    }
+  },
+  "global_test_top_1000": {
+    "reviewed": 1000,
+    "positive_labels": 270,
+    "by_date": {
+      "2022-09-09": {
+        "rows": 338,
+        "positives": 13
+      },
+      "2022-09-10": {
+        "rows": 435,
+        "positives": 39
+      },
+      "2022-09-11": {
+        "rows": 99,
+        "positives": 97
+      },
+      "2022-09-12": {
+        "rows": 85,
+        "positives": 81
+      },
+      "2022-09-13": {
+        "rows": 32,
+        "positives": 29
+      },
+      "2022-09-14": {
+        "rows": 5,
+        "positives": 5
+      },
+      "2022-09-15": {
+        "rows": 1,
+        "positives": 1
+      },
+      "2022-09-17": {
+        "rows": 4,
+        "positives": 4
+      },
+      "2022-09-18": {
+        "rows": 1,
+        "positives": 1
+      }
+    },
+    "by_payment_format": {
+      "ACH": {
+        "rows": 1000,
+        "positives": 270
+      }
+    },
+    "by_payment_currency": {
+      "Australian Dollar": {
+        "rows": 13,
+        "positives": 10
+      },
+      "Brazil Real": {
+        "rows": 36,
+        "positives": 7
+      },
+      "Canadian Dollar": {
+        "rows": 12,
+        "positives": 5
+      },
+      "Euro": {
+        "rows": 207,
+        "positives": 50
+      },
+      "Mexican Peso": {
+        "rows": 2,
+        "positives": 0
+      },
+      "Ruble": {
+        "rows": 12,
+        "positives": 5
+      },
+      "Rupee": {
+        "rows": 24,
+        "positives": 12
+      },
+      "Saudi Riyal": {
+        "rows": 394,
+        "positives": 77
+      },
+      "Shekel": {
+        "rows": 5,
+        "positives": 0
+      },
+      "Swiss Franc": {
+        "rows": 23,
+        "positives": 4
+      },
+      "UK Pound": {
+        "rows": 15,
+        "positives": 4
+      },
+      "US Dollar": {
+        "rows": 204,
+        "positives": 66
+      },
+      "Yen": {
+        "rows": 32,
+        "positives": 21
+      },
+      "Yuan": {
+        "rows": 21,
+        "positives": 9
+      }
+    }
+  },
+  "post_hoc_time_diagnostics": {
+    "September_9_10": {
+      "rows": 862792,
+      "positives": 956,
+      "prevalence": 0.0011080306725143488,
+      "methods": {
+        "logistic": {
+          "average_precision": 0.036273200510481586,
+          "reviewed": 1000,
+          "positive_labels_found": 79
+        },
+        "amount_vs_prior_same_currency_average": {
+          "average_precision": 0.002620474573067192,
+          "reviewed": 1000,
+          "positive_labels_found": 26
+        },
+        "prior_transaction_frequency": {
+          "average_precision": 0.0008631593112442278,
+          "reviewed": 1000,
+          "positive_labels_found": 1
+        }
+      }
+    },
+    "September_11_18": {
+      "rows": 1108,
+      "positives": 655,
+      "prevalence": 0.5911552346570397,
+      "methods": {
+        "logistic": {
+          "average_precision": 0.9352415306801269,
+          "reviewed": 1000,
+          "positive_labels_found": 655
+        },
+        "amount_vs_prior_same_currency_average": {
+          "average_precision": 0.5166504930178234,
+          "reviewed": 1000,
+          "positive_labels_found": 564
+        },
+        "prior_transaction_frequency": {
+          "average_precision": 0.5417840310605151,
+          "reviewed": 1000,
+          "positive_labels_found": 564
+        }
+      }
+    }
+  },
+  "time_diagnostic_note": "Describes the observed sharp volume/prevalence change; not a replacement holdout or model-selection result",
+  "artifact_sha256": {
+    "features": "4664d7276ff22f5ec3ac165be0a0c5a56b2fb3247ee2e8d792d96a039d5aead1",
+    "scores": "1d6bdfc8d78652c1541655cb990a066654f0cf1facac5ac7b1aaaa0f3d017aae",
+    "metrics": "eb6a9e166286a169b2f90d0415b2cec29aa846965b27982d8df67c148dea98b9",
+    "comparison": "0283632fd119e7dc1df210a8e8395394926a2c442b63b19586778663d09f6996"
+  }
+}
